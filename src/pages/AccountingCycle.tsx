@@ -64,12 +64,12 @@ export default function AccountingCycle() {
                 </div>
 
                 <div className="flex-1">
-                  <img 
-                    src={`https://picsum.photos/seed/accounting-step-${index}/600/400`} 
-                    alt={step.title} 
-                    className="rounded-3xl shadow-xl w-full"
-                    referrerPolicy="no-referrer"
-                  />
+                  <div className="aspect-[3/2] bg-secondary rounded-3xl border border-gray-100 flex items-center justify-center p-12">
+                    <div className="text-center space-y-4">
+                       <CheckCircle2 className="w-16 h-16 text-primary mx-auto opacity-20" />
+                       <p className="text-primary/40 font-bold">المرحلة {index + 1}: {step.title}</p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}

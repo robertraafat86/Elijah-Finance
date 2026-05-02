@@ -69,82 +69,40 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Banner Section */}
-      <section className="relative h-[400px] md:h-[600px] w-full overflow-hidden">
-        <img 
-          src="https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs" 
-          alt="مركز إيليجا للتدريب" 
-          className="absolute inset-0 w-full h-full object-cover"
-          onError={(e) => {
-            const img = e.target as HTMLImageElement;
-            img.src = "https://images.unsplash.com/photo-1454165833772-d99628a5ffa6?auto=format&fit=crop&q=80&w=1200";
-          }}
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
-        
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-6">
+      {/* Hero Section - Clean & Educational */}
+      <section className="relative py-20 lg:py-32 bg-slate-900 border-b border-slate-800 overflow-hidden text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center space-y-12 mb-16">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="max-w-3xl text-white space-y-6"
-            >
-              <h1 className="text-4xl md:text-6xl font-black leading-tight drop-shadow-lg">
-                مركز إيليجا للتميز <br />
-                <span className="text-blue-400">المحاسبي والمالي</span>
-              </h1>
-              <p className="text-lg md:text-xl text-slate-100 font-medium max-w-xl leading-relaxed drop-shadow-md">
-                نحول الأرقام إلى حقائق، والمعرفة إلى مهارة احترافية تفتح لك آفاق النجاح في سوق العمل.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Hero Section - Clean & Educational */}
-      <section className="relative py-20 lg:py-32 bg-white border-b border-slate-100 overflow-hidden">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
               className="space-y-8"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-bold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-blue-400 rounded-full text-sm font-bold backdrop-blur-sm">
                 <Shield className="w-4 h-4" />
                 <span>مركز إيليجا للتدريب والاستشارات المالية</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.2]">
-                دليلك المهني لاحتراف <br />
-                <span className="text-blue-600">علوم المحاسبة والخدمات المالية</span>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
+                مركز إيليجا للتميز <br />
+                <span className="text-blue-500">المحاسبي والمالي</span>
               </h1>
-              <p className="text-lg text-slate-600 max-w-xl leading-relaxed">
-                نقدم بيئة تعليمية متكاملة تهدف إلى رفع كفاءة المحاسبين والمديرين الماليين من خلال محتوى علمي رصين وخدمات استشارية مبنية على أسس متينة.
+              <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                نحول الأرقام إلى حقائق، والمعرفة إلى مهارة احترافية تفتح لك آفاق النجاح في سوق العمل. دليلك المهني لاحتراف علوم المحاسبة والخدمات المالية.
               </p>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="clean-card p-4 relative z-10 bg-slate-50/50">
-                <img 
-                  src="https://picsum.photos/seed/accounting-main/1200/800" 
-                  alt="Accounting Education" 
-                  className="rounded-xl shadow-sm w-full h-[400px] object-cover"
-                  referrerPolicy="no-referrer"
-                />
+              <div className="flex flex-wrap justify-center gap-4 pt-4">
+                <Link to="/accounting-portal" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-blue-500/20 active:scale-95">
+                  ابدأ التعلم الآن
+                </Link>
+                <Link to="/about" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-2xl font-bold transition-all backdrop-blur-sm border border-white/10 active:scale-95">
+                  تعرف علينا أكثر
+                </Link>
               </div>
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-blue-600/5 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-slate-900/5 rounded-full blur-3xl"></div>
             </motion.div>
           </div>
         </div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100/5 rounded-full blur-[120px]"></div>
       </section>
 
       {/* Stats/Features Banner */}
@@ -213,7 +171,6 @@ export default function Home() {
 
       {/* Philosophy Section */}
       <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-12">
             <div className="inline-flex p-3 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/10">

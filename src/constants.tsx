@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { NavItem, Service, AccountingStep, FinancialStatement, Review, AccountingPrinciple, AccountingStandard } from './types';
 
-export const LOGO_URL = "https://lh3.googleusercontent.com/d/1O0O8_sgJB-pLN0nPmwYi6QE1Ho6J8dBX";
+export const LOGO_URL = "https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs";
 
 export const NAV_ITEMS: NavItem[] = [
   { title: 'الرئيسية', path: '/' },

@@ -107,12 +107,12 @@ const CostAccounting = () => {
               viewport={{ once: true }}
               className="relative"
             >
-              <img 
-                src="https://picsum.photos/seed/accounting-numbers/800/600" 
-                alt="Cost Accounting" 
-                className="rounded-2xl shadow-2xl"
-                referrerPolicy="no-referrer"
-              />
+              <div className="aspect-[4/3] bg-primary/5 rounded-2xl border border-gray-100 flex items-center justify-center p-12">
+                 <div className="text-center space-y-4">
+                    <Factory className="w-16 h-16 text-primary mx-auto opacity-20" />
+                    <p className="text-primary/40 font-bold">دقة في تحليل البيانات</p>
+                 </div>
+              </div>
               <div className="absolute -bottom-6 -right-6 bg-accent p-8 rounded-2xl shadow-xl hidden md:block">
                 <div className="text-primary font-bold text-4xl mb-1">100%</div>
                 <div className="text-primary/80 text-sm">دقة في تحليل البيانات</div>
@@ -202,14 +202,11 @@ const CostAccounting = () => {
                   ))}
                 </div>
               </div>
-              <div className="relative h-full min-h-[400px]">
-                <img 
-                  src="https://picsum.photos/seed/accounting-ledger/800/600" 
-                  alt="Production Line" 
-                  className="absolute inset-0 w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-primary/20" />
+              <div className="relative h-full min-h-[400px] flex items-center justify-center bg-primary/10">
+                <div className="text-center space-y-4 p-12">
+                    <Settings className="w-24 h-24 text-white/20 mx-auto" />
+                    <p className="text-white/40 font-bold">إدارة العمليات الإنتاجية</p>
+                </div>
               </div>
             </div>
           </div>

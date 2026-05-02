@@ -41,12 +41,13 @@ export default function About() {
               </div>
             </div>
             <div className="relative">
-              <img 
-                src="https://picsum.photos/seed/accounting-team/800/800" 
-                alt="Our Team" 
-                className="rounded-3xl shadow-2xl"
-                referrerPolicy="no-referrer"
-              />
+              {/* Image removed for a clean layout */}
+              <div className="aspect-square bg-secondary rounded-3xl border border-gray-100 flex items-center justify-center p-12">
+                 <div className="text-center space-y-4">
+                    <Shield className="w-16 h-16 text-primary mx-auto opacity-20" />
+                    <p className="text-primary/40 font-bold">بناء الثقة من خلال الدقة</p>
+                 </div>
+              </div>
             </div>
           </div>
         </div>

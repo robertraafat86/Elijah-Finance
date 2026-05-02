@@ -449,12 +449,12 @@ export default function HospitalAccounting() {
                 </div>
               </div>
               <div className="relative">
-                <img 
-                  src="https://picsum.photos/seed/accounting-insurance/600/400" 
-                  alt="Medical Insurance Management" 
-                  className="rounded-3xl shadow-xl"
-                  referrerPolicy="no-referrer"
-                />
+                <div className="aspect-[3/2] bg-emerald-50 rounded-3xl border border-emerald-100 flex items-center justify-center p-12">
+                   <div className="text-center space-y-4">
+                      <ShieldCheck className="w-16 h-16 text-emerald-600 mx-auto opacity-20" />
+                      <p className="text-emerald-800/40 font-bold">إدارة التأمين الطبي الذكية</p>
+                   </div>
+                </div>
               </div>
             </div>
           </motion.div>

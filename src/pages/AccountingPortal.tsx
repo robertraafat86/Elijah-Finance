@@ -67,13 +67,15 @@ export default function AccountingPortal() {
               </div>
             </div>
             <div className="relative">
-              <div className="clean-card p-4 relative z-10">
-                <img 
-                  src="https://picsum.photos/seed/accounting-numbers/1200/800" 
-                  alt="What is accounting" 
-                  className="rounded-xl shadow-sm w-full h-[400px] object-cover"
-                  referrerPolicy="no-referrer"
-                />
+              <div className="clean-card p-4 relative z-10 border border-slate-100 bg-white">
+                <div className="w-full h-[400px] bg-slate-50 rounded-xl flex items-center justify-center p-12">
+                   <div className="text-center space-y-6">
+                      <div className="w-24 h-24 bg-blue-600/10 rounded-3xl flex items-center justify-center mx-auto text-blue-600">
+                         <Calculator className="w-12 h-12" />
+                      </div>
+                      <p className="text-slate-400 font-bold">النظام والتحليل المالي</p>
+                   </div>
+                </div>
               </div>
               <div className="absolute -top-6 -right-6 w-32 h-32 bg-blue-600/5 rounded-full blur-2xl"></div>
             </div>

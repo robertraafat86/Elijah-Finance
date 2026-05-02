@@ -124,13 +124,11 @@ export default function AccountingStandards() {
                 </table>
               </div>
             </div>
-            <div className="bg-secondary p-8 rounded-3xl">
-              <img 
-                src="https://picsum.photos/seed/accounting-standards/600/400" 
-                alt="Accounting Standards" 
-                className="rounded-2xl shadow-lg"
-                referrerPolicy="no-referrer"
-              />
+            <div className="bg-secondary p-8 rounded-3xl flex items-center justify-center min-h-[300px]">
+              <div className="text-center space-y-4">
+                 <Award className="w-16 h-16 text-primary mx-auto opacity-20" />
+                 <p className="text-primary/40 font-bold">معايير دولية معتمدة</p>
+              </div>
             </div>
           </div>
         </div>
