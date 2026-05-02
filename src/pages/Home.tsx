@@ -22,13 +22,22 @@ import {
   Calculator,
   PieChart,
   Ship,
-  Users
+  Users,
+  Percent,
+  Activity,
+  Scale
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { LOGO_URL } from '../constants';
 
 export default function Home() {
-  const mainSections = [
+  const homeSections = [
+    { 
+      title: 'بوابة المحاسبة', 
+      desc: 'مدخلك لتعلم المبادئ الأساسية للمحاسبة المالية وفهم لغة الأرقام والمفاهيم الجوهرية التي تبنى عليها كافة العمليات.', 
+      icon: <Calculator className="w-8 h-8" />, 
+      path: '/accounting-portal' 
+    },
     { 
       title: 'الدورة المحاسبية', 
       desc: 'شرح شامل لكل مراحل المحاسبة من البداية للنهاية، يتضمن تحليل العمليات المالية والقيود اليومية والترحيل لدفتر الأستاذ.', 
@@ -36,32 +45,50 @@ export default function Home() {
       path: '/accounting-cycle' 
     },
     { 
-      title: 'القوائم المالية', 
-      desc: 'إعداد وتحليل القوائم المالية باحتراف بما في ذلك قائمة الدخل، المركز المالي، والتدفقات النقدية وفق المعايير.', 
+      title: 'محاسبة التكاليف', 
+      desc: 'دراسة أنظمة التكاليف المختلفة (الأوامر، المراحل، النشاط) وكيفية تحديد تكلفة المنتج لاتخاذ قرارات تسعير دقيقة.', 
       icon: <BarChart3 className="w-8 h-8" />, 
-      path: '/financial-statements' 
-    },
-    { 
-      title: 'المعايير الدولية', 
-      desc: 'شرح تفصيلي لمعايير التقارير المالية الدولية IFRS ومعايير المحاسبة الدولية IAS وتطبيقاتها العملية.', 
-      icon: <Globe className="w-8 h-8" />, 
-      path: '/accounting-standards' 
+      path: '/cost-accounting' 
     },
     { 
       title: 'المحاسبة الضريبية', 
-      desc: 'دليل شامل لضريبة الدخل والقيمة المضافة وكيفية إعداد الإقرارات الضريبية والتعامل مع مصلحة الضرائب.', 
-      icon: <Calculator className="w-8 h-8" />, 
+      desc: 'دليل شامل لضريبة الدخل والقيمة المضافة وكيفية إعداد الإقرارات الضريبية والتعامل مع مصلحة الضرائب المصرية.', 
+      icon: <Percent className="w-8 h-8" />, 
       path: '/tax-accounting' 
     },
     { 
-      title: 'اللائحة المالية', 
-      desc: 'دراسة اللوائح المالية والموازنات التقديرية وكيفية صياغة القواعد المنظمة للعمليات المالية داخل المؤسسات.', 
-      icon: <FileText className="w-8 h-8" />, 
-      path: '/financial-regulations' 
+      title: 'محاسبة المقاولات', 
+      desc: 'معالجة حسابات العقود والعمليات الإنشائية، وإيرادات عقود المقاولات والتكاليف المرتبطة بها وفق المعايير.', 
+      icon: <Building2 className="w-8 h-8" />, 
+      path: '/construction-accounting' 
     },
     { 
-      title: 'طرق حساب المخزون', 
-      desc: 'مقارنة بين طرق تقييم المخزون المختلفة مثل FIFO و LIFO والمتوسط المرجح وتأثير كل منها على القوائم.', 
+      title: 'محاسبة المستشفيات', 
+      desc: 'النظام المحاسبي في المؤسسات الطبية، إدارة تكاليف الخدمات الصحية، وحسابات المرضى وشركات التأمين.', 
+      icon: <Activity className="w-8 h-8" />, 
+      path: '/hospital-accounting' 
+    },
+    { 
+      title: 'الضريبة الجمركية', 
+      desc: 'فهم قوانين الجمارك، طرق تقييم البضاعة المستوردة، وحساب الرسوم الجمركية والضرائب المرتبطة بالاستيراد.', 
+      icon: <Ship className="w-8 h-8" />, 
+      path: '/customs-duties' 
+    },
+    { 
+      title: 'المراجعة الداخلية', 
+      desc: 'أدوات الرقابة والتدقيق، تقييم الأداء المالي، واكتشاف الأخطاء والانحرافات لضمان سلامة القوائم المالية.', 
+      icon: <Search className="w-8 h-8" />, 
+      path: '/internal-audit' 
+    },
+    { 
+      title: 'معايير ولوائح محاسبية', 
+      desc: 'مرجع شامل للقوائم المالية، المعايير الدولية IFRS، المعايير المصرية، واللوائح المالية المنظمة للعمل.', 
+      icon: <Scale className="w-8 h-8" />, 
+      path: '/accounting-standards' 
+    },
+    { 
+      title: 'متنوعات محاسبية', 
+      desc: 'مواضيع متقدمة تشمل طرق حساب المخزون، مذكرات تسوية البنك، ومعالجات محاسبية لحالات عملية متنوعة.', 
       icon: <Package className="w-8 h-8" />, 
       path: '/inventory' 
     }
@@ -128,26 +155,26 @@ export default function Home() {
       {/* Core Educational Sections */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div className="space-y-4">
-              <div className="w-12 h-1 bg-blue-600 rounded-full"></div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 text-center md:text-right">
+            <div className="space-y-4 mx-auto">
+              <div className="w-12 h-1 bg-blue-600 rounded-full mx-auto md:mx-0"></div>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">استكشف المحتوى التعليمي</h2>
               <p className="text-slate-500 max-w-2xl">اختر القسم الذي ترغب في تعميق معرفتك به من خلال شروحاتنا المبسطة والمهنية.</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {mainSections.map((section, index) => (
+            {homeSections.map((section, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
               >
                 <Link 
                   to={section.path}
-                  className="clean-card group flex flex-col h-full hover:-translate-y-1"
+                  className="clean-card group flex flex-col h-full hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 border-slate-100"
                 >
                   <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                     {section.icon}
@@ -159,7 +186,7 @@ export default function Home() {
                     {section.desc}
                   </p>
                   <div className="mt-8 flex items-center gap-2 text-sm font-bold text-slate-400 group-hover:text-blue-600 transition-colors">
-                    <span>اقرأ المزيد</span>
+                    <span>ابدأ التعلم</span>
                     <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                   </div>
                 </Link>
@@ -173,9 +200,11 @@ export default function Home() {
       <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-12">
-            <div className="inline-flex p-3 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/10">
+            <div className="inline-flex py-4 px-8 bg-white/5 rounded-3xl backdrop-blur-sm border border-white/10 items-center justify-center">
               {LOGO_URL && (
-                 <img src={LOGO_URL} className="w-12 h-12 grayscale brightness-200" alt="Logo" referrerPolicy="no-referrer" />
+                 <div className="w-48 h-32 flex items-center justify-center">
+                   <img src={LOGO_URL} className="w-full h-full object-contain brightness-200" alt="Logo" referrerPolicy="no-referrer" />
+                 </div>
               )}
             </div>
             <h2 className="text-3xl md:text-5xl font-black leading-tight">رؤيتنا في إرساء دعائم المعرفة المحاسبية</h2>
@@ -202,7 +231,7 @@ export default function Home() {
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
+            <div className="space-y-8 text-right">
               <h2 className="text-3xl font-bold text-slate-900 border-r-4 border-blue-600 pr-6">التزامنا تجاه الجودة والمهنية</h2>
               <p className="text-slate-600 leading-relaxed">
                 في إيليجا، لا نكتفي بتقديم المعلومات فحسب، بل نسعى لبناء شراكة معرفية مع عملائنا وطلابنا تضمن التطبيق الصحيح والفعال للمبادئ المحاسبية.

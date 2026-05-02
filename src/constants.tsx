@@ -26,22 +26,31 @@ export const LOGO_URL = "https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN6
 export const NAV_ITEMS: NavItem[] = [
   { title: 'الرئيسية', path: '/' },
   { title: 'بوابة المحاسبة', path: '/accounting-portal' },
+  { title: 'الدورة المحاسبية', path: '/accounting-cycle' },
+  { title: 'محاسبة التكاليف', path: '/cost-accounting' },
   { title: 'المحاسبة الضريبية', path: '/tax-accounting' },
   { title: 'محاسبة المقاولات', path: '/construction-accounting' },
   { title: 'محاسبة المستشفيات', path: '/hospital-accounting' },
-  { title: 'محاسبة التكاليف', path: '/cost-accounting' },
   { title: 'الضريبة الجمركية', path: '/customs-duties' },
-  { title: 'الدورة المحاسبية', path: '/accounting-cycle' },
-  { title: 'القوائم المالية', path: '/financial-statements' },
-  { title: 'المعايير الدولية', path: '/accounting-standards' },
-  { title: 'المعايير المصرية', path: '/egyptian-standards' },
-  { title: 'اللائحة المالية', path: '/financial-regulations' },
-  { title: 'طرق حساب المخزون', path: '/inventory' },
-  { title: 'مذكرة تسوية البنك', path: '/bank-reconciliation' },
   { title: 'المراجعة الداخلية', path: '/internal-audit' },
-  { title: 'خدماتنا', path: '/services' },
-  { title: 'من نحن', path: '/about' },
-  { title: 'تواصل معنا', path: '/contact' },
+  { 
+    title: 'معايير ولوائح محاسبية', 
+    path: '#', 
+    children: [
+      { title: 'القوائم المالية', path: '/financial-statements' },
+      { title: 'المعايير الدولية', path: '/accounting-standards' },
+      { title: 'المعايير المصرية', path: '/egyptian-standards' },
+      { title: 'اللائحة المالية', path: '/financial-regulations' },
+    ]
+  },
+  { 
+    title: 'متنوعات محاسبية', 
+    path: '#', 
+    children: [
+      { title: 'طرق حساب المخزون', path: '/inventory' },
+      { title: 'مذكرة تسوية البنك', path: '/bank-reconciliation' },
+    ]
+  },
 ];
 
 export const ACCOUNTING_PRINCIPLES: AccountingPrinciple[] = [

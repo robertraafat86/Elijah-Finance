@@ -21,6 +21,7 @@ import CustomsDuties from './pages/CustomsDuties';
 import ConstructionAccounting from './pages/ConstructionAccounting';
 import HospitalAccounting from './pages/HospitalAccounting';
 import CostAccounting from './pages/CostAccounting';
+import Breadcrumbs from './components/Breadcrumbs';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,7 +37,10 @@ export default function App() {
       <div className="min-h-screen bg-white flex flex-col font-sans">
         <ScrollToTop />
         <Navbar />
-        <main className="flex-grow pt-20">
+        <main className="flex-grow pt-24 lg:pt-32">
+          <div className="container mx-auto px-6">
+            <Breadcrumbs />
+          </div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/accounting-cycle" element={<AccountingCycle />} />

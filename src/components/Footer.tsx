@@ -13,11 +13,11 @@ export default function Footer() {
             <div className="space-y-4">
               <img 
                 src={LOGO_URL} 
-                alt="شعار إيليجا للخدمات المالية والمحاسبية" 
-                className="w-16 h-16 object-contain brightness-0 invert"
+                alt="شعار إيليجا" 
+                className="h-24 w-auto object-contain brightness-200"
                 referrerPolicy="no-referrer"
               />
-              <span className="text-2xl font-bold block">إيليجا للخدمات المالية والمحاسبية</span>
+              <span className="text-2xl font-bold block">إيليجا</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
               نقدم حلولاً متكاملة لإدارة أعمالك المالية باحترافية. سواء كنت ترغب في تعلم المحاسبة أو تحتاج إلى خدمات محاسبية دقيقة، نحن هنا لدعمك في كل خطوة.

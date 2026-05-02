@@ -114,3 +114,25 @@
 .section-padding {
   @apply py-20;
 }
+
+@layer components {
+  .logo-container {
+    @apply flex items-center justify-center overflow-hidden transition-all duration-500;
+    width: 6cm;
+    height: 4cm;
+    max-width: 100%;
+    /* Keep it proportional on mobile */
+    @screen sm {
+      width: 6cm;
+      height: 4cm;
+    }
+    @media (max-width: 640px) {
+       width: 4cm;
+       height: 2.6cm;
+    }
+  }
+  
+  .logo-img {
+    @apply w-full h-full object-contain block;
+  }
+}
