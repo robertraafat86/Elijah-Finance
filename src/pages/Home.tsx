@@ -69,6 +69,40 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
+      {/* Hero Banner Section */}
+      <section className="relative h-[400px] md:h-[600px] w-full overflow-hidden">
+        <img 
+          src="https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs" 
+          alt="مركز إيليجا للتدريب" 
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={(e) => {
+            const img = e.target as HTMLImageElement;
+            img.src = "https://images.unsplash.com/photo-1454165833772-d99628a5ffa6?auto=format&fit=crop&q=80&w=1200";
+          }}
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
+        
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="max-w-3xl text-white space-y-6"
+            >
+              <h1 className="text-4xl md:text-6xl font-black leading-tight drop-shadow-lg">
+                مركز إيليجا للتميز <br />
+                <span className="text-blue-400">المحاسبي والمالي</span>
+              </h1>
+              <p className="text-lg md:text-xl text-slate-100 font-medium max-w-xl leading-relaxed drop-shadow-md">
+                نحول الأرقام إلى حقائق، والمعرفة إلى مهارة احترافية تفتح لك آفاق النجاح في سوق العمل.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section - Clean & Educational */}
       <section className="relative py-20 lg:py-32 bg-white border-b border-slate-100 overflow-hidden">
         <div className="container mx-auto px-6">
