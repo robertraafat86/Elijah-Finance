@@ -102,7 +102,7 @@ export default function HospitalAccounting() {
   }, [selectedReport]);
 
   const addRow = () => {
-    const newId = reportRows.length + 1;
+    const newId = reportRows.length > 0 ? Math.max(...reportRows.map(r => r.id as number)) + 1 : 1;
     let newRow = {};
     if (selectedReport === 'medical-inventory') {
       newRow = { id: newId, name: '', currentQty: 0, minLevel: 0, expiryDate: '', expiredItems: 0, itemsToBuy: 0, purchasePrice: 0 };
@@ -879,7 +879,7 @@ export default function HospitalAccounting() {
                       </thead>
                       <tbody className="divide-y divide-gray-100">
                         {reportRows.map((row, index) => (
-                          <tr key={index} className="hover:bg-gray-50 transition-colors group">
+                          <tr key={row.id} className="hover:bg-gray-50 transition-colors group">
                             {selectedReport === 'medical-inventory' ? (
                               <>
                                 <td className="p-4 text-sm text-gray-500">{index + 1}</td>

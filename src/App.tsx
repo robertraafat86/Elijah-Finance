@@ -21,6 +21,9 @@ import CustomsDuties from './pages/CustomsDuties';
 import ConstructionAccounting from './pages/ConstructionAccounting';
 import HospitalAccounting from './pages/HospitalAccounting';
 import CostAccounting from './pages/CostAccounting';
+import FinancialAnalysis from './pages/FinancialAnalysis';
+import AnalysisDetail from './pages/FinancialAnalysis/AnalysisDetail';
+import StandardDetailAI from './pages/StandardDetailAI';
 import Breadcrumbs from './components/Breadcrumbs';
 
 function ScrollToTop() {
@@ -46,6 +49,8 @@ export default function App() {
             <Route path="/accounting-cycle" element={<AccountingCycle />} />
             <Route path="/financial-statements" element={<FinancialStatements />} />
             <Route path="/accounting-standards" element={<AccountingStandards />} />
+            <Route path="/ias/:id" element={<StandardDetailAI type="IAS" />} />
+            <Route path="/ifrs/:id" element={<StandardDetailAI type="IFRS" />} />
             <Route path="/egyptian-standards" element={<EgyptianStandards />} />
             <Route path="/financial-regulations" element={<FinancialRegulations />} />
             <Route path="/inventory" element={<Inventory />} />
@@ -57,6 +62,8 @@ export default function App() {
             <Route path="/construction-accounting" element={<ConstructionAccounting />} />
             <Route path="/hospital-accounting" element={<HospitalAccounting />} />
             <Route path="/cost-accounting" element={<CostAccounting />} />
+            <Route path="/financial-analysis" element={<FinancialAnalysis />} />
+            <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
             <Route path="/services" element={<Services />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />

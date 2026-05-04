@@ -73,7 +73,7 @@ export default function ConstructionAccounting() {
   }, [selectedReport]);
 
   const addRow = () => {
-    const newId = reportRows.length + 1;
+    const newId = reportRows.length > 0 ? Math.max(...reportRows.map(r => r.id as number)) + 1 : 1;
     const newRow = { id: newId, label: '', detail: '', value: 0, status: '' };
     setReportRows([...reportRows, newRow]);
   };
@@ -809,7 +809,7 @@ export default function ConstructionAccounting() {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {reportRows.map((row, index) => (
-                        <tr key={index} className="hover:bg-gray-50 transition-colors group">
+                        <tr key={row.id} className="hover:bg-gray-50 transition-colors group">
                           <td className="p-4 text-sm text-gray-500">{index + 1}</td>
                           <td className="p-2">
                             <input 

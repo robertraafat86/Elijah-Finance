@@ -4,6 +4,7 @@ import {
   Home, 
   LayoutDashboard, 
   FileText, 
+  BarChart3,
   Calculator, 
   Building2, 
   Hospital, 
@@ -16,13 +17,20 @@ import {
   BookOpen,
   Users,
   MessageSquare,
-  ChevronRight
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const sidebarItems = [
   { title: 'الرئيسية', path: '/', icon: <Home className="w-5 h-5" /> },
   { title: 'بوابة المحاسبة', path: '/accounting-portal', icon: <LayoutDashboard className="w-5 h-5" /> },
+  { 
+    group: 'الذكاء الاصطناعي',
+    items: [
+      { title: 'شرح المعايير (AI)', path: '/ias/1', icon: <Sparkles className="w-5 h-5 text-amber-500" /> },
+    ]
+  },
   { 
     group: 'تخصصات محاسبية',
     items: [
@@ -38,6 +46,7 @@ const sidebarItems = [
     items: [
       { title: 'الدورة المحاسبية', path: '/accounting-cycle', icon: <ChevronRight className="w-5 h-5" /> },
       { title: 'القوائم المالية', path: '/financial-statements', icon: <FileText className="w-5 h-5" /> },
+      { title: 'التحليل المالي', path: '/financial-analysis', icon: <BarChart3 className="w-5 h-5" /> },
       { title: 'المعايير الدولية', path: '/accounting-standards', icon: <FileCheck className="w-5 h-5" /> },
       { title: 'المعايير المصرية', path: '/egyptian-standards', icon: <FileCheck className="w-5 h-5" /> },
       { title: 'اللائحة المالية', path: '/financial-regulations', icon: <BookOpen className="w-5 h-5" /> },
