@@ -106,3 +106,21 @@ export interface FinancialAnalysisDetail {
   commonErrors: string[];
   summary: string[];
 }
+
+export type AccountingMiscCategory = 
+  | 'basic-concepts'
+  | 'terminology'
+  | 'tips'
+  | 'common-errors'
+  | 'quick-q'
+  | 'general-info';
+
+export interface AccountingMiscItem {
+  id: string;
+  question: string;
+  answer: string;
+  category: AccountingMiscCategory;
+  details?: string;
+  example?: string;
+  isQuick?: boolean;
+}

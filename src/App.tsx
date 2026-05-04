@@ -24,6 +24,7 @@ import CostAccounting from './pages/CostAccounting';
 import FinancialAnalysis from './pages/FinancialAnalysis';
 import AnalysisDetail from './pages/FinancialAnalysis/AnalysisDetail';
 import StandardDetailAI from './pages/StandardDetailAI';
+import AccountingMisc from './pages/AccountingMisc';
 import Breadcrumbs from './components/Breadcrumbs';
 
 function ScrollToTop() {
@@ -64,6 +65,7 @@ export default function App() {
             <Route path="/cost-accounting" element={<CostAccounting />} />
             <Route path="/financial-analysis" element={<FinancialAnalysis />} />
             <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
+            <Route path="/accounting-misc" element={<AccountingMisc />} />
             <Route path="/services" element={<Services />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />

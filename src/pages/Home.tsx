@@ -87,7 +87,7 @@ export default function Home() {
       path: '/accounting-standards' 
     },
     { 
-      title: 'متنوعات محاسبية', 
+      title: 'بنك المعلومات', 
       desc: 'مواضيع متقدمة تشمل طرق حساب المخزون، مذكرات تسوية البنك، ومعالجات محاسبية لحالات عملية متنوعة.', 
       icon: <Package className="w-8 h-8" />, 
       path: '/inventory' 

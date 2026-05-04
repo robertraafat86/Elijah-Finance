@@ -46,11 +46,12 @@ export const NAV_ITEMS: NavItem[] = [
     ]
   },
   { 
-    title: 'متنوعات محاسبية', 
+    title: 'بنك المعلومات', 
     path: '#misc', 
     children: [
       { title: 'طرق حساب المخزون', path: '/inventory' },
       { title: 'مذكرة تسوية البنك', path: '/bank-reconciliation' },
+      { title: 'بنك المعلومات', path: '/accounting-misc' },
     ]
   },
 ];

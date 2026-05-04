@@ -18,7 +18,8 @@ import {
   Users,
   MessageSquare,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  HelpCircle
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -49,6 +50,7 @@ const sidebarItems = [
       { title: 'التحليل المالي', path: '/financial-analysis', icon: <BarChart3 className="w-5 h-5" /> },
       { title: 'المعايير الدولية', path: '/accounting-standards', icon: <FileCheck className="w-5 h-5" /> },
       { title: 'المعايير المصرية', path: '/egyptian-standards', icon: <FileCheck className="w-5 h-5" /> },
+      { title: 'بنك المعلومات', path: '/accounting-misc', icon: <HelpCircle className="w-5 h-5" /> },
       { title: 'اللائحة المالية', path: '/financial-regulations', icon: <BookOpen className="w-5 h-5" /> },
     ]
   },
