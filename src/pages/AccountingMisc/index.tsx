@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 import { 
   Search, 
   HelpCircle, 
@@ -20,20 +21,23 @@ import { cn } from '../../lib/utils';
 import { ACCOUNTING_MISC_DATA } from '../../data/accountingMisc';
 import { AccountingMiscCategory } from '../../types';
 
-const categoryMap: { id: AccountingMiscCategory; label: string; icon: React.ReactNode; color: string }[] = [
-  { id: 'basic-concepts', label: 'مفاهيم أساسية', icon: <BookOpen className="w-4 h-4" />, color: 'blue' },
-  { id: 'terminology', label: 'مصطلحات', icon: <Info className="w-4 h-4" />, color: 'emerald' },
-  { id: 'tips', label: 'نصائح', icon: <Lightbulb className="w-4 h-4" />, color: 'amber' },
-  { id: 'common-errors', label: 'أخطاء شائعة', icon: <AlertTriangle className="w-4 h-4" />, color: 'rose' },
-  { id: 'quick-q', label: 'أسئلة سريعة', icon: <Zap className="w-4 h-4" />, color: 'purple' },
-  { id: 'general-info', label: 'معلومات عامة', icon: <HelpCircle className="w-4 h-4" />, color: 'indigo' },
-];
-
 export default function AccountingMisc() {
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.language === 'ar';
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<AccountingMiscCategory | 'all'>('all');
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [savedItems, setSavedItems] = useState<Set<string>>(new Set());
+
+  const categoryMap: { id: AccountingMiscCategory; label: string; icon: React.ReactNode; color: string }[] = [
+    { id: 'basic-concepts', label: t('misc.categories.basic-concepts'), icon: <BookOpen className="w-4 h-4" />, color: 'blue' },
+    { id: 'terminology', label: t('misc.categories.terminology'), icon: <Info className="w-4 h-4" />, color: 'emerald' },
+    { id: 'tips', label: t('misc.categories.tips'), icon: <Lightbulb className="w-4 h-4" />, color: 'amber' },
+    { id: 'common-errors', label: t('misc.categories.common-errors'), icon: <AlertTriangle className="w-4 h-4" />, color: 'rose' },
+    { id: 'quick-q', label: t('misc.categories.quick-q'), icon: <Zap className="w-4 h-4" />, color: 'purple' },
+    { id: 'general-info', label: t('misc.categories.general-info'), icon: <HelpCircle className="w-4 h-4" />, color: 'indigo' },
+  ];
 
   const filteredItems = useMemo(() => {
     return ACCOUNTING_MISC_DATA.filter(item => {
@@ -60,26 +64,25 @@ export default function AccountingMisc() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    // Simple toast or notification could be added here
   };
 
   const quickQuestions = ACCOUNTING_MISC_DATA.filter(item => item.isQuick);
 
   return (
-    <div className="pb-24">
+    <div className="pb-24 text-right">
       {/* Hero Section */}
-      <section className="relative py-20 bg-slate-900 overflow-hidden">
+      <section className="relative py-20 bg-slate-900 overflow-hidden text-center">
         <div className="absolute inset-0 bg-blue-600/5 -z-10" />
         <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-3xl rounded-full -z-10" />
         
-        <div className="container mx-auto px-6 text-center space-y-8">
+        <div className="container mx-auto px-6 space-y-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="inline-flex items-center gap-3 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-[10px] uppercase tracking-widest"
           >
             <HelpCircle className="w-4 h-4" />
-            بنك المعلومات المحاسبية
+            {t('misc.title')}
           </motion.div>
           
           <motion.h1
@@ -87,8 +90,8 @@ export default function AccountingMisc() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black text-white leading-tight"
           >
-            بنك المعلومات <br />
-            <span className="text-blue-400 font-black">تعلم بذكاء، وبسرعة</span>
+            {t('misc.title')} <br />
+            <span className="text-blue-400 font-black">{t('misc.subtitle')}</span>
           </motion.h1>
           
           <motion.p
@@ -97,7 +100,7 @@ export default function AccountingMisc() {
             transition={{ delay: 0.1 }}
             className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-medium"
           >
-            مجموعة من المعلومات والمفاهيم المحاسبية الهامة في شكل أسئلة وأجوبة مباشرة لمساعدتك في المراجعة اليومية.
+            {t('misc.description')}
           </motion.p>
         </div>
       </section>
@@ -105,10 +108,10 @@ export default function AccountingMisc() {
       {/* Quick Access Band */}
       <section className="bg-slate-50 border-y border-slate-200 py-6 overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="flex items-center gap-4">
+          <div className={cn("flex items-center gap-4", !isRtl && "flex-row-reverse")}>
             <div className="shrink-0 flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-600 rounded-xl font-black text-xs uppercase tracking-widest whitespace-nowrap">
               <Zap className="w-4 h-4" />
-              أسئلة سريعة جداً
+              {t('misc.quick_questions')}
             </div>
             <div className="flex-grow flex gap-4 overflow-x-auto no-scrollbar py-2">
               {quickQuestions.map((q) => (
@@ -127,30 +130,33 @@ export default function AccountingMisc() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           
           {/* Sidebar Filters */}
-          <aside className="lg:col-span-1 space-y-8">
+          <aside className={cn("lg:col-span-1 space-y-8", !isRtl && "lg:order-2")}>
             <div className="sticky top-24 space-y-8">
               {/* Search */}
               <div className="space-y-4">
-                <h3 className="text-sm font-black text-slate-900 flex items-center gap-2">
+                <h3 className={cn("text-sm font-black text-slate-900 flex items-center gap-2", !isRtl && "flex-row-reverse")}>
                   <Search className="w-4 h-4 text-blue-500" />
-                  ابحث عن معلومة
+                  {t('misc.search_label')}
                 </h3>
                 <div className="relative">
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="ابحث في الأسئلة والأجوبة..."
-                    className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 font-bold text-sm shadow-sm transition-all"
+                    placeholder={t('misc.search_placeholder')}
+                    className={cn(
+                      "w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 font-bold text-sm shadow-sm transition-all",
+                      !isRtl && "text-left"
+                    )}
                   />
                 </div>
               </div>
 
               {/* Categories */}
               <div className="space-y-4">
-                <h3 className="text-sm font-black text-slate-900 flex items-center gap-2">
+                <h3 className={cn("text-sm font-black text-slate-900 flex items-center gap-2", !isRtl && "flex-row-reverse")}>
                   <Filter className="w-4 h-4 text-emerald-500" />
-                  التصنيفات
+                  {t('misc.categories_label')}
                 </h3>
                 <div className="space-y-2">
                   <button
@@ -159,10 +165,11 @@ export default function AccountingMisc() {
                       "w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all",
                       activeCategory === 'all' 
                         ? "bg-blue-600 text-white shadow-lg shadow-blue-200" 
-                        : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200"
+                        : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200",
+                      !isRtl && "flex-row-reverse"
                     )}
                   >
-                    <span>الكل</span>
+                    <span>{t('misc.categories.all')}</span>
                     <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full">{ACCOUNTING_MISC_DATA.length}</span>
                   </button>
                   {categoryMap.map((cat) => (
@@ -173,7 +180,8 @@ export default function AccountingMisc() {
                         "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all",
                         activeCategory === cat.id 
                           ? "bg-slate-900 text-white shadow-lg" 
-                          : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200"
+                          : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200",
+                        !isRtl && "flex-row-reverse"
                       )}
                     >
                       <div className={cn(
@@ -189,15 +197,15 @@ export default function AccountingMisc() {
               </div>
 
               {/* Stats Card */}
-              <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-3xl p-6 text-white overflow-hidden relative group">
+              <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-3xl p-6 text-white overflow-hidden relative group text-center">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:scale-150 transition-transform duration-700" />
                 <div className="relative z-10 space-y-4">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center gap-2">
                     <BookmarkCheck className="w-5 h-5 text-blue-300" />
-                    <span className="text-xs font-black uppercase tracking-widest">المحفوظات</span>
+                    <span className="text-xs font-black uppercase tracking-widest">{t('misc.saved_items')}</span>
                   </div>
                   <div className="text-3xl font-black">{savedItems.size}</div>
-                  <p className="text-xs text-blue-100/70 font-medium">سؤال قمت بحفظه لمراجعته لاحقاً.</p>
+                  <p className="text-xs text-blue-100/70 font-medium">{t('misc.saved_desc')}</p>
                 </div>
               </div>
             </div>
@@ -223,14 +231,15 @@ export default function AccountingMisc() {
                       >
                         <div className={cn(
                           "bg-white rounded-[2rem] border transition-all duration-300 group overflow-hidden h-full flex flex-col",
-                          isExpanded ? "border-blue-500 shadow-xl shadow-blue-100" : "border-slate-100 shadow-lg shadow-slate-200/50 hover:border-slate-300"
+                          isExpanded ? "border-blue-500 shadow-xl shadow-blue-100" : "border-slate-100 shadow-lg shadow-slate-200/50 hover:border-slate-300",
+                          !isRtl && "text-left"
                         )}>
                           {/* Card Header */}
                           <div className="p-6 md:p-8 space-y-4 flex-grow">
-                            <div className="flex items-center justify-between">
+                            <div className={cn("flex items-center justify-between", !isRtl && "flex-row-reverse")}>
                               <span className={cn(
                                 "text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full",
-                                `bg-${catInfo?.color}-50 text-${catInfo?.color}-600`
+                                catInfo ? `bg-${catInfo.color}-50 text-${catInfo.color}-600` : ""
                               )}>
                                 {catInfo?.label}
                               </span>
@@ -238,7 +247,7 @@ export default function AccountingMisc() {
                                 <button 
                                   onClick={() => copyToClipboard(item.answer)}
                                   className="p-2 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
-                                  title="نسخ الإجابة"
+                                  title={t('common.copy')}
                                 >
                                   <Copy className="w-4 h-4" />
                                 </button>
@@ -248,7 +257,7 @@ export default function AccountingMisc() {
                                     "p-2 transition-colors rounded-lg",
                                     isSaved ? "text-amber-500 bg-amber-50" : "text-slate-400 hover:text-amber-500 hover:bg-amber-50"
                                   )}
-                                  title="حفظ للمراجعة"
+                                  title={t('common.save')}
                                 >
                                   {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
                                 </button>
@@ -277,15 +286,18 @@ export default function AccountingMisc() {
                                 <div className="p-6 md:p-8 space-y-6">
                                   {item.details && (
                                     <div className="space-y-2">
-                                      <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">شرح معمق</h4>
+                                      <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">{t('misc.details_label')}</h4>
                                       <p className="text-sm text-slate-600 font-medium leading-loose">{item.details}</p>
                                     </div>
                                   )}
                                   {item.example && (
-                                    <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex items-start gap-3">
+                                    <div className={cn(
+                                      "p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex items-start gap-3",
+                                      !isRtl && "flex-row-reverse"
+                                    )}>
                                       <Lightbulb className="w-4 h-4 text-emerald-600 shrink-0 mt-1" />
-                                      <div className="space-y-1">
-                                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">مثال عملي</span>
+                                      <div className={cn("space-y-1", !isRtl && "text-right")}>
+                                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{t('misc.example_label')}</span>
                                         <p className="text-sm text-emerald-800 font-bold">{item.example}</p>
                                       </div>
                                     </div>
@@ -303,12 +315,12 @@ export default function AccountingMisc() {
                             >
                               {isExpanded ? (
                                 <>
-                                  إخفاء التفاصيل
+                                  {t('misc.hide_details')}
                                   <ChevronUp className="w-4 h-4" />
                                 </>
                               ) : (
                                 <>
-                                  إظهار المزيد من التفاصيل
+                                  {t('misc.show_details')}
                                   <ChevronDown className="w-4 h-4 group-hover/btn:translate-y-0.5 transition-transform" />
                                 </>
                               )}
@@ -326,14 +338,14 @@ export default function AccountingMisc() {
                   <BookOpen className="w-10 h-10 text-slate-300" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold text-slate-900">لا توجد نتائج لبحثك</h3>
-                  <p className="text-slate-500 font-medium">جرب كلمات بحث أخرى أو اختر تصنيفاً مختلفاً.</p>
+                  <h3 className="text-xl font-bold text-slate-900">{t('misc.no_results')}</h3>
+                  <p className="text-slate-500 font-medium">{t('misc.no_results_desc')}</p>
                 </div>
                 <button 
                   onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
                   className="px-6 py-2 text-blue-600 font-black"
                 >
-                  عرض جميع الأسئلة
+                  {t('misc.show_all')}
                 </button>
               </div>
             )}
@@ -347,22 +359,27 @@ export default function AccountingMisc() {
           <div className="bg-emerald-900 rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-32 h-32 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-700" />
             <div className="relative z-10 space-y-6">
-              <h3 className="text-3xl font-black flex items-center gap-3">
+              <h3 className={cn("text-3xl font-black flex items-center gap-3", !isRtl && "flex-row-reverse")}>
                 <Lightbulb className="w-8 h-8 text-emerald-400" />
-                نصائح مهنية
+                {t('misc.professional_tips')}
               </h3>
               <div className="space-y-4">
-                {[
+                {(isRtl ? [
                   "دقق القيود فور إدخالها لتجنب تراكم الأخطاء.",
                   "افهم طبيعة الحساب (مدين/دائن) قبل تسجيل المعاملة.",
                   "التزم بالمعايير المحاسبية المتبعة في شركتك.",
-                  "طور مهاراتك في Excel فهي العمود الفقري للمحاسب."
-                ].map((tip, i) => (
-                  <div key={i} className="flex gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
+                  "طور مهاراتك في Excel فهي العمود الفقري للمحاسبة."
+                ] : [
+                  "Check entries immediately upon entry to avoid accumulation of errors.",
+                  "Understand the nature of the account (Debit/Credit) before recording the transaction.",
+                  "Adhere to the accounting standards followed in your company.",
+                  "Develop your Excel skills; it's the backbone of accounting."
+                ]).map((tip, i) => (
+                  <div key={i} className={cn("flex gap-4 p-4 bg-white/5 rounded-2xl border border-white/10", !isRtl && "flex-row-reverse")}>
                     <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] font-black shrink-0">
                       {i + 1}
                     </div>
-                    <p className="text-emerald-50 font-medium text-sm leading-relaxed">{tip}</p>
+                    <p className={cn("text-emerald-50 font-medium text-sm leading-relaxed", !isRtl && "text-left")}>{tip}</p>
                   </div>
                 ))}
               </div>
@@ -372,20 +389,25 @@ export default function AccountingMisc() {
           <div className="bg-rose-900 rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden group">
             <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/5 rounded-full translate-x-1/2 translate-y-1/2 group-hover:scale-150 transition-transform duration-700" />
             <div className="relative z-10 space-y-6">
-              <h3 className="text-3xl font-black flex items-center gap-3">
+              <h3 className={cn("text-3xl font-black flex items-center gap-3", !isRtl && "flex-row-reverse")}>
                 <AlertTriangle className="w-8 h-8 text-rose-400" />
-                احذر الأخطاء
+                {t('misc.common_errors')}
               </h3>
               <div className="space-y-4">
-                {[
+                {(isRtl ? [
                   "تجاوز ميزان المراجعة قبل إغلاق الفترة.",
                   "نسيان إثبات قيود التسوية في نهاية الشهر.",
                   "الخلط بين الأموال الشخصية وأموال المؤسسة.",
                   "عدم الاحتفاظ بالمستندات المؤيدة لكل قيد."
-                ].map((err, i) => (
-                  <div key={i} className="flex gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
+                ] : [
+                  "Bypassing the trial balance before closing the period.",
+                  "Forgetting to prove reconciliation entries at the end of the month.",
+                  "Mixing personal funds with organizational funds.",
+                  "Failing to keep supporting documents for each entry."
+                ]).map((err, i) => (
+                  <div key={i} className={cn("flex gap-4 p-4 bg-white/5 rounded-2xl border border-white/10", !isRtl && "flex-row-reverse")}>
                     <div className="w-2 h-2 rounded-full bg-rose-500 shrink-0 mt-2.5" />
-                    <p className="text-rose-50 font-medium text-sm leading-relaxed">{err}</p>
+                    <p className={cn("text-rose-50 font-medium text-sm leading-relaxed", !isRtl && "text-left")}>{err}</p>
                   </div>
                 ))}
               </div>

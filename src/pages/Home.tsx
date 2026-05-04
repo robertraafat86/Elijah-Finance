@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   ArrowLeft, 
+  ArrowRight,
   CheckCircle, 
   TrendingUp, 
   Shield, 
@@ -31,66 +33,69 @@ import { cn } from '../lib/utils';
 import { LOGO_URL } from '../constants';
 
 export default function Home() {
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.language === 'ar';
+
   const homeSections = [
     { 
-      title: 'بوابة المحاسبة', 
-      desc: 'مدخلك لتعلم المبادئ الأساسية للمحاسبة المالية وفهم لغة الأرقام والمفاهيم الجوهرية التي تبنى عليها كافة العمليات.', 
+      title: t('nav.portal'), 
+      desc: t('home.portal_desc'), 
       icon: <Calculator className="w-8 h-8" />, 
       path: '/accounting-portal' 
     },
     { 
-      title: 'الدورة المحاسبية', 
-      desc: 'شرح شامل لكل مراحل المحاسبة من البداية للنهاية، يتضمن تحليل العمليات المالية والقيود اليومية والترحيل لدفتر الأستاذ.', 
+      title: t('nav.accounting_cycle'), 
+      desc: t('home.cycle_desc'), 
       icon: <BookOpen className="w-8 h-8" />, 
       path: '/accounting-cycle' 
     },
     { 
-      title: 'محاسبة التكاليف', 
-      desc: 'دراسة أنظمة التكاليف المختلفة (الأوامر، المراحل، النشاط) وكيفية تحديد تكلفة المنتج لاتخاذ قرارات تسعير دقيقة.', 
+      title: t('nav.cost_accounting'), 
+      desc: t('home.cost_desc'), 
       icon: <BarChart3 className="w-8 h-8" />, 
       path: '/cost-accounting' 
     },
     { 
-      title: 'المحاسبة الضريبية', 
-      desc: 'دليل شامل لضريبة الدخل والقيمة المضافة وكيفية إعداد الإقرارات الضريبية والتعامل مع مصلحة الضرائب المصرية.', 
+      title: t('nav.tax_accounting'), 
+      desc: t('home.tax_desc'), 
       icon: <Percent className="w-8 h-8" />, 
       path: '/tax-accounting' 
     },
     { 
-      title: 'محاسبة المقاولات', 
-      desc: 'معالجة حسابات العقود والعمليات الإنشائية، وإيرادات عقود المقاولات والتكاليف المرتبطة بها وفق المعايير.', 
+      title: t('nav.construction_accounting'), 
+      desc: t('home.construction_desc'), 
       icon: <Building2 className="w-8 h-8" />, 
       path: '/construction-accounting' 
     },
     { 
-      title: 'محاسبة المستشفيات', 
-      desc: 'النظام المحاسبي في المؤسسات الطبية، إدارة تكاليف الخدمات الصحية، وحسابات المرضى وشركات التأمين.', 
+      title: t('nav.hospital_accounting'), 
+      desc: t('home.hospital_desc'), 
       icon: <Activity className="w-8 h-8" />, 
       path: '/hospital-accounting' 
     },
     { 
-      title: 'الضريبة الجمركية', 
-      desc: 'فهم قوانين الجمارك، طرق تقييم البضاعة المستوردة، وحساب الرسوم الجمركية والضرائب المرتبطة بالاستيراد.', 
+      title: t('nav.customs_duties'), 
+      desc: t('home.customs_desc'), 
       icon: <Ship className="w-8 h-8" />, 
       path: '/customs-duties' 
     },
     { 
-      title: 'المراجعة الداخلية', 
-      desc: 'أدوات الرقابة والتدقيق، تقييم الأداء المالي، واكتشاف الأخطاء والانحرافات لضمان سلامة القوائم المالية.', 
+      title: t('nav.internal_audit'), 
+      desc: t('home.audit_desc'), 
       icon: <Search className="w-8 h-8" />, 
       path: '/internal-audit' 
     },
     { 
-      title: 'معايير ولوائح محاسبية', 
-      desc: 'مرجع شامل للقوائم المالية، المعايير الدولية IFRS، المعايير المصرية، واللوائح المالية المنظمة للعمل.', 
+      title: t('nav.international_standards'), 
+      desc: t('home.standards_desc'), 
       icon: <Scale className="w-8 h-8" />, 
       path: '/accounting-standards' 
     },
     { 
-      title: 'بنك المعلومات', 
-      desc: 'مواضيع متقدمة تشمل طرق حساب المخزون، مذكرات تسوية البنك، ومعالجات محاسبية لحالات عملية متنوعة.', 
+      title: t('nav.accounting_misc'), 
+      desc: t('home.misc_desc'), 
       icon: <Package className="w-8 h-8" />, 
-      path: '/inventory' 
+      path: '/accounting-misc' 
     }
   ];
 
@@ -108,21 +113,21 @@ export default function Home() {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-blue-400 rounded-full text-sm font-bold backdrop-blur-sm">
                 <Shield className="w-4 h-4" />
-                <span>مركز إيليجا للتدريب والاستشارات المالية</span>
+                <span>{t('home.center_name')}</span>
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
-                مركز إيليجا للتميز <br />
-                <span className="text-blue-500">المحاسبي والمالي</span>
+                {t('home.hero_title').split(' ').slice(0, 3).join(' ')} <br />
+                <span className="text-blue-500">{t('home.hero_title').split(' ').slice(3).join(' ')}</span>
               </h1>
               <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                نحول الأرقام إلى حقائق، والمعرفة إلى مهارة احترافية تفتح لك آفاق النجاح في سوق العمل. دليلك المهني لاحتراف علوم المحاسبة والخدمات المالية.
+                {t('home.hero_subtitle')}
               </p>
               <div className="flex flex-wrap justify-center gap-4 pt-4">
                 <Link to="/accounting-portal" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-blue-500/20 active:scale-95">
-                  ابدأ التعلم الآن
+                  {t('home.get_started')}
                 </Link>
                 <Link to="/about" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-2xl font-bold transition-all backdrop-blur-sm border border-white/10 active:scale-95">
-                  تعرف علينا أكثر
+                  {t('common.learn_more')}
                 </Link>
               </div>
             </motion.div>
@@ -137,10 +142,10 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { label: 'سنة من الخبرة', val: '15+', icon: <Clock /> },
-              { label: 'برنامج تعليمي', val: '50+', icon: <BookOpen /> },
-              { label: 'عميل مستفيد', val: '200+', icon: <Users /> },
-              { label: 'شهادة معتمدة', val: '10+', icon: <Shield /> },
+              { label: t('home.years_exp'), val: '15+', icon: <Clock /> },
+              { label: t('home.edu_programs'), val: '50+', icon: <BookOpen /> },
+              { label: t('home.clients'), val: '200+', icon: <Users /> },
+              { label: t('home.certificates'), val: '10+', icon: <Shield /> },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center gap-2">
                 <div className="text-blue-600 mb-1">{stat.icon}</div>
@@ -155,11 +160,14 @@ export default function Home() {
       {/* Core Educational Sections */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 text-center md:text-right">
-            <div className="space-y-4 mx-auto">
-              <div className="w-12 h-1 bg-blue-600 rounded-full mx-auto md:mx-0"></div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">استكشف المحتوى التعليمي</h2>
-              <p className="text-slate-500 max-w-2xl">اختر القسم الذي ترغب في تعميق معرفتك به من خلال شروحاتنا المبسطة والمهنية.</p>
+          <div className={cn(
+            "flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6",
+            isRtl ? "text-center md:text-right" : "text-center md:text-left"
+          )}>
+            <div className={cn("space-y-4 mx-auto", isRtl ? "md:mx-0" : "md:ml-0 md:mr-auto")}>
+              <div className={cn("w-12 h-1 bg-blue-600 rounded-full mx-auto", isRtl ? "md:mx-0" : "md:ml-0")}></div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">{t('common.explore_content')}</h2>
+              <p className="text-slate-500 max-w-2xl">{t('common.explore_subtitle')}</p>
             </div>
           </div>
 
@@ -186,8 +194,12 @@ export default function Home() {
                     {section.desc}
                   </p>
                   <div className="mt-8 flex items-center gap-2 text-sm font-bold text-slate-400 group-hover:text-blue-600 transition-colors">
-                    <span>ابدأ التعلم</span>
-                    <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                    <span>{t('common.start_learning')}</span>
+                    {isRtl ? (
+                      <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                    ) : (
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    )}
                   </div>
                 </Link>
               </motion.div>
@@ -207,19 +219,19 @@ export default function Home() {
                  </div>
               )}
             </div>
-            <h2 className="text-3xl md:text-5xl font-black leading-tight">رؤيتنا في إرساء دعائم المعرفة المحاسبية</h2>
+            <h2 className="text-3xl md:text-5xl font-black leading-tight">{t('common.vision_title')}</h2>
             <p className="text-xl text-slate-400 leading-[1.8] font-light">
-              "نؤمن بأن المحاسبة هي لغة الأعمال التي يجب أن تُفهم بدقة من قبل الجميع. نهدف في إيليجا إلى تبسيط هذه اللغة المعقدة وتحويلها إلى أدوات عملية تدفع عجلة النجاح في المؤسسات."
+              {t('common.vision_text')}
             </p>
             <div className="pt-8 border-t border-white/10 flex flex-wrap justify-center gap-12">
               <div className="text-center">
-                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">القيم الجوهرية</p>
+                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">{t('common.core_values')}</p>
                 <div className="flex gap-4 font-bold text-sm">
-                  <span>الدقة</span>
+                  <span>{t('common.accuracy')}</span>
                   <span className="text-blue-500">•</span>
-                  <span>الشفافية</span>
+                  <span>{t('common.transparency')}</span>
                   <span className="text-blue-500">•</span>
-                  <span>الاحترافية</span>
+                  <span>{t('common.professionalism')}</span>
                 </div>
               </div>
             </div>
@@ -231,16 +243,18 @@ export default function Home() {
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8 text-right">
-              <h2 className="text-3xl font-bold text-slate-900 border-r-4 border-blue-600 pr-6">التزامنا تجاه الجودة والمهنية</h2>
+            <div className={cn("space-y-8", isRtl ? "text-right" : "text-left")}>
+              <h2 className={cn("text-3xl font-bold text-slate-900 border-blue-600", isRtl ? "border-r-4 pr-6" : "border-l-4 pl-6")}>
+                {t('common.quality_commitment')}
+              </h2>
               <p className="text-slate-600 leading-relaxed">
-                في إيليجا، لا نكتفي بتقديم المعلومات فحسب، بل نسعى لبناء شراكة معرفية مع عملائنا وطلابنا تضمن التطبيق الصحيح والفعال للمبادئ المحاسبية.
+                {t('common.quality_text')}
               </p>
               <div className="space-y-4">
                 {[
-                  'تحديث مستمر للمحتوى وفق آخر التعديلات في المعايير.',
-                  'تركيز على الجانب العملي والتطبيقي للأرقام.',
-                  'دعم فني واستشاري متواصل لكافة المستفيدين.'
+                  isRtl ? 'تحديث مستمر للمحتوى وفق آخر التعديلات في المعايير.' : 'Continuous content updates according to latest standard amendments.',
+                  isRtl ? 'تركيز على الجانب العملي والتطبيقي للأرقام.' : 'Focus on the practical and applied aspect of numbers.',
+                  isRtl ? 'دعم فني واستشاري متواصل لكافة المستفيدين.' : 'Continuous technical and advisory support for all beneficiaries.'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3 text-slate-700 font-medium text-sm">
                     <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
@@ -252,13 +266,13 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="clean-card bg-white space-y-4">
                 <TrendingUp className="w-8 h-8 text-blue-600" />
-                <h4 className="font-bold">استشارات نمو</h4>
-                <p className="text-xs text-slate-500">مساعدة المؤسسات في تحديد مسارات النمو المالي الآمن.</p>
+                <h4 className="font-bold">{isRtl ? 'استشارات نمو' : 'Growth Consulting'}</h4>
+                <p className="text-xs text-slate-500">{isRtl ? 'مساعدة المؤسسات في تحديد مسارات النمو المالي الآمن.' : 'Helping organizations identify safe financial growth paths.'}</p>
               </div>
               <div className="clean-card bg-white mt-8 space-y-4">
                 <Shield className="w-8 h-8 text-blue-600" />
-                <h4 className="font-bold">رقابة داخلية</h4>
-                <p className="text-xs text-slate-500">تصميم وتدقيق أنظمة الرقابة لضمان نزاهة العمليات.</p>
+                <h4 className="font-bold">{isRtl ? 'رقابة داخلية' : 'Internal Control'}</h4>
+                <p className="text-xs text-slate-500">{isRtl ? 'تصميم وتدقيق أنظمة الرقابة لضمان نزاهة العمليات.' : 'Designing and auditing control systems to ensure process integrity.'}</p>
               </div>
             </div>
           </div>

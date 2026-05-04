@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import Home from './pages/Home';
 import AccountingCycle from './pages/AccountingCycle';
@@ -26,6 +25,7 @@ import AnalysisDetail from './pages/FinancialAnalysis/AnalysisDetail';
 import StandardDetailAI from './pages/StandardDetailAI';
 import AccountingMisc from './pages/AccountingMisc';
 import Breadcrumbs from './components/Breadcrumbs';
+import Footer from './components/Footer';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
