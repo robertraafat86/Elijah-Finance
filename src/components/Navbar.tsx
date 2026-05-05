@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import { LOGO_URL, NAV_ITEMS } from '../constants';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
+
+  const isRtl = i18n.language === 'ar';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +68,7 @@ export default function Navbar() {
                     activeDropdown === item.title ? 'text-blue-600 bg-slate-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
                   )}
                 >
-                  {item.title}
+                  {t(item.title)}
                   <ChevronDown className={cn('w-4 h-4 transition-transform', activeDropdown === item.title && 'rotate-180')} />
                 </button>
               ) : (
@@ -76,7 +81,7 @@ export default function Navbar() {
                       : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
                   )}
                 >
-                  {item.title}
+                  {t(item.title)}
                   {isActive(item.path) && (
                     <motion.div 
                       layoutId="activeNav"
@@ -105,7 +110,7 @@ export default function Navbar() {
                             isActive(child.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
                           )}
                         >
-                          {child.title}
+                          {t(child.title)}
                         </Link>
                       ))}
                     </motion.div>
@@ -116,21 +121,30 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center">
+            <LanguageSwitcher />
+          </div>
+          
           <Link
             to="/accounting-portal"
-            className="hidden lg:inline-flex bg-blue-600 text-white px-5 py-2 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-200 hover:shadow-lg active:scale-95"
+            className="hidden lg:inline-flex bg-blue-600 text-white px-5 py-2 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-200 hover:shadow-lg active:scale-95 whitespace-nowrap"
           >
-            ابدأ التعلم
+            {t('common.start_learning')}
           </Link>
 
           {/* Mobile Toggle */}
-          <button
-            className="xl:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-900 border border-slate-100"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="xl:hidden flex items-center gap-2">
+            <div className="sm:hidden flex items-center">
+              <LanguageSwitcher />
+            </div>
+            <button
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-900 border border-slate-100"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -146,11 +160,14 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
             />
             <motion.div
-              initial={{ x: '100%' }}
+              initial={{ x: isRtl ? '-100%' : '100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+              exit={{ x: isRtl ? '-100%' : '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] bg-white z-50 shadow-2xl overflow-y-auto"
+              className={cn(
+                "fixed top-0 bottom-0 w-[280px] bg-white z-50 shadow-2xl overflow-y-auto",
+                isRtl ? "left-0" : "right-0"
+              )}
             >
               <div className="p-6 flex flex-col h-full">
                 <div className="flex items-center justify-between mb-8">
@@ -174,7 +191,7 @@ export default function Navbar() {
                               activeDropdown === item.title ? 'bg-blue-50 text-blue-600' : 'text-slate-700'
                             )}
                           >
-                            {item.title}
+                            {t(item.title)}
                             <ChevronDown className={cn('w-4 h-4 transition-transform', activeDropdown === item.title && 'rotate-180')} />
                           </button>
                           <AnimatePresence>
@@ -194,7 +211,7 @@ export default function Navbar() {
                                       isActive(child.path) ? 'text-blue-600 border-blue-600' : 'text-slate-600 border-transparent'
                                     )}
                                   >
-                                    {child.title}
+                                    {t(child.title)}
                                   </Link>
                                 ))}
                               </motion.div>
@@ -211,7 +228,7 @@ export default function Navbar() {
                               : 'text-slate-700 hover:bg-slate-50'
                           )}
                         >
-                          {item.title}
+                          {t(item.title)}
                         </Link>
                       )}
                     </div>
@@ -223,7 +240,7 @@ export default function Navbar() {
                     to="/accounting-portal"
                     className="w-full flex items-center justify-center bg-blue-600 text-white p-4 rounded-xl font-bold transition-all shadow-lg shadow-blue-200"
                   >
-                    ابدأ التعلم الآن
+                    {t('common.start_learning')}
                   </Link>
                 </div>
               </div>

@@ -24,34 +24,36 @@ import { NavItem, Service, AccountingStep, FinancialStatement, Review, Accountin
 export const LOGO_URL = "https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs";
 
 export const NAV_ITEMS: NavItem[] = [
-  { title: 'الرئيسية', path: '/' },
-  { title: 'بوابة المحاسبة', path: '/accounting-portal' },
-  { title: 'الدورة المحاسبية', path: '/accounting-cycle' },
-  { title: 'محاسبة التكاليف', path: '/cost-accounting' },
-  { title: 'المحاسبة الضريبية', path: '/tax-accounting' },
-  { title: 'محاسبة المقاولات', path: '/construction-accounting' },
-  { title: 'محاسبة المستشفيات', path: '/hospital-accounting' },
-  { title: 'التحليل المالي', path: '/financial-analysis' },
-  { title: 'الضريبة الجمركية', path: '/customs-duties' },
-  { title: 'المراجعة الداخلية', path: '/internal-audit' },
+  { title: 'nav.home', path: '/' },
+  { title: 'nav.portal', path: '/accounting-portal' },
+  { title: 'nav.accounting_cycle', path: '/accounting-cycle' },
+  { title: 'nav.cost_accounting', path: '/cost-accounting' },
+  { title: 'nav.tax_accounting', path: '/tax-accounting' },
+  { title: 'nav.construction_accounting', path: '/construction-accounting' },
+  { title: 'nav.hospital_accounting', path: '/hospital-accounting' },
+  { title: 'nav.financial_analysis', path: '/financial-analysis' },
+  { title: 'nav.customs_duties', path: '/customs-duties' },
+  { title: 'nav.internal_audit', path: '/internal-audit' },
   { 
-    title: 'معايير ولوائح محاسبية', 
+    title: 'nav.reports_group', 
     path: '#standards', 
     children: [
-      { title: 'شرح المعايير (AI)', path: '/ias/1' },
-      { title: 'القوائم المالية', path: '/financial-statements' },
-      { title: 'المعايير الدولية', path: '/accounting-standards' },
-      { title: 'المعايير المصرية', path: '/egyptian-standards' },
-      { title: 'اللائحة المالية', path: '/financial-regulations' },
+      { title: 'nav.ai_standards', path: '/ias/1' },
+      { title: 'nav.financial_statements', path: '/financial-statements' },
+      { title: 'nav.international_standards', path: '/accounting-standards' },
+      { title: 'nav.egyptian_standards', path: '/egyptian-standards' },
+      { title: 'nav.financial_regulations', path: '/financial-regulations' },
     ]
   },
   { 
-    title: 'بنك المعلومات', 
-    path: '#misc', 
+    title: 'nav.accounting_misc', 
+    path: '/accounting-portal#knowledge-bank', 
     children: [
-      { title: 'طرق حساب المخزون', path: '/inventory' },
-      { title: 'مذكرة تسوية البنك', path: '/bank-reconciliation' },
-      { title: 'بنك المعلومات', path: '/accounting-misc' },
+      { title: 'nav.inventory', path: '/inventory' },
+      { title: 'nav.bank_reconciliation', path: '/bank-reconciliation' },
+      { title: 'nav.bad_debts', path: '/bad-debts' },
+      { title: 'nav.scrap', path: '/scrap' },
+      { title: 'nav.depreciation', path: '/depreciation-methods' },
     ]
   },
 ];
@@ -59,51 +61,51 @@ export const NAV_ITEMS: NavItem[] = [
 export const ACCOUNTING_PRINCIPLES: AccountingPrinciple[] = [
   {
     id: 'accrual',
-    title: 'مبدأ الاستحقاق',
-    description: 'تسجيل العمليات المالية عند حدوثها بغض النظر عن توقيت استلام أو دفع النقد.',
-    example: 'تسجيل فاتورة الكهرباء لشهر ديسمبر كـ "مصروف مستحق" حتى لو لم تُدفع إلا في يناير.',
+    title: 'principles.accrual.title',
+    description: 'principles.accrual.desc',
+    example: 'principles.accrual.example',
     icon: <Clock className="w-6 h-6" />,
   },
   {
     id: 'going-concern',
-    title: 'مبدأ الاستمرارية',
-    description: 'افتراض أن المنشأة مستمرة في نشاطها لفترة زمنية طويلة وغير معرضة للتصفية قريباً.',
-    example: 'تقييم الأصول الثابتة بالتكلفة التاريخية بدلاً من قيمتها التصفوية الحالية.',
+    title: 'principles.going_concern.title',
+    description: 'principles.going_concern.desc',
+    example: 'principles.going_concern.example',
     icon: <RefreshCcw className="w-6 h-6" />,
   },
   {
     id: 'consistency',
-    title: 'مبدأ الثبات',
-    description: 'استخدام نفس الطرق والسياسات المحاسبية من فترة لأخرى لضمان القابلية للمقارنة.',
-    example: 'إذا اختارت الشركة طريقة "القسط الثابت" للإهلاك، يجب الالتزام بها في السنوات القادمة.',
+    title: 'principles.consistency.title',
+    description: 'principles.consistency.desc',
+    example: 'principles.consistency.example',
     icon: <Scale className="w-6 h-6" />,
   },
   {
     id: 'materiality',
-    title: 'مبدأ الأهمية النسبية',
-    description: 'التركيز على المعلومات التي يؤثر حذفها أو تحريفها على قرارات مستخدمي القوائم المالية.',
-    example: 'اعتبار شراء "آلة حاسبة" مصروفاً فورياً بدلاً من أصل ثابت لصغر قيمتها مقارنة بحجم الشركة.',
+    title: 'principles.materiality.title',
+    description: 'principles.materiality.desc',
+    example: 'principles.materiality.example',
     icon: <BarChart3 className="w-6 h-6" />,
   },
   {
     id: 'full-disclosure',
-    title: 'مبدأ الإفصاح الكامل',
-    description: 'توفير كافة المعلومات الضرورية التي تهم مستخدمي القوائم المالية لاتخاذ قراراتهم.',
-    example: 'إضافة إيضاحات حول القضايا القانونية القائمة ضد الشركة في الملاحظات المرفقة.',
+    title: 'principles.full_disclosure.title',
+    description: 'principles.full_disclosure.desc',
+    example: 'principles.full_disclosure.example',
     icon: <Eye className="w-6 h-6" />,
   },
   {
     id: 'prudence',
-    title: 'مبدأ الحيطة والحذر',
-    description: 'عدم المبالغة في تقدير الأصول والإيرادات، والاعتراف الفوري بالخسائر المتوقعة.',
-    example: 'تكوين "مخصص ديون مشكوك في تحصيلها" عند توقع عدم سداد أحد العملاء لديونه.',
+    title: 'principles.prudence.title',
+    description: 'principles.prudence.desc',
+    example: 'principles.prudence.example',
     icon: <AlertTriangle className="w-6 h-6" />,
   },
   {
     id: 'comparability',
-    title: 'مبدأ القابلية للمقارنة',
-    description: 'تمكين المستخدمين من مقارنة القوائم المالية للمنشأة عبر الزمن أو مع منشآت أخرى.',
-    example: 'عرض أرقام السنة الحالية بجانب أرقام السنة السابقة في القوائم المالية.',
+    title: 'principles.comparability.title',
+    description: 'principles.comparability.desc',
+    example: 'principles.comparability.example',
     icon: <ArrowLeftRight className="w-6 h-6" />,
   },
 ];
@@ -111,102 +113,102 @@ export const ACCOUNTING_PRINCIPLES: AccountingPrinciple[] = [
 export const ACCOUNTING_STANDARDS_IAS: AccountingStandard[] = [
   {
     code: 'IAS 1',
-    title: 'عرض القوائم المالية',
+    title: 'standards.ias1.title',
     category: 'IAS',
-    description: 'يحدد متطلبات عرض القوائم المالية لضمان قابلية للمقارنة.',
-    usage: 'يُستخدم كدليل أساسي لهيكلة الميزانية وقائمة الدخل.',
+    description: 'standards.ias1.desc',
+    usage: 'standards.ias1.usage',
   },
   {
     code: 'IAS 2',
-    title: 'المخزون',
+    title: 'standards.ias2.title',
     category: 'IAS',
-    description: 'يحدد المعالجة المحاسبية للمخزون وقياس تكلفته.',
-    usage: 'يُطبق لتقييم البضاعة في المخازن في نهاية السنة المالية.',
+    description: 'standards.ias2.desc',
+    usage: 'standards.ias2.usage',
   },
   {
     code: 'IAS 7',
-    title: 'التدفقات النقدية',
+    title: 'standards.ias7.title',
     category: 'IAS',
-    description: 'يتطلب توفير معلومات حول التغيرات التاريخية في النقدية.',
-    usage: 'يُستخدم لإعداد قائمة التدفقات النقدية وتصنيف الأنشطة.',
+    description: 'standards.ias7.desc',
+    usage: 'standards.ias7.usage',
   },
   {
     code: 'IAS 16',
-    title: 'الأصول الثابتة',
+    title: 'standards.ias16.title',
     category: 'IAS',
-    description: 'يتناول المعالجة المحاسبية للعقارات والآلات والمعدات.',
-    usage: 'يُطبق لحساب الإهلاك والاعتراف بالأصول الإنتاجية.',
+    description: 'standards.ias16.desc',
+    usage: 'standards.ias16.usage',
   },
 ];
 
 export const ACCOUNTING_STANDARDS_IFRS: AccountingStandard[] = [
   {
     code: 'IFRS 15',
-    title: 'الإيرادات من العقود مع العملاء',
+    title: 'standards.ifrs15.title',
     category: 'IFRS',
-    description: 'يحدد نموذجاً موحداً للاعتراف بالإيرادات.',
-    usage: 'يُطبق لتحديد توقيت وقيمة الإيراد الناتج عن بيع السلع أو الخدمات.',
+    description: 'standards.ifrs15.desc',
+    usage: 'standards.ifrs15.usage',
   },
   {
     code: 'IFRS 16',
-    title: 'عقود الإيجار',
+    title: 'standards.ifrs16.title',
     category: 'IFRS',
-    description: 'يتطلب من المستأجرين الاعتراف بالأصول والالتزامات لجميع عقود الإيجار.',
-    usage: 'يُستخدم لإظهار التزامات الإيجار طويلة الأجل داخل الميزانية.',
+    description: 'standards.ifrs16.desc',
+    usage: 'standards.ifrs16.usage',
   },
   {
     code: 'IFRS 9',
-    title: 'الأدوات المالية',
+    title: 'standards.ifrs9.title',
     category: 'IFRS',
-    description: 'يتناول تصنيف وقياس الأصول والالتزامات المالية.',
-    usage: 'يُطبق لتقييم الاستثمارات والأسهم والسندات التي تمتلكها الشركة.',
+    description: 'standards.ifrs9.desc',
+    usage: 'standards.ifrs9.usage',
   },
 ];
 
 export const ACCOUNTING_STANDARDS_EAS: AccountingStandard[] = [
   {
     code: 'EAS 1',
-    title: 'عرض القوائم المالية',
+    title: 'standards.eas1.title',
     category: 'EAS',
-    description: 'يحدد المتطلبات العامة لعرض القوائم المالية، وإرشادات هيكلها، والمتطلبات الدنيا لمحتواها وفقاً لمعايير المحاسبة المصرية المعدلة، لضمان القابلية للمقارنة محلياً ودولياً.',
-    usage: 'إعداد الحزمة الكاملة للقوائم المالية (الميزانية، الدخل، الدخل الشامل، التغير في حقوق الملكية، التدفقات النقدية، والإيضاحات المتممة) مع الالتزام بمتطلبات الإفصاح الخاصة بقانون الشركات رقم 159 لسنة 1981.',
-    example: 'تنسيق الميزانية العمومية لتشمل الأصول والالتزامات المتداولة وغير المتداولة بشكل منفصل، مع عرض الأرقام المقارنة للسنة السابقة لضمان الشفافية والامتثال لمتطلبات الضرائب المصرية.',
+    description: 'standards.eas1.desc',
+    usage: 'standards.eas1.usage',
+    example: 'standards.eas1.example',
     icon: <FileText className="w-6 h-6" />,
   },
   {
     code: 'EAS 2',
-    title: 'المخزون',
+    title: 'standards.eas2.title',
     category: 'EAS',
-    description: 'يتناول المعالجة المحاسبية للمخزون، مع التركيز على قياس التكلفة والاعتراف اللاحق بها كمصروف، بما في ذلك أي تخفيض إلى صافي القيمة البيعية (NRV) وفقاً للممارسات السوقية في مصر.',
-    usage: 'تقييم بضاعة آخر المدة في الميزانية العمومية، وتحديد تكلفة البضاعة المباعة، مع الالتزام بمتطلبات الفحص الضريبي المصري الذي يركز على طرق التكلفة الفعلية.',
-    example: 'استخدام طريقة "المتوسط المرجح" لتقييم المخزون نظراً لشيوعها وقبولها الضريبي الواسع في مصر، مع ضرورة عمل مخصص لهبوط أسعار المخزون إذا كانت القيمة البيعية التقديرية أقل من التكلفة.',
+    description: 'standards.eas2.desc',
+    usage: 'standards.eas2.usage',
+    example: 'standards.eas2.example',
     icon: <PieChart className="w-6 h-6" />,
   },
   {
     code: 'EAS 7',
-    title: 'قوائم التدفقات النقدية',
+    title: 'standards.eas7.title',
     category: 'EAS',
-    description: 'يهدف إلى توفير معلومات عن التغيرات التاريخية في النقدية وما في حكمها للمنشأة.',
-    usage: 'يستخدم لتصنيف التدفقات النقدية إلى أنشطة تشغيلية واستثمارية وتمويلية.',
-    example: 'إظهار النقد المدفوع لشراء آلات جديدة ضمن التدفقات النقدية من الأنشطة الاستثمارية.',
+    description: 'standards.eas7.desc',
+    usage: 'standards.eas7.usage',
+    example: 'standards.eas7.example',
     icon: <TrendingUp className="w-6 h-6" />,
   },
   {
     code: 'EAS 16',
-    title: 'الأصول الثابتة وإهلاكاتها',
+    title: 'standards.eas16.title',
     category: 'EAS',
-    description: 'يتناول المعالجة المحاسبية للأصول الثابتة بحيث يمكن لمستخدمي القوائم المالية فهم المعلومات المتعلقة باستثمارات المنشأة.',
-    usage: 'يستخدم لحساب تكلفة الأصل، طرق الإهلاك، والقيمة الدفترية.',
-    example: 'حساب إهلاك مبنى الشركة على مدار 20 سنة باستخدام طريقة القسط الثابت.',
+    description: 'standards.eas16.desc',
+    usage: 'standards.eas16.usage',
+    example: 'standards.eas16.example',
     icon: <Calculator className="w-6 h-6" />,
   },
   {
     code: 'EAS 17',
-    title: 'الإيرادات والمصروفات',
+    title: 'standards.eas17.title',
     category: 'EAS',
-    description: 'يحدد المعايير المحاسبية للاعتراف بالإيرادات الناتجة عن أنواع معينة من المعاملات والأحداث.',
-    usage: 'يستخدم لتحديد توقيت الاعتراف بالإيراد عند انتقال المخاطر والمنافع للعميل.',
-    example: 'الاعتراف بإيراد بيع أجهزة كهربائية فور تسليمها للعميل وتوقيعه على الاستلام.',
+    description: 'standards.eas17.desc',
+    usage: 'standards.eas17.usage',
+    example: 'standards.eas17.example',
     icon: <BarChart3 className="w-6 h-6" />,
   },
 ];
@@ -214,30 +216,30 @@ export const ACCOUNTING_STANDARDS_EAS: AccountingStandard[] = [
 export const SERVICES: Service[] = [
   {
     id: 'bookkeeping',
-    title: 'مسك الدفاتر',
-    description: 'تسجيل دقيق ومنظم لجميع العمليات المالية اليومية لضمان تتبع تدفقاتك النقدية.',
-    features: ['تسجيل القيود اليومية', 'ترحيل لدفتر الأستاذ', 'مطابقة الحسابات البنكية'],
+    title: 'services.bookkeeping.title',
+    description: 'services.bookkeeping.desc',
+    features: ['services.bookkeeping.f1', 'services.bookkeeping.f2', 'services.bookkeeping.f3'],
     icon: <BookOpen className="w-8 h-8" />,
   },
   {
     id: 'financial-statements',
-    title: 'إعداد القوائم المالية',
-    description: 'إعداد التقارير المالية الختامية وفقاً للمعايير المحاسبية الدولية والمحلية.',
-    features: ['قائمة الدخل', 'الميزانية العمومية', 'التدفقات النقدية'],
+    title: 'services.statements.title',
+    description: 'services.statements.desc',
+    features: ['services.statements.f1', 'services.statements.f2', 'services.statements.f3'],
     icon: <FileText className="w-8 h-8" />,
   },
   {
     id: 'internal-audit',
-    title: 'المراجعة الداخلية',
-    description: 'تقييم شامل للأنظمة المالية والرقابية لضمان الكفاءة والحد من المخاطر.',
-    features: ['فحص الأنظمة الرقابية', 'كشف الأخطاء والاحتيال', 'تحسين الأداء المالي'],
+    title: 'services.audit.title',
+    description: 'services.audit.desc',
+    features: ['services.audit.f1', 'services.audit.f2', 'services.audit.f3'],
     icon: <ShieldCheck className="w-8 h-8" />,
   },
   {
     id: 'taxes',
-    title: 'الضرائب',
-    description: 'تقديم الاستشارات الضريبية وإعداد الإقرارات لضمان الالتزام بالقوانين وتجنب الغرامات.',
-    features: ['ضريبة القيمة المضافة', 'ضريبة الدخل', 'التخطيط الضريبي'],
+    title: 'services.taxes.title',
+    description: 'services.taxes.desc',
+    features: ['services.taxes.f1', 'services.taxes.f2', 'services.taxes.f3'],
     icon: <Calculator className="w-8 h-8" />,
   },
 ];
@@ -245,165 +247,87 @@ export const SERVICES: Service[] = [
 export const ACCOUNTING_STEPS: AccountingStep[] = [
   {
     id: 'analysis',
-    title: 'تحليل العمليات المالية',
-    description: 'تبدأ العملية المحاسبية بتحليل العمليات المالية لتحديد طبيعتها وتأثيرها على الحسابات المختلفة مثل الأصول والخصوم والإيرادات والمصروفات، مما يضمن تسجيلها بشكل صحيح.',
-    example: 'تحديد ما إذا كانت العملية تمثل شراء أصل أو سداد التزام أو تحقيق إيراد.',
+    title: 'steps.analysis.title',
+    description: 'steps.analysis.desc',
+    example: 'steps.analysis.example',
   },
   {
     id: 'journal',
-    title: 'القيود اليومية',
-    description: 'القيود اليومية هي الخطوة الأساسية في تسجيل العمليات المالية، حيث يتم إثبات كل عملية في شكل قيد محاسبي يعتمد على نظام المدين والدائن لضمان التوازن والدقة.',
-    example: 'تسجيل قيد من حـ/ المشتريات إلى حـ/ الصندوق عند الشراء نقداً.',
+    title: 'steps.journal.title',
+    description: 'steps.journal.desc',
+    example: 'steps.journal.example',
   },
   {
     id: 'ledger',
-    title: 'دفتر الأستاذ',
-    description: 'يتم في دفتر الأستاذ تجميع وترحيل جميع القيود اليومية إلى حسابات مستقلة، مما يساعد في معرفة رصيد كل حساب بشكل واضح ومنظم.',
-    example: 'ترحيل جميع حركات الصندوق إلى صفحة حساب الصندوق في دفتر الأستاذ.',
+    title: 'steps.ledger.title',
+    description: 'steps.ledger.desc',
+    example: 'steps.ledger.example',
   },
   {
     id: 'trial-balance',
-    title: 'ميزان المراجعة',
-    description: 'يستخدم ميزان المراجعة للتأكد من توازن الحسابات، حيث يجب أن يتساوى مجموع الأرصدة المدينة مع الأرصدة الدائنة، مما يعكس دقة التسجيل المحاسبي.',
-    example: 'التأكد من أن إجمالي الأرصدة المدينة يساوي إجمالي الأرصدة الدائنة قبل إعداد القوائم.',
+    title: 'steps.trial_balance.title',
+    description: 'steps.trial_balance.desc',
+    example: 'steps.trial_balance.example',
   },
   {
     id: 'adjustments',
-    title: 'التسويات الجردية',
-    description: 'تهدف التسويات الجردية إلى تعديل الحسابات في نهاية الفترة المالية لضمان تسجيل الإيرادات والمصروفات في الفترة الصحيحة، مثل المصروفات المستحقة والإهلاك.',
-    example: 'حساب وإثبات مصروف الإهلاك السنوي للأصول الثابتة.',
+    title: 'steps.adjustments.title',
+    description: 'steps.adjustments.desc',
+    example: 'steps.adjustments.example',
   },
 ];
 
 export const FINANCIAL_STATEMENTS: FinancialStatement[] = [
   {
     id: 'income-statement',
-    title: 'قائمة الدخل (Income Statement)',
-    description: 'توضح قائمة الدخل نتيجة أعمال المنشأة خلال فترة زمنية محددة، من خلال مقارنة الإيرادات بالمصروفات للوصول إلى صافي الربح أو الخسارة.',
-    example: 'إيرادات (100,000) - تكلفة مبيعات (60,000) = مجمل ربح (40,000).',
-    template: `📊 قائمة الدخل عن الفترة المنتهية في 31/12/2025
-
-الإيرادات:
-إيرادات المبيعات                 100,000
-(-) تكلفة المبيعات              (40,000)
----------------------------------------
-مجمل الربح                      60,000
-
-المصروفات:
-مصروفات إدارية                 (10,000)
-مصروفات تسويقية               (5,000)
-مصروفات أخرى                  (5,000)
----------------------------------------
-إجمالي المصروفات               (20,000)
----------------------------------------
-صافي الربح                     40,000`,
+    title: 'statements.income.title',
+    description: 'statements.income.desc',
+    example: 'statements.income.example',
+    template: 'statements.income.template',
   },
   {
     id: 'balance-sheet',
-    title: 'قائمة المركز المالي (Balance Sheet)',
-    description: 'تعرض قائمة المركز المالي الوضع المالي للمنشأة في لحظة معينة، من خلال بيان ما تملكه من أصول وما عليها من التزامات.',
-    example: 'الأصول (200,000) = الخصوم (80,000) + حقوق الملكية (120,000).',
-    template: `💰 قائمة المركز المالي في 31/12/2025
-
-الأصول:
-🔹 الأصول المتداولة:
-نقدية بالصندوق والبنك          20,000
-العملاء                         15,000
-المخزون                        25,000
----------------------------------------
-إجمالي الأصول المتداولة        60,000
-
-🔹 الأصول الثابتة:
-أثاث ومعدات                   40,000
-(-) مجمع الإهلاك              (10,000)
----------------------------------------
-صافي الأصول الثابتة            30,000
----------------------------------------
-إجمالي الأصول                  90,000
-
-=======================================
-
-الخصوم:
-🔹 الخصوم المتداولة:
-الموردين                       20,000
-مصروفات مستحقة                5,000
----------------------------------------
-إجمالي الخصوم المتداولة        25,000
-
-🔹 الخصوم طويلة الأجل:
-قروض                           15,000
----------------------------------------
-إجمالي الخصوم                  40,000
-
-=======================================
-
-حقوق الملكية:
-رأس المال                      30,000
-الأرباح المحتجزة               20,000
----------------------------------------
-إجمالي حقوق الملكية            50,000
----------------------------------------
-إجمالي الخصوم وحقوق الملكية   90,000`,
+    title: 'statements.balance.title',
+    description: 'statements.balance.desc',
+    example: 'statements.balance.example',
+    template: 'statements.balance.template',
   },
   {
     id: 'cash-flow',
-    title: 'قائمة التدفقات النقدية (Cash Flow)',
-    description: 'توضح حركة النقد داخل وخارج المنشأة، وتساعد في معرفة قدرة الشركة على توليد النقد.',
-    example: 'صافي التدفق النقدي من الأنشطة التشغيلية يوضح السيولة الناتجة عن العمليات اليومية.',
-    template: `💵 قائمة التدفقات النقدية
-
-🔹 الأنشطة التشغيلية:
-صافي الربح                     40,000
-إهلاك                        10,000
----------------------------------------
-صافي التدفقات التشغيلية        50,000
-
-🔹 الأنشطة الاستثمارية:
-شراء أصول ثابتة               (15,000)
-
-🔹 الأنشطة التمويلية:
-سداد قروض                     (10,000)
----------------------------------------
-صافي التغير في النقدية         25,000
-رصيد أول المدة                 5,000
----------------------------------------
-رصيد آخر المدة                 30,000`,
+    title: 'statements.cash_flow.title',
+    description: 'statements.cash_flow.desc',
+    example: 'statements.cash_flow.example',
+    template: 'statements.cash_flow.template',
   },
   {
     id: 'equity-statement',
-    title: 'قائمة التغير في حقوق الملكية',
-    description: 'تعرض التغيرات التي حدثت في حقوق ملكية المنشأة خلال الفترة، مثل الأرباح أو الخسائر والتوزيعات.',
-    example: 'رأس المال + صافي الربح - التوزيعات = حقوق الملكية في نهاية الفترة.',
-    template: `📉 قائمة التغير في حقوق الملكية
-
-رصيد أول الفترة                30,000
-صافي الربح                   40,000
-توزيعات أرباح               (10,000)
----------------------------------------
-رصيد آخر الفترة                60,000`,
+    title: 'statements.equity.title',
+    description: 'statements.equity.desc',
+    example: 'statements.equity.example',
+    template: 'statements.equity.template',
   },
 ];
 
 export const REVIEWS: Review[] = [
   {
     id: '1',
-    name: 'أحمد محمود',
-    company: 'شركة النور للتجارة',
-    comment: 'خدمة احترافية جداً، ساعدونا في تنظيم حساباتنا بشكل ممتاز وتوفير الكثير من الوقت.',
+    name: 'reviews.r1.name',
+    company: 'reviews.r1.company',
+    comment: 'reviews.r1.comment',
     rating: 5,
   },
   {
     id: '2',
-    name: 'سارة العتيبي',
-    company: 'مؤسسة الإبداع الرقمي',
-    comment: 'فريق عمل متميز ودقة عالية في إعداد القوائم المالية والتقارير الضريبية.',
+    name: 'reviews.r2.name',
+    company: 'reviews.r2.company',
+    comment: 'reviews.r2.comment',
     rating: 5,
   },
   {
     id: '3',
-    name: 'محمد علي',
-    company: 'مطاعم الضيافة',
-    comment: 'أفضل مكتب محاسبة تعاملت معه، التزام بالمواعيد ونصائح مالية قيمة.',
+    name: 'reviews.r3.name',
+    company: 'reviews.r3.company',
+    comment: 'reviews.r3.comment',
     rating: 4,
   },
 ];

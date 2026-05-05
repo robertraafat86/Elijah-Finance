@@ -15,11 +15,17 @@ import {
   BookmarkCheck,
   Filter,
   ArrowLeftRight,
-  Info
+  Info,
+  Calculator,
+  Recycle,
+  ShieldAlert,
+  ArrowRight,
+  ArrowLeft
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { ACCOUNTING_MISC_DATA } from '../../data/accountingMisc';
 import { AccountingMiscCategory } from '../../types';
+import { Link } from 'react-router-dom';
 
 export default function AccountingMisc() {
   const { t, i18n } = useTranslation();
@@ -29,6 +35,33 @@ export default function AccountingMisc() {
   const [activeCategory, setActiveCategory] = useState<AccountingMiscCategory | 'all'>('all');
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [savedItems, setSavedItems] = useState<Set<string>>(new Set());
+
+  const featuredModules = [
+    {
+      id: 'depreciation',
+      title: t('depreciation_page.title'),
+      desc: t('depreciation_page.subtitle'),
+      icon: <Calculator className="w-8 h-8" />,
+      path: '/depreciation-methods',
+      color: 'blue'
+    },
+    {
+      id: 'scrap',
+      title: t('scrap_page.title'),
+      desc: t('scrap_page.subtitle'),
+      icon: <Recycle className="w-8 h-8" />,
+      path: '/scrap',
+      color: 'emerald'
+    },
+    {
+      id: 'bad-debts',
+      title: t('bad_debts_page.title'),
+      desc: t('bad_debts_page.subtitle'),
+      icon: <ShieldAlert className="w-8 h-8" />,
+      path: '/bad-debts',
+      color: 'red'
+    }
+  ];
 
   const categoryMap: { id: AccountingMiscCategory; label: string; icon: React.ReactNode; color: string }[] = [
     { id: 'basic-concepts', label: t('misc.categories.basic-concepts'), icon: <BookOpen className="w-4 h-4" />, color: 'blue' },
@@ -122,6 +155,43 @@ export default function AccountingMisc() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Learning Modules */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12 space-y-4">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{t('depreciation_page.featured_title')}</h2>
+            <p className="text-slate-500 font-medium">{t('depreciation_page.featured_desc')}</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {featuredModules.map((module) => (
+              <Link 
+                key={module.id}
+                to={module.path}
+                className="group relative bg-slate-50 rounded-[2.5rem] p-10 border border-slate-100 hover:border-blue-500 hover:bg-white transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200 overflow-hidden"
+              >
+                <div className={cn(
+                  "absolute top-0 right-0 w-32 h-32 opacity-5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700",
+                  `bg-${module.color}-600`
+                )} />
+                <div className={cn(
+                  "w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500",
+                  `bg-${module.color}-100 text-${module.color}-600`
+                )}>
+                  {module.icon}
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-4">{module.title}</h3>
+                <p className="text-slate-500 font-medium text-sm leading-relaxed mb-8">{module.desc}</p>
+                <div className="flex items-center gap-2 text-blue-600 font-black text-xs uppercase tracking-widest">
+                  {t('depreciation_page.start_learning')}
+                  {isRtl ? <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> : <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

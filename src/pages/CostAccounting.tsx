@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 import { 
   Calculator, 
   PieChart, 
@@ -12,6 +13,7 @@ import {
   AlertCircle,
   FileText,
   ArrowRight,
+  ArrowLeft,
   Settings,
   Users,
   Box,
@@ -20,6 +22,9 @@ import {
 import { cn } from '../lib/utils';
 
 const CostAccounting = () => {
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.language === 'ar';
+  
   const [unitCost, setUnitCost] = useState({
     materials: 0,
     labor: 0,
@@ -45,7 +50,7 @@ const CostAccounting = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white pt-20" dir="rtl">
+    <div className={cn("min-h-screen bg-white pt-20", isRtl ? "text-right" : "text-left")}>
       {/* Hero Section */}
       <section className="relative py-20 bg-primary overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -61,13 +66,24 @@ const CostAccounting = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 text-accent mb-6">
               <Factory className="w-5 h-5" />
-              <span className="font-bold">محاسبة التكاليف</span>
+              <span className="font-bold">{t('cost.title')}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              دليلك الشامل في <span className="text-accent">محاسبة التكاليف</span> والرقابة الصناعية
+              {t('cost.hero_title').split('<span class="text-accent">').map((part, i) => {
+                if (part.includes('</span>')) {
+                  const [accentText, normalText] = part.split('</span>');
+                  return (
+                    <React.Fragment key={i}>
+                      <span className="text-accent">{accentText}</span>
+                      {normalText}
+                    </React.Fragment>
+                  );
+                }
+                return part;
+              })}
             </h1>
             <p className="text-xl text-white/80 mb-8 leading-relaxed">
-              تعلم كيف تحسب تكلفة منتجاتك بدقة، وتحلل عناصر التكلفة، وتدعم اتخاذ القرار لزيادة ربحية شركتك.
+              {t('cost.hero_subtitle')}
             </p>
           </motion.div>
         </div>
@@ -78,21 +94,21 @@ const CostAccounting = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-primary mb-6">ما هي محاسبة التكاليف؟</h2>
+              <h2 className="text-3xl font-bold text-primary mb-6">{t('cost.what_is_cost_accounting')}</h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                محاسبة التكاليف هي فرع من فروع المحاسبة يهتم بتجميع وتسجيل وتحليل بيانات التكاليف المتعلقة بالأنشطة والعمليات المختلفة داخل المنشأة، بهدف تحديد تكلفة المنتج أو الخدمة، والرقابة على التكاليف، ومساعدة الإدارة في اتخاذ القرارات.
+                {t('cost.cost_accounting_desc')}
               </p>
               <div className="space-y-4">
                 {[
-                  { title: "الفرق عن المحاسبة المالية", desc: "المحاسبة المالية تخدم الأطراف الخارجية، بينما محاسبة التكاليف تخدم الإدارة الداخلية." },
-                  { title: "الأهمية في التسعير", desc: "تحديد السعر العادل للمنتج بناءً على تكلفته الفعلية وهامش الربح المطلوب." },
-                  { title: "الرقابة والتقييم", desc: "مقارنة التكاليف الفعلية بالمعيارية لتحديد الانحرافات ومعالجتها." }
+                  { title: t('cost.diff_financial'), desc: t('cost.diff_financial_desc') },
+                  { title: t('cost.pricing_importance'), desc: t('cost.pricing_desc') },
+                  { title: t('cost.control_eval'), desc: t('cost.control_eval_desc') }
                 ].map((item, index) => (
-                  <div key={index} className="flex gap-4 p-4 rounded-xl bg-gray-50 border-r-4 border-accent">
+                  <div key={index} className={cn("flex gap-4 p-4 rounded-xl bg-gray-50", isRtl ? "border-r-4" : "border-l-4", "border-accent")}>
                     <div>
                       <h4 className="font-bold text-primary mb-1">{item.title}</h4>
                       <p className="text-gray-600 text-sm">{item.desc}</p>
@@ -102,7 +118,7 @@ const CostAccounting = () => {
               </div>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative"
@@ -110,12 +126,12 @@ const CostAccounting = () => {
               <div className="aspect-[4/3] bg-primary/5 rounded-2xl border border-gray-100 flex items-center justify-center p-12">
                  <div className="text-center space-y-4">
                     <Factory className="w-16 h-16 text-primary mx-auto opacity-20" />
-                    <p className="text-primary/40 font-bold">دقة في تحليل البيانات</p>
+                    <p className="text-primary/40 font-bold">{t('cost.data_accuracy')}</p>
                  </div>
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-accent p-8 rounded-2xl shadow-xl hidden md:block">
+              <div className={cn("absolute -bottom-6 bg-accent p-8 rounded-2xl shadow-xl hidden md:block", isRtl ? "-right-6" : "-left-6")}>
                 <div className="text-primary font-bold text-4xl mb-1">100%</div>
-                <div className="text-primary/80 text-sm">دقة في تحليل البيانات</div>
+                <div className="text-primary/80 text-sm">{t('cost.data_accuracy')}</div>
               </div>
             </motion.div>
           </div>
@@ -126,9 +142,9 @@ const CostAccounting = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-primary mb-4">عناصر التكاليف الأساسية</h2>
+            <h2 className="text-3xl font-bold text-primary mb-4">{t('cost.core_elements')}</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              تتكون تكلفة أي منتج من ثلاثة عناصر رئيسية يجب تتبعها بدقة لضمان حساب التكلفة الإجمالية الصحيحة.
+              {t('cost.core_elements_subtitle')}
             </p>
           </div>
 
@@ -136,21 +152,21 @@ const CostAccounting = () => {
             {[
               {
                 icon: Box,
-                title: "المواد المباشرة",
-                desc: "هي المواد الخام التي تدخل مباشرة في تصنيع المنتج ويمكن تتبعها بسهولة.",
-                examples: "الخشب في الأثاث، القماش في الملابس."
+                title: t('cost.direct_materials'),
+                desc: t('cost.direct_materials_desc'),
+                examples: t('cost.direct_materials_examples')
               },
               {
                 icon: Users,
-                title: "الأجور المباشرة",
-                desc: "هي أجور العمال الذين يعملون مباشرة على تحويل المواد الخام إلى منتج نهائي.",
-                examples: "أجور عمال الإنتاج، الفنيين المتخصصين."
+                title: t('cost.direct_labor'),
+                desc: t('cost.direct_labor_desc'),
+                examples: t('cost.direct_labor_examples')
               },
               {
                 icon: Settings,
-                title: "المصروفات الصناعية غير المباشرة",
-                desc: "هي التكاليف التي لا يمكن تتبعها مباشرة لمنتج معين ولكنها ضرورية للإنتاج.",
-                examples: "إيجار المصنع، الكهرباء، إهلاك الآلات."
+                title: t('cost.indirect_costs'),
+                desc: t('cost.indirect_costs_desc'),
+                examples: t('cost.indirect_costs_examples')
               }
             ].map((element, index) => (
               <motion.div
@@ -167,7 +183,7 @@ const CostAccounting = () => {
                 <h3 className="text-xl font-bold text-primary mb-3">{element.title}</h3>
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed">{element.desc}</p>
                 <div className="pt-4 border-t border-gray-100">
-                  <span className="text-xs font-bold text-accent uppercase tracking-wider">أمثلة:</span>
+                  <span className="text-xs font-bold text-accent uppercase tracking-wider">{t('nav.reports_group').includes('معايير') ? 'أمثلة:' : 'Examples:'}</span>
                   <p className="text-gray-500 text-sm mt-1">{element.examples}</p>
                 </div>
               </motion.div>
@@ -182,13 +198,13 @@ const CostAccounting = () => {
           <div className="bg-primary rounded-3xl overflow-hidden shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="p-12 lg:p-20">
-                <h2 className="text-3xl font-bold text-white mb-8">أنظمة محاسبة التكاليف</h2>
+                <h2 className="text-3xl font-bold text-white mb-8">{t('cost.cost_systems')}</h2>
                 <div className="space-y-8">
                   {[
-                    { title: "نظام تكاليف الأوامر الإنتاجية", desc: "يستخدم عندما يتم الإنتاج بناءً على طلبات خاصة ومحددة لكل عميل." },
-                    { title: "نظام تكاليف المراحل الإنتاجية", desc: "يستخدم في الصناعات ذات الإنتاج المستمر والنمطي مثل البترول والأسمنت." },
-                    { title: "نظام التكاليف المعيارية", desc: "تحديد تكاليف مقدرة مسبقاً ومقارنتها بالتكاليف الفعلية لتحليل الانحرافات." },
-                    { title: "نظام التكاليف على أساس النشاط (ABC)", desc: "توزيع التكاليف غير المباشرة بناءً على الأنشطة التي تستهلك الموارد." }
+                    { title: t('cost.orders_system'), desc: t('cost.orders_system_desc') },
+                    { title: t('cost.process_system'), desc: t('cost.process_system_desc') },
+                    { title: t('cost.standard_system'), desc: t('cost.standard_system_desc') },
+                    { title: t('cost.abc_system'), desc: t('cost.abc_system_desc') }
                   ].map((system, index) => (
                     <div key={index} className="flex gap-4">
                       <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold">
@@ -205,7 +221,7 @@ const CostAccounting = () => {
               <div className="relative h-full min-h-[400px] flex items-center justify-center bg-primary/10">
                 <div className="text-center space-y-4 p-12">
                     <Settings className="w-24 h-24 text-white/20 mx-auto" />
-                    <p className="text-white/40 font-bold">إدارة العمليات الإنتاجية</p>
+                    <p className="text-white/40 font-bold">{t('cost.mgmt_prod_ops')}</p>
                 </div>
               </div>
             </div>
@@ -217,8 +233,8 @@ const CostAccounting = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-primary mb-4">أدوات وحاسبات التكاليف</h2>
-            <p className="text-gray-600">استخدم هذه الأدوات لتبسيط حساباتك اليومية في إدارة التكاليف.</p>
+            <h2 className="text-3xl font-bold text-primary mb-4">{t('cost.tools_title')}</h2>
+            <p className="text-gray-600">{t('cost.tools_subtitle')}</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -228,52 +244,52 @@ const CostAccounting = () => {
                 <div className="p-3 rounded-xl bg-primary/5">
                   <Calculator className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-primary">حاسبة تكلفة الوحدة</h3>
+                <h3 className="text-xl font-bold text-primary">{t('cost.unit_cost_calc')}</h3>
               </div>
 
               <div className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">تكلفة المواد</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('cost.materials_cost')}</label>
                     <input 
                       type="number"
                       value={unitCost.materials}
-                      onChange={(e) => setUnitCost({...unitCost, materials: e.target.value})}
+                      onChange={(e) => setUnitCost({...unitCost, materials: Number(e.target.value)})}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">تكلفة الأجور</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('cost.labor_cost')}</label>
                     <input 
                       type="number"
                       value={unitCost.labor}
-                      onChange={(e) => setUnitCost({...unitCost, labor: e.target.value})}
+                      onChange={(e) => setUnitCost({...unitCost, labor: Number(e.target.value)})}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none transition-all"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">المصروفات غير المباشرة</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('cost.indirect_exp')}</label>
                   <input 
                     type="number"
                     value={unitCost.overhead}
-                    onChange={(e) => setUnitCost({...unitCost, overhead: e.target.value})}
+                    onChange={(e) => setUnitCost({...unitCost, overhead: Number(e.target.value)})}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">عدد الوحدات المنتجة</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('cost.units_produced')}</label>
                   <input 
                     type="number"
                     value={unitCost.units}
-                    onChange={(e) => setUnitCost({...unitCost, units: e.target.value})}
+                    onChange={(e) => setUnitCost({...unitCost, units: Number(e.target.value)})}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none transition-all"
                   />
                 </div>
 
                 <div className="p-6 rounded-2xl bg-primary text-white text-center">
-                  <div className="text-sm text-white/70 mb-1">تكلفة الوحدة الواحدة</div>
-                  <div className="text-3xl font-bold text-accent">{calculateUnitCost()} ج.م</div>
+                  <div className="text-sm text-white/70 mb-1">{t('cost.unit_cost_result')}</div>
+                  <div className="text-3xl font-bold text-accent">{calculateUnitCost()} {isRtl ? 'ج.م' : 'EGP'}</div>
                 </div>
               </div>
             </div>
@@ -284,44 +300,44 @@ const CostAccounting = () => {
                 <div className="p-3 rounded-xl bg-accent/10">
                   <TrendingUp className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-primary">حاسبة نقطة التعادل</h3>
+                <h3 className="text-xl font-bold text-primary">{t('cost.break_even_calc')}</h3>
               </div>
 
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">إجمالي التكاليف الثابتة</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('cost.fixed_costs')}</label>
                   <input 
                     type="number"
                     value={breakEven.fixedCosts}
-                    onChange={(e) => setBreakEven({...breakEven, fixedCosts: e.target.value})}
+                    onChange={(e) => setBreakEven({...breakEven, fixedCosts: Number(e.target.value)})}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none transition-all"
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">سعر بيع الوحدة</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('cost.selling_price')}</label>
                     <input 
                       type="number"
                       value={breakEven.sellingPrice}
-                      onChange={(e) => setBreakEven({...breakEven, sellingPrice: e.target.value})}
+                      onChange={(e) => setBreakEven({...breakEven, sellingPrice: Number(e.target.value)})}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none transition-all"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">التكلفة المتغيرة للوحدة</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('cost.variable_cost')}</label>
                     <input 
                       type="number"
                       value={breakEven.variableCostPerUnit}
-                      onChange={(e) => setBreakEven({...breakEven, variableCostPerUnit: e.target.value})}
+                      onChange={(e) => setBreakEven({...breakEven, variableCostPerUnit: Number(e.target.value)})}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div className="p-6 rounded-2xl bg-gray-50 border-2 border-dashed border-accent/30 text-center">
-                  <div className="text-sm text-gray-500 mb-1">كمية التعادل (بالوحدات)</div>
-                  <div className="text-3xl font-bold text-primary">{calculateBreakEven()} وحدة</div>
-                  <p className="text-xs text-gray-400 mt-2">هي الكمية التي لا تحقق عندها الشركة ربحاً ولا خسارة.</p>
+                  <div className="text-sm text-gray-500 mb-1">{t('cost.break_even_qty')}</div>
+                  <div className="text-3xl font-bold text-primary">{calculateBreakEven()} {isRtl ? 'وحدة' : 'Units'}</div>
+                  <p className="text-xs text-gray-400 mt-2">{t('cost.break_even_desc')}</p>
                 </div>
               </div>
             </div>
@@ -333,27 +349,27 @@ const CostAccounting = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-primary mb-12 text-center">التقارير والتحليلات الأساسية</h2>
+            <h2 className="text-3xl font-bold text-primary mb-12 text-center">{t('cost.reports_title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
-                  title: "قائمة التكاليف الصناعية",
-                  desc: "تقرير يوضح تكلفة المواد والأجور والمصروفات خلال فترة معينة.",
+                  title: t('cost.industrial_cost_list'),
+                  desc: t('cost.industrial_cost_desc'),
                   icon: ClipboardList
                 },
                 {
-                  title: "تقرير تحليل الانحرافات",
-                  desc: "مقارنة الأداء الفعلي بالمعايير المحددة مسبقاً لتحديد نقاط الضعف.",
+                  title: t('cost.deviation_report'),
+                  desc: t('cost.deviation_desc'),
                   icon: AlertCircle
                 },
                 {
-                  title: "تحليل هامش المساهمة",
-                  desc: "دراسة مدى مساهمة كل منتج في تغطية التكاليف الثابتة وتحقيق الربح.",
+                  title: t('cost.margin_analysis'),
+                  desc: t('cost.margin_desc'),
                   icon: PieChart
                 },
                 {
-                  title: "تقارير مراكز التكلفة",
-                  desc: "توزيع التكاليف على الأقسام المختلفة لتقييم كفاءة كل قسم.",
+                  title: t('cost.cost_centers'),
+                  desc: t('cost.cost_centers_desc'),
                   icon: Target
                 }
               ].map((report, index) => (
@@ -375,12 +391,12 @@ const CostAccounting = () => {
       {/* CTA Section */}
       <section className="py-20 bg-accent">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-primary mb-6">هل تحتاج إلى استشارة في بناء نظام تكاليف لشركتك؟</h2>
+          <h2 className="text-3xl font-bold text-primary mb-6">{t('cost.cta_title')}</h2>
           <p className="text-primary/80 mb-10 max-w-2xl mx-auto text-lg">
-            نحن نساعدك في تصميم وتطبيق أنظمة التكاليف التي تناسب طبيعة نشاطك وتدعم نمو أعمالك.
+            {t('cost.cta_desc')}
           </p>
           <button className="bg-primary text-white px-10 py-4 rounded-full font-bold hover:bg-primary/90 transition-all shadow-xl">
-            تواصل معنا الآن
+            {t('cost.contact_now')}
           </button>
         </div>
       </section>

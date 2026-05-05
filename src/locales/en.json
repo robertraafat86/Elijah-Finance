@@ -1,84 +1,64 @@
 {
-  "common": {
-    "welcome": "Welcome",
-    "search": "Search...",
-    "save": "Save",
-    "copy": "Copy",
-    "print": "Print",
-    "download_pdf": "Download PDF",
-    "next": "Next",
-    "previous": "Previous",
-    "loading": "Loading...",
-    "error": "An error occurred",
-    "all": "All",
-    "need_help": "Need help?",
-    "chat_with_us": "Chat with us",
-    "start_learning": "Start Learning",
-    "learn_more": "Learn more about us",
-    "explore_content": "Explore Educational Content",
-    "explore_subtitle": "Choose the section you want to deepen your knowledge in through our simplified and professional explanations.",
-    "vision_title": "Our Vision in Establishing Accounting Knowledge",
-    "vision_text": "\"We believe that accounting is the language of business that must be understood precisely by everyone. At Elijah, we aim to simplify this complex language and transform it into practical tools that drive success in organizations.\"",
-    "core_values": "Core Values",
-    "accuracy": "Accuracy",
-    "transparency": "Transparency",
-    "professionalism": "Professionalism",
-    "quality_commitment": "Our Commitment to Quality and Professionalism",
-    "quality_text": "At Elijah, we don't just provide information; we strive to build a knowledge partnership with our clients and students that ensures the correct and effective application of accounting principles."
-  },
   "nav": {
     "home": "Home",
     "portal": "Accounting Portal",
-    "ai_standards": "AI Standards Explanation",
-    "tax_accounting": "Tax Accounting",
-    "hospital_accounting": "Hospital Accounting",
-    "construction_accounting": "Construction Accounting",
+    "accounting_cycle": "Accounting Cycle",
     "cost_accounting": "Cost Accounting",
+    "tax_accounting": "Tax Accounting",
+    "construction_accounting": "Construction Accounting",
+    "hospital_accounting": "Hospital Accounting",
     "financial_analysis": "Financial Analysis",
+    "customs_duties": "Customs Duties",
+    "internal_audit": "Internal Audit",
+    "reports_group": "Standards & Regulations",
+    "ai_standards": "Standards Explained (AI)",
+    "financial_statements": "Financial Statements",
     "international_standards": "International Standards",
     "egyptian_standards": "Egyptian Standards",
-    "accounting_misc": "Knowledge Bank",
     "financial_regulations": "Financial Regulations",
-    "inventory": "Inventory",
+    "accounting_misc": "Knowledge Bank",
+    "inventory": "Inventory Methods",
     "bank_reconciliation": "Bank Reconciliation",
-    "interview_questions": "Interview Questions",
-    "services": "Services",
+    "bad_debts": "Bad Debts",
+    "scrap": "Scrap",
+    "depreciation": "Depreciation Methods",
     "about": "About Us",
-    "contact": "Contact Us",
-    "ai_group": "Artificial Intelligence",
-    "specialties_group": "Accounting Specialties",
-    "reports_group": "Reports & Standards",
-    "audit_group": "Audit Tools",
-    "general_group": "General",
-    "accounting_cycle": "Accounting Cycle",
-    "customs_duties": "Customs Duties",
-    "internal_audit": "Internal Audit"
+    "contact": "Contact Us"
+  },
+  "common": {
+    "start_learning": "Start Learning",
+    "professionalism": "Professionalism",
+    "quality_text": "High professional standards in all services.",
+    "chat_with_us": "Chat with us now",
+    "example_practical": "Practical Example:",
+    "order_service": "Request this service",
+    "years_exp": "Years of Experience",
+    "clients": "Happy Clients",
+    "learn_more": "Learn More",
+    "discover_services": "Discover Our Services",
+    "contact_expert": "Contact an Accounting Expert",
+    "stage": "Stage",
+    "print_btn": "Print",
+    "download_pdf": "Download PDF",
+    "copy": "Copy",
+    "save": "Save"
   },
   "home": {
-    "hero_title": "Elijah Center for Accounting and Financial Excellence",
-    "hero_subtitle": "We turn numbers into facts, and knowledge into professional skills that open up horizons for success in the labor market. Your professional guide to mastering accounting sciences and financial services.",
-    "get_started": "Start Learning Now",
-    "center_name": "Elijah Center for Training and Financial Consultations",
+    "hero_title": "Integrated Financial and Accounting Success Starts Here",
+    "hero_subtitle": "Professional expertise in bookkeeping, internal audit, and full financial consultancy with a focus on accuracy and sustainable growth.",
+    "financial_portal": "Financial Portal",
+    "educational_bank": "Educational Bank",
     "years_exp": "Years of Experience",
-    "edu_programs": "Educational Program",
-    "clients": "Beneficiary Client",
-    "certificates": "Certified Certificate",
-    "portal_desc": "Your entry into learning the basic principles of financial accounting and understanding the language of numbers and core concepts on which all operations are built.",
-    "cycle_desc": "A comprehensive explanation of all accounting stages from start to finish, including analysis of financial operations, daily entries, and posting to the general ledger.",
-    "cost_desc": "Study of different cost systems (orders, stages, activity) and how to determine the product cost for making accurate pricing decisions.",
-    "tax_desc": "A comprehensive guide to income tax and VAT, and how to prepare tax returns and deal with the Egyptian Tax Authority.",
-    "construction_desc": "Handling accounting for contracts and construction operations, and income from construction contracts and related costs according to standards.",
-    "hospital_desc": "The accounting system in medical institutions, management of health service costs, and patient and insurance company accounts.",
-    "customs_desc": "Understanding customs laws, methods of valuing imported goods, and calculating customs duties and taxes related to imports.",
-    "audit_desc": "Control and audit tools, evaluation of financial performance, and discovery of errors and deviations to ensure the integrity of financial statements.",
-    "standards_desc": "A comprehensive reference for financial statements, International Standards IFRS, Egyptian Standards, and financial regulations governing work.",
-    "misc_desc": "Advanced topics including inventory calculation methods, bank reconciliation notes, and accounting treatments for various practical cases."
-  },
-  "footer": {
-    "designed_by": "Designed by",
-    "all_rights_reserved": "All rights reserved to",
-    "author": "Accountant / Rober Raafat",
-    "address": "Address / Alexandria, Arab Republic of Egypt"
+    "clients": "Happy Clients",
+    "projects": "Project Completed",
+    "services_title": "Our Professional Services",
+    "services_desc": "We provide a comprehensive range of accounting and financial services specifically designed to meet your company's needs.",
+    "accounting_portal_title": "Simplified Financial Education",
+    "accounting_portal_desc": "Explore our interactive educational portal to understand accounting basics and standards properly.",
+    "principles_title": "Basic Accounting Principles",
+    "principles_desc": "Accounting is based on a set of fundamental principles that ensure reliability and transparency in financial reporting.",
+    "reviews_title": "Success Stories from Our Clients",
+    "reviews_desc": "We take pride in the trust of our clients across various sectors."
   },
   "about": {
     "title": "About Us",
@@ -112,34 +92,1108 @@
     "form_desc": "Please fill out the details below and one of our consultants will contact you.",
     "map_placeholder": "[Map showing company location]"
   },
+  "portal": {
+    "title": "Accounting & Finance Portal",
+    "subtitle": "From Foundation to Professionalism",
+    "desc": "An integrated educational platform aimed at simplifying complex accounting concepts and presenting them in a practical format that fits current market needs.",
+    "what_is_accounting": "What is Accounting?",
+    "accounting_definition": "Accounting is not just recording numbers, but an integrated system for collecting, analyzing, and classifying financial data, and transforming it into valuable information that supports strategic decision-making in organizations.",
+    "performance_measurement": "Performance Measurement",
+    "performance_desc": "Helps in knowing how efficiently the company uses its available resources.",
+    "compliance_control": "Compliance and Control",
+    "compliance_desc": "Ensures commitment to professional standards and prevailing tax laws.",
+    "financial_system_analysis": "System and Financial Analysis",
+    "core_pillars": "Core Pillars of Financial Accounting",
+    "core_pillars_desc": "Understanding these elements is the first step for any successful accountant seeking professional excellence.",
+    "assets": "Assets",
+    "assets_desc": "Everything owned by the entity that has future economic value.",
+    "assets_example": "Example: Cash, machinery, and real estate.",
+    "liabilities": "Liabilities",
+    "liabilities_desc": "Obligations and debts owed by the entity to external parties.",
+    "liabilities_example": "Example: Bank loans, and suppliers.",
+    "equity": "Equity",
+    "equity_desc": "Represents the owners' share in the net value of the entity after deducting obligations.",
+    "equity_example": "Example: Capital, and retained earnings.",
+    "revenue": "Revenue",
+    "revenue_desc": "Increase in assets as a result of selling goods or providing services to customers.",
+    "revenue_example": "Example: Sales of goods and services.",
+    "expenses": "Expenses",
+    "expenses_desc": "Costs incurred by the entity in order to achieve revenue.",
+    "expenses_example": "Example: Salaries, rents, and depreciation.",
+    "first_path": "First Learning Path",
+    "full_cycle_title": "Understanding the Full Accounting Cycle",
+    "full_cycle_desc": "Track financial transaction steps from the moment they occur as initial analysis, up to journal entries and reaching their culmination in the final financial statements.",
+    "browse_path": "Browse Learning Path",
+    "analysis_ops": "Analysis of Operations",
+    "journal_entries": "Journal Entries",
+    "general_ledger": "General Ledger",
+    "trial_balance": "Trial Balance",
+    "advanced_topics_title": "Advanced Topics in Accounting and Auditing",
+    "advanced_topics_desc": "Take your professional level to new horizons by studying accurate accounting specialties."
+  },
+  "accounting_cycle": {
+    "title": "Accounting Cycle",
+    "subtitle": "The accounting cycle is a set of organized steps through which financial transactions are recorded and analyzed, leading to the preparation of financial statements. This cycle helps ensure data accuracy and sound financial decision-making.",
+    "practical_example": "Practical Example:",
+    "order_service": "Request this service",
+    "stage": "Stage",
+    "learn_more_prompt": "Want to learn more or apply this to your company?",
+    "learn_more_desc": "We are here to help you build a strong and accurate accounting system following global best practices.",
+    "steps": {
+      "analysis": "Analysis of Financial Operations",
+      "analysis_desc": "The accounting process begins with analyzing financial transactions to determine their nature and impact on various accounts such as assets, liabilities, revenues, and expenses, ensuring they are recorded correctly.",
+      "analysis_example": "Determining if the operation represents an asset purchase, liability settlement, or revenue realization.",
+      "journal": "Journal Entries",
+      "journal_desc": "Journal entries are the basic step in recording financial operations, where each operation is proven in the form of an accounting entry based on the debit and credit system to ensure balance and accuracy.",
+      "journal_example": "Recording an entry from Purchase A/C to Cash A/C when purchasing for cash.",
+      "ledger": "General Ledger",
+      "ledger_desc": "In the general ledger, all journal entries are collected and posted to independent accounts, which helps in knowing the balance of each account clearly and organized.",
+      "ledger_example": "Posting all cash movements to the Cash account page in the general ledger.",
+      "trial_balance": "Trial Balance",
+      "trial_balance_desc": "The trial balance is used to ensure the balance of accounts, where the total of debit balances must equal the total of credit balances, reflecting the accuracy of accounting recording.",
+      "trial_balance_example": "Ensuring that the total debit balances equals the total credit balances before preparing financial statements.",
+      "adjustments": "Adjusting Entries",
+      "adjustments_desc": "Adjusting entries aim to modify accounts at the end of the financial period to ensure that revenues and expenses are recorded in the correct period, such as accrued expenses and depreciation.",
+      "adjustments_example": "Calculating and proving annual depreciation expense for fixed assets."
+    }
+  },
+  "footer": {
+    "designed_by": "Designed by",
+    "all_rights_reserved": "All copyrights and distribution rights reserved",
+    "author": "Accountant / Robert Raafat",
+    "whatsapp": "WhatsApp / 00201208538580",
+    "email": "Email / robert.raafat.86@gmail.com",
+    "address": "Address / Alexandria, Arab Republic of Egypt"
+  },
   "misc": {
     "title": "Knowledge Bank",
     "subtitle": "Learn Smarter, Faster",
-    "description": "A collection of important accounting information and concepts in direct question-and-answer format to help you in your daily review.",
-    "quick_questions": "Quick Questions",
-    "search_placeholder": "Search questions and answers...",
-    "search_label": "Search for Information",
-    "categories_label": "Categories",
-    "saved_items": "Saved Items",
-    "saved_desc": "Questions you saved for review later.",
-    "copy_success": "Answer copied!",
-    "no_results": "No results found for your search",
-    "no_results_desc": "Try other keywords or choose a different category.",
-    "show_all": "Show all questions",
-    "details_label": "Deep Explanation",
-    "example_label": "Practical Example",
-    "show_details": "Show more details",
-    "hide_details": "Hide details",
-    "professional_tips": "Professional Tips",
-    "common_errors": "Common Errors",
-    "categories": {
-      "basic-concepts": "Basic Concepts",
-      "terminology": "Terminology",
-      "tips": "Tips",
-      "common-errors": "Common Errors",
-      "quick-q": "Quick Qs",
-      "general-info": "General Info",
-      "all": "All"
+    "desc": "A set of practical accounting treatments and advanced topics addressed in a simplified and professional scientific way."
+  },
+  "tax": {
+    "title": "Tax Accounting",
+    "hero_title": "Tax Accounting and Tax Returns in Egypt",
+    "hero_subtitle": "Your comprehensive guide to understanding Egyptian tax laws, and how to prepare returns accurately to avoid fines and ensure your company's growth.",
+    "what_is_tax": "What is Tax Accounting?",
+    "tax_desc": "It is a specialized branch of accounting that focuses on calculating taxes due on the entity according to the tax laws and legislation applicable in Egypt. It aims to determine the tax base accurately and submit returns on their legal dates.",
+    "compliance": "Compliance with Law",
+    "avoid_fines": "Avoid Fines",
+    "org_accounts": "Organize Accounts",
+    "tax_transparency": "Compliance and Tax Transparency",
+    "primary_types": "Main Tax Types in Egypt",
+    "types_subtitle": "A quick look at the tax obligations facing Egyptian companies.",
+    "corporate_tax": "Corporate Income Tax",
+    "corporate_tax_desc": "Imposed on the net profits of legal persons (companies).",
+    "vat": "Value Added Tax (VAT)",
+    "vat_desc": "An indirect tax imposed on most goods and services.",
+    "salary_tax": "Labor Earnings Tax (Salaries)",
+    "salary_tax_desc": "Deducted from employees' salaries and supplied to the Tax Authority.",
+    "withholding_tax": "Discount and Addition Tax",
+    "withholding_tax_desc": "Amounts deducted under the tax account when dealing with suppliers.",
+    "corporate_detail": "Corporate Income Tax (In Detail)",
+    "corporate_detail_subtitle": "Income tax is considered the basic tax on corporate profits in Egypt.",
+    "who_is_subject": "Who is subject to tax?",
+    "subject_desc": "All companies and institutions (legal persons) resident in Egypt are subject for all their profits, whether achieved in Egypt or abroad, and non-resident companies for their profits achieved in Egypt only.",
+    "tax_base": "Tax Base",
+    "base_desc": "It is the net accounting profit after making the necessary tax adjustments (additions and deductions) to reach the actually taxable profit.",
+    "major_adjustments": "Major Tax Adjustments",
+    "additions": "Additions (Unrecognized Expenses)",
+    "provisions": "Provisions and reserves of all kinds.",
+    "income_taxes_paid": "Income taxes paid.",
+    "fines_penalties": "Fines and financial penalties resulting from violations.",
+    "unsupported_exp": "Expenses not supported by documents (exceeding 7%).",
+    "deductions": "Deductions (Tax-Deductible Expenses)",
+    "tax_depreciation": "Tax depreciation (according to law rates).",
+    "gov_donations": "Donations to government agencies (full).",
+    "ngo_donations": "Donations to recognized associations (within the limits of 10/110).",
+    "carry_forward": "Carry forward losses from previous years (max 5 years).",
+    "calc_example": "How to calculate income tax (Numerical Example)",
+    "calc_subtitle": "Let's take a practical example to simplify the calculation process.",
+    "elijah_example": "Illustrative example for \"Elijah\" company",
+    "accounting_profit": "1. Net Accounting Profit (from Income Statement)",
+    "unrecognized_exp": "2. (+) Unrecognized expenses (provisions, fines)",
+    "deductible_exp": "3. (-) Deductible expenses (tax depreciation difference)",
+    "net_tax_profit": "4. Net Tax Profit (Base)",
+    "tax_due": "5. Tax Due (assuming rate of 22.5%)",
+    "rate_note": "* Note: Tax rate may vary based on nature of activity and laws in force at time of submitting return.",
+    "tax_return_title": "Tax Return: Your Tax Birth Certificate",
+    "tax_return_desc": "The tax return is an official form submitted by the taxpayer to the Tax Authority, in which he reports his revenues, expenses, and net profit during the financial year. It is the legal tool that determines your financial obligation towards the state.",
+    "return_contents": "Contents of the Tax Return:",
+    "basic_info": "Basic company data",
+    "income_statement": "Detailed income statement",
+    "balance_sheet": "Balance sheet",
+    "dep_schedule": "Tax depreciation schedule",
+    "dealings_stmt": "Statement of dealings with others",
+    "final_calc": "Final tax calculation",
+    "submission_steps": "Steps to submit the return",
+    "prep_statements": "Preparing financial statements",
+    "prep_statements_desc": "Preparing the balance sheet and income statement accurately.",
+    "calc_adjustments": "Calculate adjustments",
+    "calc_adjustments_desc": "Identifying tax additions and deductions.",
+    "elec_submission": "Electronic submission",
+    "elec_submission_desc": "Uploading data through the Egyptian Tax System.",
+    "tax_payment": "Tax payment",
+    "tax_payment_desc": "Paying due amounts through banking channels.",
+    "deadlines_fines": "Tax Deadlines and Fines",
+    "deadlines_desc": "Meeting deadlines is key to your company's safety. Delays may expose you to heavy fines and legal problems you don't need.",
+    "corp_deadline_title": "Return submission deadline (for companies)",
+    "corp_deadline_desc": "Return must be submitted within 4 months from the end date of the financial year (usually before April 30).",
+    "delay_fines_title": "Delay Fines",
+    "delay_fines_desc": "Fines apply for delay in submission, in addition to delay interest on unpaid tax amounts.",
+    "common_errors": "Common mistakes to avoid",
+    "error_expenses": "Overlooking some expenses",
+    "error_expenses_desc": "Leads to an increase in the tax base and paying more tax than necessary.",
+    "error_calc": "Calculation errors",
+    "error_calc_desc": "Lead to rejection of the return or imposition of inspection difference fines.",
+    "error_docs": "Loss of documents",
+    "error_docs_desc": "Document is the only evidence accepted during tax inspection.",
+    "error_delay": "Delay in submission",
+    "error_delay_desc": "Loses you the tax discount advantage and exposes you to immediate fines.",
+    "how_we_help": "How does \"Elijah\" help you manage your taxes?",
+    "help_subtitle": "We are not just accountants, we are your partners in success and legal compliance.",
+    "returns_prep": "Returns Preparation",
+    "returns_prep_desc": "Preparing and uploading all types of tax returns electronically.",
+    "accurate_calc": "Accurate Calculation",
+    "accurate_calc_desc": "Ensuring tax calculation with the lowest possible legal base.",
+    "tax_rep": "Tax Representation",
+    "tax_rep_desc": "Attending tax inspection and defending your company's rights.",
+    "risk_reduction": "Risk Reduction",
+    "risk_reduction_desc": "Early warning of any tax gaps that may cause problems.",
+    "order_now": "Order Service Now"
+  },
+  "construction": {
+    "title": "Construction Accounting",
+    "meta_title": "Construction Accounting | Elijah Financial and Accounting Services",
+    "meta_desc": "Learn about construction accounting, completion rates, extracts, taxes, and project-specific costs in a professional way.",
+    "hero_badge": "Accountant's Guide in Construction Companies",
+    "hero_title": "Construction Accounting and Real Estate Development",
+    "hero_desc": "A comprehensive and professional explanation of the accounting cycle in construction companies, from opening the project account to final closing, with interactive tools and calculators.",
+    "tab_intro": "Introduction & Characteristics",
+    "tab_cycle": "Accounting Cycle",
+    "tab_costs": "Costs & Entries",
+    "tab_completion": "Completion Rates",
+    "tab_extracts": "Extracts",
+    "tab_taxes": "Taxes & Insurance",
+    "tab_tools": "Tools & Calculators",
+    "tab_examples": "Practical Examples",
+    "intro_title": "Introduction to Construction Accounting",
+    "def_title": "Definition of Construction Accounting:",
+    "def_desc": "It is a specialized branch of financial accounting that aims to track costs and revenues for each construction project separately, due to the nature of the activity that depends on the \"Job Order System\" or \"Projects\".",
+    "diff_title": "Difference between Commercial and Construction Accounting:",
+    "diff_desc": "In commercial accounting, ready-made goods are sold in a fast cash cycle, while in construction, the product (building) is \"manufactured\" at the customer's site and for long periods of time that may exceed the financial year.",
+    "importance_title": "Importance:",
+    "importance_desc": "Its importance lies in strict control over costs (materials, labor, subcontractors) to ensure that the estimated budget is not exceeded and the target profit is achieved.",
+    "char_title": "Characteristics of Construction Accounting",
+    "char_multi": "Multi-Projects",
+    "char_multi_desc": "Managing several sites in different geographical locations.",
+    "char_long": "Long Execution Duration",
+    "char_long_desc": "Projects may take years to complete.",
+    "char_stages": "Completion Stages",
+    "char_stages_desc": "Dividing work into stages (excavation, concrete, finishing).",
+    "char_extracts": "Extracts",
+    "char_extracts_desc": "Periodic billing system based on what has been implemented.",
+    "char_advance": "Advance Payments",
+    "char_advance_desc": "Financing the project by the client at the beginning.",
+    "char_costs": "Diverse Costs",
+    "char_costs_desc": "Overlapping costs of materials, labor, and subcontractors.",
+    "cycle_title": "Accounting Cycle for Projects",
+    "cycle_subtitle": "Sequential steps ensure full financial control over each project.",
+    "cycle_step1": "Open Project Account",
+    "cycle_step1_desc": "Allocating an independent accounting code for each project in the chart of accounts.",
+    "cycle_step2": "Record Expenses",
+    "cycle_step2_desc": "Recording the costs of materials, labor, and equipment directed to the project.",
+    "cycle_step3": "Follow up Progress",
+    "cycle_step3_desc": "Coordinating with the technical office to determine the actual completion rate.",
+    "cycle_step4": "Prepare Extracts",
+    "cycle_step4_desc": "Issuing periodic invoices (extracts) to the client based on progress.",
+    "cycle_step5": "Accounting Entries",
+    "cycle_step5_desc": "Recording accrual, collection, and retention entries.",
+    "cycle_step6": "Project Closing",
+    "cycle_step6_desc": "Comparing actual cost with estimated cost and determining the final profit.",
+    "costs_title": "Types of Costs in Construction",
+    "material_cost": "Material Cost",
+    "materials": ["Cement", "Steel", "Sand", "Bricks"],
+    "labor_cost": "Labor Cost",
+    "labor": ["Engineers", "Technicians", "Daily laborers"],
+    "equip_cost": "Equipment Cost",
+    "equip": ["Cranes", "Mixers", "Excavators"],
+    "sub_cost": "Subcontractors",
+    "subs": ["Plumbing", "Electricity", "Painting"],
+    "indirect_cost": "Indirect Expenses",
+    "indirects": ["Site rent", "Site electricity", "Insurance"],
+    "admin_cost": "Administrative Expenses",
+    "admins": ["Management salaries", "Head office rent"],
+    "entries_title": "Common Accounting Entries",
+    "entry_materials": "Purchasing materials for project",
+    "entry_labor": "Paying labor wages",
+    "entry_extract": "Recording client extract",
+    "entry_advance": "Receiving advance payment",
+    "entry_retention": "Recording work guarantee retention",
+    "debit": "Dr/ (Debit)",
+    "credit": "Cr/ (Credit)",
+    "poc_title": "Percentage of Completion (POC) Method",
+    "poc_desc": "It is the approved method for recognizing revenue in long-term contracts, where part of the revenue and profit is recognized based on what has actually been spent compared to the total estimated cost.",
+    "formula_title": "Basic Equation:",
+    "formula_desc": "Completion Rate = (Actual cost-to-date ÷ Total estimated cost) × 100",
+    "rev_rec_title": "Recognized Revenue:",
+    "rev_rec_desc": "Total contract value × Completion rate",
+    "profit_rec_title": "Recognized Profit:",
+    "profit_rec_desc": "(Total expected profit × Completion rate) - Previously recognized profits",
+    "poc_example_title": "Practical Example:",
+    "poc_contract": "Contract Value: 1,000,000 EGP",
+    "poc_est_cost": "Total Estimated Cost: 800,000 EGP",
+    "poc_act_cost": "Actual Cost Spent: 200,000 EGP",
+    "solution": "Solution:",
+    "sol_step1": "1. Completion Rate = 200,000 / 800,000 = 25%",
+    "sol_step2": "2. Recognized Revenue = 1,000,000 × 25% = 250,000 EGP",
+    "sol_step3": "3. Recognized Profit = (1,000,000 - 800,000) × 25% = 50,000 EGP",
+    "why_poc_title": "Why do we use this method?",
+    "matching_principle": "Achieving the Matching Principle of matching revenues with expenses.",
+    "fair_pos": "Showing the fair financial position of the company during the execution years.",
+    "avoid_fluctuation": "Avoid large profit fluctuations when projects end only.",
+    "extracts_title": "Extracts (Payment Certificates)",
+    "extracts_desc": "An extract is the official document by which the contractor demands the client to pay amounts in exchange for the works that have already been implemented in the site during a specific period.",
+    "extract_initial": "Initial Extract",
+    "extract_initial_desc": "Issued at the beginning of the project to pay the advance payment.",
+    "extract_current": "Current Extract",
+    "extract_current_desc": "Issued periodically (mostly monthly) to follow up on work progress.",
+    "extract_final": "Final Extract",
+    "extract_final_desc": "Issued at project completion and initial handover.",
+    "calc_net_extract": "How to calculate net extract value",
+    "total_work": "Total work performed (cumulative)",
+    "prev_paid": "(-) Works previously paid",
+    "current_work": "Value of current works",
+    "advance_deduction": "(-) Advance payment deduction (10%)",
+    "retention_deduction": "(-) Work guarantee insurance deduction (5%)",
+    "tax_ins_deduction": "(-) Taxes and insurance",
+    "net_due": "Net amount due for payment",
+    "taxes_title": "Taxes and Insurance in Construction",
+    "taxes_subtitle": "Legal and sovereign obligations for construction and building activity.",
+    "vat": "Value Added Tax",
+    "vat_desc": "Construction is subject to Schedule Tax (5%) or the General Rate (14%) depending on the nature of the contract (supply and installation or operation only).",
+    "withholding": "Withholding Tax",
+    "withholding_desc": "A percentage (1%, 3%, or 5%) is deducted from the contractor's dues and supplied to the Tax Authority under the tax account.",
+    "social_ins": "Social Insurance",
+    "social_ins_desc": "Insurance is paid for temporary labor in the project based on specific rates of the extract value (standard insurance).",
+    "annual_tax": "Income Tax",
+    "annual_tax_desc": "Annual tax on company's net profit after deducting all costs and expenses.",
+    "sub_ins": "Subcontractor Insurance",
+    "sub_ins_desc": "It is the main contractor's responsibility to ensure that subcontractors pay their workers' insurance or deduct it from them.",
+    "eng_stamps": "Engineering Stamps",
+    "eng_stamps_desc": "Fees imposed on contracts and extracts for the benefit of the Engineers Syndicate.",
+    "poc_calc": "Completion Rate and Revenue Calculator",
+    "contract_val_label": "Total Contract Value",
+    "cost_to_date_label": "Actual Cost to Date",
+    "total_est_cost_label": "Total Estimated Cost",
+    "actual_poc": "Actual Completion Rate",
+    "rec_rev": "Recognized Revenue",
+    "rec_profit": "Recognized Profit",
+    "egp": "EGP",
+    "net_extract_calc": "Net Extract Calculator",
+    "approved_work_label": "Total Approved Work Value",
+    "advance_label": "Advance Payment Deduction (Value)",
+    "retention_label": "Retention (%)",
+    "tax_label": "Taxes (%)",
+    "total_deductions": "Total Deductions:",
+    "net_ratio": "Net Ratio:",
+    "profit_calc": "Expected Profit Calculator",
+    "expected_gross_profit": "Expected Gross Profit",
+    "profit_ratio": "Profit Ratio:",
+    "residential_project": "Residential Building Construction Project",
+    "residential_desc": "Focuses on excavation, reinforced concrete, and building stages, with massive material costs.",
+    "finishing_project": "Interior Finishing Project",
+    "finishing_desc": "Depends heavily on subcontractors (electricity, plumbing, carpentry) and high labor costs.",
+    "road_project": "Road Paving Project",
+    "road_desc": "Depends on the cost of heavy equipment (rollers, asphalt mixers) and fuel consumption.",
+    "hvac_project": "HVAC Supply and Installation Project",
+    "hvac_desc": "Combines commercial activity (supply of devices) and service activity (installation and maintenance).",
+    "view_full_cycle": "View Full Accounting Cycle for this Project",
+    "reports_title": "Project Reports and Financial Statements",
+    "reports_subtitle": "Tools that help management make decisions based on accurate numbers with full support for printing and exporting.",
+    "report_cost": "Project Cost Statement (Actual vs estimated)",
+    "report_cost_desc": "Comparing actual costs with the estimated budget for each item.",
+    "report_pnl": "Profit and Loss Statement per Project",
+    "report_pnl_desc": "Analysis of the profitability of each project separately after deducting all costs.",
+    "report_poc": "Technical and Financial Completion Rates Report",
+    "report_poc_desc": "Following up field work progress and linking it to revenue recognition.",
+    "report_aging": "Accounts Receivable Aging Report (Extracts)",
+    "report_aging_desc": "Following up on the collection of late extracts and cash flows.",
+    "report_subs": "Subcontractors Dues Report",
+    "report_subs_desc": "Following up on subcontractors' payments and technical deductions.",
+    "report_bs": "Company's Overall Balance Sheet",
+    "report_bs_desc": "Presenting the assets, liabilities, and equity of the company.",
+    "view_report": "View Report",
+    "date_from": "From:",
+    "date_to": "To:",
+    "search": "Search...",
+    "add_row": "Add Row",
+    "clear_data": "Clear Data",
+    "print": "Print",
+    "official_report": "Official Report",
+    "company_name": "Elijah Financial Services",
+    "dept_name": "Construction and Projects Accounting Department",
+    "user_label": "Acc / Robier Raafat",
+    "print_date": "Print Date:"
+  },
+  "egyptian_standards_page": {
+    "title": "Egyptian Accounting Standards (EAS)",
+    "subtitle": "We ensure your financial business complies with Egyptian laws and regulations through accurate application of local accounting standards.",
+    "what_is": {
+      "title": "What are Egyptian Accounting Standards?",
+      "desc": "Egyptian Accounting Standards are a set of technical rules that regulate how financial statements are prepared and presented for companies operating in the Arab Republic of Egypt. These standards aim to unify accounting policies to ensure the accuracy and transparency of financial data, and are issued by a decree from the Minister of Investment in coordination with the Financial Regulatory Authority.",
+      "goal_title": "Primary Goal",
+      "goal_desc": "Unifying financial rules and providing a common language for accountants and investors within the Egyptian market.",
+      "authority_title": "Regulatory Authority",
+      "authority_desc": "These standards are subject to the supervision of the Egyptian Authority for Control over Accounting and Auditing to ensure professional commitment."
+    },
+    "eas_section": {
+      "title": "Most Important Egyptian Accounting Standards (EAS)",
+      "subtitle": "A quick look at the most influential standards in local business activity.",
+      "usage_label": "Usage:",
+      "example_label": "Practical Example:"
+    },
+    "comparison": {
+      "title": "Comparison between Egyptian and International Standards",
+      "subtitle": "Egyptian standards largely align with international standards with some adjustments to suit the Egyptian legal environment.",
+      "table": {
+        "header_item": "Item",
+        "header_eas": "Egyptian Standards EAS",
+        "header_ifrs": "International Standards IFRS/IAS",
+        "rows": [
+          { "item": "Presentation of Financial Statements", "eas": "EAS 1", "ifrs": "IAS 1" },
+          { "item": "Revenue", "eas": "EAS 17", "ifrs": "IFRS 15" },
+          { "item": "Cash Flows", "eas": "EAS 7", "ifrs": "IAS 7" },
+          { "item": "Fixed Assets", "eas": "EAS 16", "ifrs": "IAS 16" }
+        ]
+      },
+      "differences_title": "Key Differences in Brief:",
+      "differences_desc": "Egyptian standards are essentially based on international standards, but they may differ in some details related to local disclosure requirements, or accounting treatments for some items affected by Egyptian tax laws and the Companies Law. We ensure you balance technical accuracy and local legal compliance."
+    },
+    "importance": {
+      "title": "Importance of Applying Egyptian Standards",
+      "items": [
+        { "title": "Legal Compliance", "desc": "Avoid fines and legal problems with regulatory authorities in Egypt." },
+        { "title": "Data Accuracy", "desc": "Ensure the truth and fairness of financial statements and expression of financial reality." },
+        { "title": "Facilitate Audit", "desc": "Make the external and internal audit process smoother and clearer." },
+        { "title": "Decision Support", "desc": "Provide a solid financial database for making well-studied expansion decisions." }
+      ]
+    },
+    "how_we_apply": {
+      "title": "How do we apply Egyptian standards in our company?",
+      "items": [
+        { "title": "Preparing Statements according to EAS", "desc": "We build the chart of accounts and financial statements from scratch to comply with Egyptian standards requirements." },
+        { "title": "Legal Compliance", "desc": "We ensure that your financial reports are acceptable to the Tax Authority and the General Authority for Investment." },
+        { "title": "Professional Local Solutions", "desc": "We provide our deep expertise in the Egyptian market to help you face local accounting challenges." }
+      ]
+    },
+    "cta": {
+      "title": "Do you want to accurately apply Egyptian standards in your company?",
+      "desc": "Our team is ready to prepare accurate financial statements according to the latest Egyptian standards and ensure your full commitment.",
+      "button": "Request Service Now"
+    }
+  },
+  "customs_page": {
+    "title": "Customs Duty in Egypt",
+    "subtitle": "Your comprehensive guide to understanding customs duties, the unified tariff, and how to accurately estimate import costs to avoid any financial surprises.",
+    "what_is": {
+      "title": "What is Customs Duty?",
+      "desc": "It is a tax imposed by the state on goods imported from abroad when they enter customs borders. This tax aims to protect national industry, regulate foreign trade, and provide a financial resource for the state.",
+      "protection": "Protecting Local Product",
+      "regulation": "Regulating Trade Movement",
+      "accuracy": "Customs Clearance Accuracy"
+    },
+    "fees_types": {
+      "title": "Types of Customs Fees and Import Taxes",
+      "subtitle": "The customs cost consists of several elements that must be taken into account.",
+      "items": [
+        { "title": "Basic Customs Fees", "desc": "Determined based on the type of goods and the applicable customs tariff." },
+        { "title": "Value Added Tax (VAT)", "desc": "Imposed at a rate of 14% on the total value of the goods plus fees." },
+        { "title": "Service Fees", "desc": "Fees imposed for port services, inspection, and storage." },
+        { "title": "Additional Fees", "desc": "Anti-dumping fees or development fees may be imposed depending on the type and origin of the goods." }
+      ]
+    },
+    "tariff": {
+      "title": "Customs Tariff and HS Code",
+      "subtitle": "How is the rate you will pay on your goods determined?",
+      "hs_code": {
+        "title": "What is HS Code?",
+        "desc": "It is an international unified system for classifying goods (Harmonized System). Each item has a specific numerical code, and based on this code, the customs duty rate and any other import restrictions are determined."
+      },
+      "unified_tariff": {
+        "title": "Unified Customs Tariff",
+        "desc": "Egypt issues a unified customs tariff that specifies the percentage of fees on all goods. These percentages may change by presidential decrees to encourage certain industries or limit imports of luxury goods."
+      }
+    },
+    "calculation": {
+      "title": "How to Calculate Customs Fees",
+      "steps": [
+        { "title": "Determine CIF Value", "desc": "Value of goods + insurance cost + shipping cost." },
+        { "title": "Determine Customs Rate", "desc": "Search for the item's rate in the customs tariff (HS Code)." },
+        { "title": "Calculate Basic Fees", "desc": "CIF Value × Customs Rate." },
+        { "title": "Calculate VAT", "desc": "(CIF Value + Customs Fees) × 14%." }
+      ]
+    },
+    "example": {
+      "title": "Practical Explanatory Example",
+      "cif": "Goods Value (CIF)",
+      "customs_fee": "Customs Rate (10%)",
+      "vat_fee": "VAT (14% of 110,000)",
+      "total": "Total Customs Cost"
+    },
+    "calculator": {
+      "title": "Interactive Customs Fees Calculator",
+      "subtitle": "Enter basic data to estimate the customs costs of your goods immediately.",
+      "label_cif": "Goods Value (CIF) - in EGP",
+      "placeholder_cif": "Enter goods value, shipping, and insurance...",
+      "label_customs": "Customs Rate (%)",
+      "placeholder_customs": "Example: 10",
+      "label_vat": "VAT Rate (%)",
+      "vat_note": "The default rate in Egypt is 14%",
+      "button_calc": "Calculate Fees",
+      "results_title": "Customs Estimate Results:",
+      "res_customs": "Customs Duty Amount:",
+      "res_vat": "VAT Amount:",
+      "res_total": "Total Cost (including goods):",
+      "disclaimer": "These results are estimates based on input rates. Additional fees or penalties may apply in practice. Please consult with a specialized customs consultant.",
+      "placeholder_empty": "Enter data and click \"Calculate Fees\" to see results"
+    },
+    "documents": {
+      "title": "Documents Required for Customs Clearance",
+      "subtitle": "Ensure these documents are ready before the shipment arrives to avoid delays.",
+      "items": [
+        { "title": "Commercial Invoice", "desc": "Describes the goods, quantity, and price." },
+        { "title": "Bill of Lading", "desc": "Document of goods ownership and shipping contract." },
+        { "title": "Certificate of Origin", "desc": "Proves the country produced the goods to determine agreements." },
+        { "title": "Packing List", "desc": "Detail of contents and weight of each package." }
+      ]
+    },
+    "procedures": {
+      "title": "Customs Procedures Step by Step",
+      "subtitle": "Your goods' journey from the port to your warehouse.",
+      "items": [
+        { "step": "01", "title": "Registration", "desc": "Registering the shipment on the \"Nafeza\" system and obtaining an ACID number." },
+        { "step": "02", "title": "Inspection", "desc": "Inspection of goods by customs inspection committees." },
+        { "step": "03", "title": "Payment", "desc": "Payment of fees and prescribed taxes via bank." },
+        { "step": "04", "title": "Release", "desc": "Obtaining the final release permit and goods exit." }
+      ]
+    },
+    "our_help": {
+      "title": "How do we help you at \"Elijah\"?",
+      "subtitle": "Our expertise in customs laws saves you time and money.",
+      "items": [
+        { "title": "Accurate Customs Calculation", "desc": "Precise estimate of all fees before importation." },
+        { "title": "Document Review", "desc": "Ensuring the correctness of invoices and certificates of origin to avoid rejection." },
+        { "title": "Import Consultation", "desc": "Guiding you to the best methods and cost-saving trade agreements." }
+      ]
+    },
+    "cta": {
+      "title": "Do you want to accurately calculate import costs before shipping?",
+      "desc": "Our team helps you calculate all fees and avoid surprises, to ensure a smooth and profitable import process.",
+      "button": "Request Consultation Now"
+    }
+  },
+  "reconciliation_page": {
+    "title": "Bank Reconciliation Statement",
+    "subtitle": "Learn how to match bank book balance with actual bank statement.",
+    "intro": {
+      "definition_title": "What is Bank Reconciliation?",
+      "definition_desc": "An analytical report matching the bank balance in company records with the balance in the actual bank statement.",
+      "goal_title": "Goal",
+      "goal_desc": "To ensure cash balance accuracy and detect errors or unrecorded transactions."
+    },
+    "components": {
+      "title": "Reasons for Differences",
+      "items": [
+        "Deposits in Transit: Money sent to bank but not yet in statement.",
+        "Outstanding Checks: Checks issued by company but not yet cashed.",
+        "Bank Charges: Fees deducted by bank not yet in company books.",
+        "NSF Checks: Checks deposited by company but rejected by bank.",
+        "Errors: Recording errors by bank or company."
+      ]
+    },
+    "steps": {
+      "title": "Preparation Steps",
+      "items": [
+        "Start with Bank Statement balance.",
+        "Add Deposits in Transit, subtract Outstanding Checks.",
+        "Start with Book balance.",
+        "Add Interest income, subtract Bank Charges and NSF Checks.",
+        "Final Adjusted Balance must match on both sides."
+      ]
+    },
+    "table": {
+      "title": "Reconciliation Template",
+      "header": { "details": "Description", "amount": "Amount ($)", "notes": "Notes" },
+      "rows": [
+        { "details": "Book Balance before reconciliation", "amount": "50,000", "notes": "" },
+        { "details": "(+) Interest Income", "amount": "500", "notes": "Added by bank" },
+        { "details": "(-) Bank Charges", "amount": "200", "notes": "Deducted by bank" },
+        { "details": "(-) NSF Checks", "amount": "1,300", "notes": "Customer check rejected" },
+        { "details": "Adjusted Balance (Final)", "amount": "49,000", "notes": "Must match bank adj. bal." }
+      ]
+    },
+    "example": {
+      "title": "Practical Example",
+      "desc": "Bank statement balance $52,000, Outstanding checks $5,000, Deposits in transit $2,000.",
+      "result": "Adjusted Balance = 52,000 + 2,000 - 5,000 = $49,000."
+    },
+    "entries": {
+      "title": "Required Adjustment Entries",
+      "desc": "Transactions not yet in books must be recorded after reconciliation.",
+      "entry1": "Bank Charges: Dr. Bank Charges .. Cr. Bank",
+      "entry2": "Interest: Dr. Bank .. Cr. Interest Income"
+    }
+  },
+  "knowledge_bank": {
+    "title": "Accounting Knowledge Bank",
+    "subtitle": "A comprehensive educational guide covering key accounting topics with practical examples.",
+    "featured_title": "Featured Topics",
+    "featured_desc": "Browse through our educational units to understand complex accounting treatments.",
+    "view_details": "View Details",
+    "inventory": "Inventory Valuation Methods",
+    "inventory_desc": "Learn about FIFO, LIFO, and Weighted Average and their impact on profit.",
+    "reconciliation": "Bank Reconciliation Statement",
+    "reconciliation_desc": "Step-by-step guide to matching book balance with bank statement.",
+    "bad_debts": "Bad Debts Treatment",
+    "bad_debts_desc": "Accounting for uncollectible debts and creating allowances.",
+    "scrap": "Accounting for Scrap",
+    "scrap_desc": "How to handle production waste and scrap revenue in your books.",
+    "depreciation": "Depreciation Methods",
+    "depreciation_desc": "Practical guide to Straight-Line, Declining Balance, and Units of Production.",
+    "start_learning": "Start Learning Now"
+  },
+  "inventory_page": {
+    "title": "Inventory Valuation Methods",
+    "subtitle": "Comprehensive guide on managing inventory and its impact on COGS and net profit.",
+    "intro": {
+      "definition_title": "Inventory Definition",
+      "definition_desc": "Inventory refers to the goods and products held by a business for resale or use in production. It is a key current asset, and its valuation directly affects Cost of Goods Sold (COGS) and net profit.",
+      "importance_title": "Importance of Inventory Management",
+      "importance_desc": "Helps in reducing costs, preventing spoilage, ensuring product availability, and improving cash flow."
+    },
+    "methods": {
+      "title": "Valuation Methods",
+      "subtitle": "Accounting methods vary based on the flow of goods and financial policy.",
+      "fifo": {
+        "title": "First-In, First-Out (FIFO)",
+        "desc": "Assumes that the goods purchased first are the ones sold first. Ending inventory is valued at most recent prices.",
+        "example": "Example: Bought 100 units at $10, then 200 at $12. If 150 sold, cost is 100*$10 + 50*$12.",
+        "impact": "Impact: Results in higher profits during inflation and inventory value close to market price."
+      },
+      "lifo": {
+        "title": "Last-In, First-Out (LIFO)",
+        "desc": "Assumes that the most recently purchased goods are sold first. (Note: Not allowed under IFRS).",
+        "example": "Example: (same data) If 150 units sold, cost is 150 units at $12 (latest purchase).",
+        "impact": "Impact: Often used to reduce taxes during price hikes as it increases COGS."
+      },
+      "average": {
+        "title": "Weighted Average",
+        "desc": "Average cost per unit is calculated by dividing total cost of goods available by total units.",
+        "formula": "Average Cost = Total Cost / Total Quantity",
+        "example": "Example: (100*10 + 200*12) / 300 = $11.33 per unit. COGS (150 units) = $1,700.",
+        "impact": "Impact: Provides middle-ground results and smooths out price fluctuations."
+      }
+    },
+    "table": {
+      "date": "Date",
+      "description": "Description",
+      "qty": "Qty",
+      "price": "Price",
+      "total": "Total",
+      "beg_inventory": "Beginning Inventory",
+      "purchases": "Purchases",
+      "units": "Units",
+      "currency": "$",
+      "sold_fifo": "Sales (FIFO)",
+      "sold_lifo": "Sales (LIFO)"
+    },
+    "cta": {
+      "title": "Need Help with Inventory Management?",
+      "desc": "Our team provides professional accounting services to maintain accurate inventory records.",
+      "button": "Request Service Now"
+    }
+  },
+  "audit_page": {
+    "title": "Internal Audit and Financial Control Management",
+    "subtitle": "We ensure accuracy and transparency by evaluating and examining financial and control systems to protect your company's assets and improve its financial performance.",
+    "what_is": {
+      "title": "What is Internal Audit?",
+      "desc": "Internal audit is an independent and objective evaluation and examination process of financial and control systems within the company. It aims to ensure the accuracy of financial data, transparency in operations, and prevent errors or manipulation, which contributes to protecting the company's assets and improving its operational efficiency."
+    },
+    "objectives": {
+      "title": "Objectives of Internal Audit",
+      "subtitle": "Why does your company need a strong internal audit system?",
+      "items": [
+        { "title": "Financial Data Accuracy", "desc": "Ensuring that all records and financial reports accurately reflect actual reality." },
+        { "title": "Detection of Errors and Manipulation", "desc": "Identifying any deviations or fraud attempts and addressing them immediately." },
+        { "title": "Operational Efficiency Improvement", "desc": "Evaluating current procedures and suggesting ways to increase productivity and reduce waste." },
+        { "title": "Ensure Compliance", "desc": "Ensuring that all operations comply with local and international laws and regulations." },
+        { "title": "Decision Support", "desc": "Providing reliable information to management that helps in strategic planning." }
+      ]
+    },
+    "types": {
+      "title": "Types of Internal Audit",
+      "financial": {
+        "title": "Financial Audit",
+        "desc": "Examining records and accounting entries to ensure their correctness and completeness.",
+        "example": "Reconciling bank balances with books and ensuring correctness of purchase and sales entries."
+      },
+      "operational": {
+        "title": "Operational Audit",
+        "desc": "Evaluating the efficiency and effectiveness of operations within various departments of the company.",
+        "example": "Reviewing the procurement cycle to ensure getting best prices and quality."
+      },
+      "compliance": {
+        "title": "Compliance Audit",
+        "desc": "Ensuring the company's compliance with laws, regulations, and internal policies.",
+        "example": "Ensuring application of labor laws, taxes, and approved financial regulations."
+      },
+      "systems": {
+        "title": "Information Systems Audit",
+        "desc": "Reviewing accounting systems and software to ensure data security and processing accuracy.",
+        "example": "Checking user permissions on the accounting system and ensuring backups exist."
+      },
+      "practical_example": "Practical Example:"
+    },
+    "steps": {
+      "title": "Steps of Internal Audit Process",
+      "items": [
+        { "title": "Planning", "desc": "Determining the scope and objectives of the audit." },
+        { "title": "Data Collection", "desc": "Examining documents and records." },
+        { "title": "Analysis", "desc": "Detecting errors and deviations." },
+        { "title": "Reporting", "desc": "Writing notes and recommendations." },
+        { "title": "Follow-up", "desc": "Ensuring implementation of recommendations." }
+      ]
+    },
+    "tools": {
+      "title": "Audit Tools & Techniques",
+      "items": [
+        "Rigorous documentary examination",
+        "Physical inventory of assets and inventory",
+        "Financial analysis and accounting ratios",
+        "Comparisons between financial periods",
+        "Use of latest accounting software",
+        "Field interviews and inquiries"
+      ]
+    },
+    "importance": {
+      "title": "Importance of Audit for Companies",
+      "items": [
+        "Proactively reducing financial and operational risks.",
+        "Improving internal control systems to ensure asset safety.",
+        "Increasing operational efficiency and reducing unnecessary costs.",
+        "Preventing and deterring fraud and financial manipulation.",
+        "Providing clear vision for management to support vital decision making."
+      ]
+    },
+    "comparison": {
+      "title": "Difference between Internal and External Audit",
+      "header": { "item": "Element", "internal": "Internal Audit", "external": "External Audit" },
+      "rows": [
+        { "item": "Objective", "internal": "Improve operations and internal control", "external": "Express independent opinion on fairness of statements" },
+        { "item": "Affiliation", "internal": "Follows company management (Audit Committee)", "external": "Entity completely independent from the company" },
+        { "item": "Frequency", "internal": "Continuous process throughout the year", "external": "Periodic process (annual or quarterly)" }
+      ]
+    },
+    "our_services": {
+      "title": "Our Internal Audit Services",
+      "subtitle": "We provide integrated solutions to protect your investments and ensure your financial stability.",
+      "items": [
+        "Accounts and entries examination",
+        "Internal control systems evaluation",
+        "Preparation of professional audit reports",
+        "Detection of financial errors",
+        "Financial procedures improvement",
+        "Risk management consultancy"
+      ]
+    },
+    "cta": {
+      "title": "Do you want to protect your company from financial errors and improve performance?",
+      "desc": "Our team provides professional internal audit services that ensure accuracy, transparency, and protection of your assets.",
+      "button": "Order Audit Service Now"
+    }
+  },
+  "principles": {
+    "accrual": {
+      "title": "Accrual Principle",
+      "desc": "Recording financial transactions when they occur regardless of the timing of cash receipt or payment.",
+      "example": "Recording the electricity bill for December as an \"accrued expense\" even if it is not paid until January."
+    },
+    "going_concern": {
+      "title": "Going Concern Principle",
+      "desc": "The assumption that the entity is continuing its activity for a long period of time and is not subject to liquidation soon.",
+      "example": "Valuing fixed assets at historical cost instead of their current liquidation value."
+    },
+    "consistency": {
+      "title": "Consistency Principle",
+      "desc": "Using the same accounting methods and policies from one period to another to ensure comparability.",
+      "example": "If the company chooses the \"Straight Line\" method for depreciation, it must adhere to it in upcoming years."
+    },
+    "materiality": {
+      "title": "Materiality Principle",
+      "desc": "Focusing on information whose omission or misstatement affects the decisions of financial statement users.",
+      "example": "Considering the purchase of a \"calculator\" an immediate expense instead of a fixed asset due to its small value relative to the company size."
+    },
+    "full_disclosure": {
+      "title": "Full Disclosure Principle",
+      "desc": "Providing all necessary information that matters to financial statement users to make their decisions.",
+      "example": "Adding disclosures about existing legal cases against the company in the attached notes."
+    },
+    "prudence": {
+      "title": "Prudence (Conservatism) Principle",
+      "desc": "Not overestimating assets and revenues, and immediate recognition of expected losses.",
+      "example": "Creating an \"allowance for doubtful accounts\" when a customer is expected not to pay their debts."
+    },
+    "comparability": {
+      "title": "Comparability Principle",
+      "desc": "Enabling users to compare the entity's financial statements over time or with other entities.",
+      "example": "Displaying current year figures alongside previous year figures in the financial statements."
+    }
+  },
+  "standards": {
+    "ias1": {
+      "title": "Presentation of Financial Statements",
+      "desc": "Sets requirements for the presentation of financial statements to ensure comparability.",
+      "usage": "Used as a primary guide for structuring the balance sheet and income statement."
+    },
+    "ias2": {
+      "title": "Inventories",
+      "desc": "Determines the accounting treatment for inventory and measurement of its cost.",
+      "usage": "Applied to value goods in warehouses at the end of the financial year."
+    },
+    "ias7": {
+      "title": "Statement of Cash Flows",
+      "desc": "Requires providing information about historical changes in cash.",
+      "usage": "Used to prepare the statement of cash flows and classify activities."
+    },
+    "ias16": {
+      "title": "Property, Plant and Equipment",
+      "desc": "Addresses the accounting treatment for real estate, machinery, and equipment.",
+      "usage": "Applied to calculate depreciation and recognize productive assets."
+    },
+    "ifrs15": {
+      "title": "Revenue from Contracts with Customers",
+      "desc": "Sets a unified model for revenue recognition.",
+      "usage": "Applied to determine the timing and value of revenue resulting from the sale of goods or services."
+    },
+    "ifrs16": {
+      "title": "Leases",
+      "desc": "Requires lessees to recognize assets and liabilities for all leases.",
+      "usage": "Used to show long-term lease obligations within the balance sheet."
+    },
+    "ifrs9": {
+      "title": "Financial Instruments",
+      "desc": "Addresses the classification and measurement of financial assets and liabilities.",
+      "usage": "Applied to evaluate investments, stocks, and bonds owned by the company."
+    },
+    "eas1": {
+      "title": "Presentation of Financial Statements",
+      "desc": "Sets general requirements for the presentation of financial statements according to EAS.",
+      "usage": "Preparing the full package of financial statements in compliance with Egyptian law.",
+      "example": "Formatting the balance sheet to include current and non-current assets and liabilities."
+    },
+    "eas2": {
+      "title": "Inventories",
+      "desc": "Addresses the accounting treatment for inventory according to Egyptian market practices.",
+      "usage": "Valuing ending inventory in the balance sheet and complying with tax inspections.",
+      "example": "Using the weighted average method for inventory valuation due to its tax acceptance."
+    },
+    "eas7": {
+      "title": "Statements of Cash Flows",
+      "desc": "Aims to provide information about historical changes in the entity's cash.",
+      "usage": "Used to classify cash flows into operating, investing, and financing activities.",
+      "example": "Showing cash paid for purchasing new machinery within investing flows."
+    },
+    "eas16": {
+      "title": "Fixed Assets and Their Depreciation",
+      "desc": "Addresses the accounting treatment for fixed assets and depreciation calculation.",
+      "usage": "Used to calculate asset cost, depreciation methods, and book value.",
+      "example": "Calculating depreciation for the company building using the straight-line method."
+    },
+    "eas17": {
+      "title": "Revenues and Expenses",
+      "desc": "Sets accounting standards for recognizing revenue resulting from transactions.",
+      "usage": "Used to determine timing of revenue recognition when risks and rewards transfer.",
+      "example": "Recognizing revenue from selling appliances as soon as they are delivered to the customer."
+    }
+  },
+  "services": {
+    "bookkeeping": {
+      "title": "Bookkeeping",
+      "desc": "Accurate and organized recording of all daily financial operations to track your cash flows.",
+      "f1": "Daily journal recording",
+      "f2": "General ledger posting",
+      "f3": "Bank reconciliation"
+    },
+    "statements": {
+      "title": "Financial Statements Preparation",
+      "desc": "Preparing final financial reports in accordance with international and local accounting standards.",
+      "f1": "Income Statement",
+      "f2": "Balance Sheet",
+      "f3": "Cash Flow Statement"
+    },
+    "audit": {
+      "title": "Internal Audit",
+      "desc": "Comprehensive evaluation of financial and control systems to ensure efficiency and reduce risks.",
+      "f1": "Control systems examination",
+      "f2": "Error and fraud detection",
+      "f3": "Financial performance improvement"
+    },
+    "taxes": {
+      "title": "Taxes",
+      "desc": "Providing tax consultations and preparing returns to ensure compliance with laws.",
+      "f1": "Value Added Tax",
+      "f2": "Income Tax",
+      "f3": "Tax Planning"
+    }
+  },
+  "steps": {
+    "analysis": {
+      "title": "Transaction Analysis",
+      "desc": "The accounting process begins with analyzing operations to ensure correct recording.",
+      "example": "Determining if a transaction is an asset purchase or a liability payment."
+    },
+    "journal": {
+      "title": "Journal Entries",
+      "desc": "Recording each transaction in the form of an entry based on debit and credit.",
+      "example": "Recording an entry from Purchases A/C to Cash A/C upon cash purchase."
+    },
+    "ledger": {
+      "title": "General Ledger",
+      "desc": "Collecting and summarizing journal entries into independent accounts.",
+      "example": "Posting all cash movements to the Cash account page in the ledger."
+    },
+    "trial_balance": {
+      "title": "Trial Balance",
+      "desc": "Ensuring the balance of debit and credit accounts.",
+      "example": "Ensuring balances are equal before preparing statements."
+    },
+    "adjustments": {
+      "title": "Adjusting Entries",
+      "desc": "Modifying accounts to ensure revenues and expenses are recorded in the correct period.",
+      "example": "Calculating and recording annual depreciation for fixed assets."
+    }
+  },
+  "statements": {
+    "page_title": "Financial Statements",
+    "page_subtitle": "Financial statements are the end result of the accounting cycle, reflecting the financial performance and position of the entity, used for management and investment decision-making.",
+    "simple_example": "Simplified Example",
+    "order_btn": "Order Financial Statements Preparation",
+    "template_title": "Accounting Statement Template",
+    "importance_title": "Why are Financial Statements Essential?",
+    "importance_items": [
+      "Evaluation of financial performance and profitability.",
+      "Helping investors make financing decisions.",
+      "Determining the ability to pay obligations and debts.",
+      "Compliance with legal and tax requirements.",
+      "Future planning and resource allocation."
+    ],
+    "chart_desc": "Graphical representation of assets and liabilities distribution",
+    "income": {
+      "title": "Income Statement",
+      "desc": "Shows the result of the entity's operations (profit or loss) during a period.",
+      "example": "Revenue (100,000) - Costs (60,000) = Gross Profit (40,000).",
+      "template": "📊 Income Statement for period ending...\n\nRevenue:\nSales Revenue                 100,000\n(-) Cost of Sales              (40,000)\n---------------------------------------\nGross Profit                      60,000\n\nExpenses:\nTotal Expenses               (20,000)\n---------------------------------------\nNet Profit                     40,000"
+    },
+    "balance": {
+      "title": "Balance Sheet",
+      "desc": "Shows the financial position of the entity at a specific moment.",
+      "example": "Assets (200,000) = Liabilities (80,000) + Equity (120,000).",
+      "template": "💰 Balance Sheet as of...\n\nAssets:\nTotal Assets                  90,000\n\nLiabilities:\nTotal Liabilities                  40,000\n\nEquity:\nTotal Equity            50,000"
+    },
+    "cash_flow": {
+      "title": "Statement of Cash Flows",
+      "desc": "Shows cash inflows and outflows and how liquidity is generated.",
+      "example": "Net cash flow from operating activities shows operating liquidity.",
+      "template": "💵 Statement of Cash Flows...\n\nNet Operating Flows        50,000\nInvesting Activities               (15,000)\nFinancing Activities                  (10,000)\n---------------------------------------\nNet Change in Cash         25,000"
+    },
+    "equity": {
+      "title": "Statement of Changes in Equity",
+      "desc": "Displays changes in equity items such as profits and distributions.",
+      "example": "Capital + Net Profit - Dividends = Closing Equity.",
+      "template": "📉 Statement of Changes in Equity...\n\nOpening Balance                30,000\nNet Profit                   40,000\nDividends               (10,000)\n---------------------------------------\nClosing Balance                60,000"
+    }
+  },
+  "reviews": {
+    "r1": {
+      "name": "Ahmed Mahmoud",
+      "company": "Noor Trading Co.",
+      "comment": "Very professional service, they helped us organize our accounts excellently and saved a lot of time."
+    },
+    "r2": {
+      "name": "Sarah Al-Otaibi",
+      "company": "Digital Innovation Foundation",
+      "comment": "An outstanding team and high accuracy in preparing financial statements and tax reports."
+    },
+    "r3": {
+      "name": "Mohamed Ali",
+      "company": "Hospitality Restaurants",
+      "comment": "The best accounting office I've dealt with, commitment to deadlines and valuable financial advice."
+    }
+  },
+  "contact_form": {
+    "success_title": "Thank you for contacting us!",
+    "success_desc": "Your request has been received successfully, and our team will contact you as soon as possible.",
+    "send_another": "Send another request",
+    "fullname": "Full Name",
+    "name_placeholder": "Enter your name",
+    "phone": "Phone Number",
+    "phone_placeholder": "01xxxxxxxxx",
+    "required_service": "Required Service",
+    "select_service": "Select Service",
+    "other": "Other",
+    "error_msg": "An error occurred during submission, please try again.",
+    "sending": "Sending...",
+    "submit": "Submit Request"
+  },
+  "vat_calculator": {
+    "title": "Calculate VAT Easily",
+    "desc": "Use this calculator to find the value of VAT in Egypt instantly and accurately.",
+    "amount_label": "Amount (in EGP)",
+    "amount_placeholder": "Enter amount here...",
+    "excl_vat": "Price Excl. VAT",
+    "incl_vat": "Price Incl. VAT",
+    "rate_label": "Tax Rate (%)",
+    "default_rate": "Default rate in Egypt is 14%",
+    "calculate": "Calculate VAT",
+    "reset": "Reset",
+    "results_title": "Calculation Results:",
+    "vat_amount": "VAT Value:",
+    "before_vat": "Amount Before VAT:",
+    "total_amount": "Total Amount (Incl. VAT):",
+    "currency": "EGP",
+    "disclaimer": "These results are estimates based on inputs, please consult a specialist.",
+    "empty_state": "Enter data and click \"Calculate VAT\" to see results here",
+    "cta_title": "Do you need to manage your company's taxes professionally?",
+    "cta_desc": "Our team is ready to help you calculate and submit taxes accurately, ensuring full compliance.",
+    "cta_button": "Order Service Now"
+  },
+  "depreciation_page": {
+    "title": "Accounting Depreciation Methods",
+    "subtitle": "A comprehensive guide on distributing fixed asset costs over their useful life.",
+    "intro": {
+      "definition_title": "Depreciation Definition",
+      "definition_desc": "The process of distributing fixed asset costs (machines, cars, buildings) over their estimated useful life to reflect consumption and value decrease over time.",
+      "goal_title": "Goal of Depreciation",
+      "goal_desc": "Aims to apply the matching principle (matching revenue with expense) and determine fair value for assets on the balance sheet."
+    },
+    "methods": {
+      "title": "Types of Depreciation Methods",
+      "sl": {
+        "title": "Straight-Line Method",
+        "desc": "Simplest and most common; cost is distributed equally over the useful life years.",
+        "formula": "Annual Depreciation = (Cost - Salvage) / Useful Life",
+        "example": "Asset cost $100k, salvage $10k, life 5 yrs. Depreciation = $18,000 per year.",
+        "entry": "Entry: Dr. Depreciation Expense .. Cr. Accumulated Depreciation"
+      },
+      "db": {
+        "title": "Declining Balance Method",
+        "desc": "Higher expense in early years; suitable for fast-obsoleting tech assets.",
+        "formula": "Depreciation = Beginning Book Value × Depreciation Rate",
+        "example": "Asset $100k at 40%. Year 1: $40k. Year 2: $24k.",
+        "entry": "Entry: Dr. Depreciation Expense .. Cr. Accumulated Depreciation"
+      },
+      "uop": {
+        "title": "Units of Production",
+        "desc": "Links depreciation to actual activity (hours or units produced) rather than time.",
+        "formula": "Depreciation Rate per Unit = (Cost - Salvage) / Total Estimated Units",
+        "example": "Machine produces 100k units. If 20k produced in Yr 1, dep is 20% of cost.",
+        "entry": "Entry: Dr. Depreciation Expense .. Cr. Accumulated Depreciation"
+      }
+    },
+    "comparison": {
+      "title": "Depreciation Methods Comparison",
+      "header_method": "Method",
+      "header_usage": "When to Use?",
+      "header_impact": "Profit Impact",
+      "rows": [
+        { "method": "Straight-Line", "usage": "Regular use assets (furniture, buildings)", "impact": "Fixed and stable annual impact" },
+        { "method": "Declining Balance", "usage": "Tech assets (computers, equipment)", "impact": "High initial impact, decreases over time" },
+        { "method": "Units of Production", "usage": "Factory machines and vehicles", "impact": "Changes based on activity volume" }
+      ]
+    },
+    "tax_impact": {
+      "title": "Tax Impact of Depreciation",
+      "desc": "Depreciation is a tax-deductible expense, which reduces taxable net profit and thus provides cash liquidity to the entity."
+    }
+  },
+  "scrap_page": {
+    "title": "Accounting Treatment of Scrap",
+    "subtitle": "Detailed explanation of handling production waste and scrap in accounting.",
+    "intro": {
+      "definition_title": "What is Scrap?",
+      "definition_desc": "Scrap refers to material residue from the manufacturing process that cannot be used in the original product, or fixed assets that reached the end of their useful life."
+    },
+    "types": {
+      "title": "Types of Scrap",
+      "production": {
+        "title": "Production Scrap",
+        "desc": "Like wood residue, fabric scraps, or metal shavings in factories."
+      },
+      "assets": {
+        "title": "Asset Scrap",
+        "desc": "Assets fully depreciated or disposed of and sold as wreckage."
+      }
+    },
+    "treatment": {
+      "title": "Accounting and Control",
+      "sale": {
+        "title": "Sale Case",
+        "desc": "Selling value is considered incidental income or a reduction in production cost depending on materiality.",
+        "entry": "Entry: Dr. Cash .. Cr. Miscellaneous Income (Scrap)"
+      },
+      "reuse": {
+        "title": "Internal Reuse",
+        "desc": "When scrap is used in another production process to reduce new material costs.",
+        "entry": "Entry: Dr. Material Control (A) .. Cr. Material Control (B)"
+      }
+    },
+    "control": {
+      "title": "Scrap Control",
+      "items": [
+        "Allocating a specific and secure area for scrap storage.",
+        "Issuing an inventory addition note for each scrap quantity.",
+        "Selling through a specialized committee at best market price."
+      ]
+    },
+    "example": {
+      "title": "Practical Example",
+      "desc": "A company sold metal shavings from manufacturing for $5,000 in cash.",
+      "entry": "Entry: 5,000 Dr. Cash .. 5,000 Cr. Scrap Sale Income"
+    }
+  },
+  "bad_debts_page": {
+    "title": "Bad Debts and Accounting Treatment",
+    "subtitle": "Understanding the difference between doubtful and bad debts and protecting financial statements.",
+    "intro": {
+      "definition_title": "Bad Debts Definition",
+      "definition_desc": "These are amounts that a business has lost hope of collecting from customers due to bankruptcy or disappearance, considered a realized loss that must be recognized.",
+      "diff_title": "The Core Difference",
+      "diff_desc": "Doubtful debts are debts we expect not to collect (possibility), while bad debts are debts we are certain will not be collected (certainty)."
+    },
+    "methods": {
+      "title": "Accounting Treatment Methods",
+      "direct": {
+        "title": "Direct Write-off Method",
+        "desc": "The debt is written off directly to an expense account when its loss is confirmed. Suitable for small businesses.",
+        "entry": "Entry: Dr. Bad Debt Expense .. Cr. Accounts Receivable"
+      },
+      "allowance": {
+        "title": "Allowance Method (Alternative)",
+        "desc": "Following the prudence principle, an allowance is created to meet expected losses before they actually occur.",
+        "entry_forming": "Creating Allowance: Dr. Bad Debt Expense .. Cr. Allowance for Doubtful Accounts",
+        "entry_writing_off": "Actual Write-off: Dr. Allowance for Doubtful Accounts .. Cr. Accounts Receivable"
+      }
+    },
+    "recovery": {
+      "title": "Recovery of Written-off Debts",
+      "desc": "If a customer pays after their debt was written off, the entry is reversed to record the collection.",
+      "entry": "Collection Entry: (1) Dr. Accounts Receivable Cr. Bad Debt Recovery | (2) Dr. Cash Cr. Accounts Receivable"
+    },
+    "example": {
+      "title": "Practical Example",
+      "desc": "A customer owing $10,000 declared bankruptcy. Company decides to write off using Allowance method.",
+      "entry": "Entry: $10,000 Dr. Allowance for Doubtful Accounts | $10,000 Cr. Accounts Receivable"
     }
   }
 }

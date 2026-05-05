@@ -787,7 +787,7 @@ export default function HospitalAccounting() {
                     </div>
                     <div className="text-left">
                       <h3 className="font-bold text-primary">تقرير رسمي</h3>
-                      <p className="text-xs text-gray-500">المستخدم: روبرت رأفت</p>
+                      <p className="text-xs text-gray-500">محاسب / روبير رافت</p>
                       <p className="text-xs text-gray-500">تاريخ الطباعة: {new Date().toLocaleString('ar-EG')}</p>
                     </div>
                   </div>

@@ -122,10 +122,6 @@
     height: 4cm;
     max-width: 100%;
     /* Keep it proportional on mobile */
-    @screen sm {
-      width: 6cm;
-      height: 4cm;
-    }
     @media (max-width: 640px) {
        width: 4cm;
        height: 2.6cm;

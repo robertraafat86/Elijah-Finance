@@ -24,6 +24,9 @@ import FinancialAnalysis from './pages/FinancialAnalysis';
 import AnalysisDetail from './pages/FinancialAnalysis/AnalysisDetail';
 import StandardDetailAI from './pages/StandardDetailAI';
 import AccountingMisc from './pages/AccountingMisc';
+import DepreciationMethods from './pages/DepreciationMethods';
+import Scrap from './pages/Scrap';
+import BadDebts from './pages/BadDebts';
 import Breadcrumbs from './components/Breadcrumbs';
 import Footer from './components/Footer';
 
@@ -66,6 +69,9 @@ export default function App() {
             <Route path="/financial-analysis" element={<FinancialAnalysis />} />
             <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
             <Route path="/accounting-misc" element={<AccountingMisc />} />
+            <Route path="/depreciation-methods" element={<DepreciationMethods />} />
+            <Route path="/scrap" element={<Scrap />} />
+            <Route path="/bad-debts" element={<BadDebts />} />
             <Route path="/services" element={<Services />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
