@@ -31,6 +31,7 @@ import {
 } from 'recharts';
 import { cn } from '../../lib/utils';
 import { FINANCIAL_ANALYSIS_DATA } from '../../data/financialAnalysis';
+import DynamicGallery from '../../components/DynamicGallery';
 
 export default function AnalysisDetail() {
   const { id } = useParams();
@@ -124,6 +125,13 @@ export default function AnalysisDetail() {
               <p className="text-lg text-slate-700 leading-loose font-medium">
                 {analysis.objective}
               </p>
+            </section>
+
+            {/* Visual Guide for this specific analysis */}
+            <section className="bg-white rounded-[3rem] p-8 md:p-12 border border-slate-100 shadow-sm">
+              <h3 className="text-2xl font-black text-slate-900 mb-8">رسوم توضيحية لـ {analysis.title}</h3>
+              <DynamicGallery tag={`financial-analysis-${analysis.id}`} />
+              <p className="text-xs text-slate-400 mt-4 italic text-center">* يتم عرض الرسومات التي تحمل الوسم المخصص لهذا التحليل أو الوسم العام للتحليل المالي.</p>
             </section>
 
             {/* Calculations & Ratios */}

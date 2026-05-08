@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { LOGO_URL } from '../constants';
+import DynamicGallery from '../components/DynamicGallery';
 
 export default function Home() {
   const { t, i18n } = useTranslation();
@@ -273,6 +274,23 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* General Educational Gallery */}
+      <section className="py-24 bg-white border-t border-slate-100">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
+              {isRtl ? 'المكتبة التعليمية المصورة' : 'Visual Educational Library'}
+            </h2>
+            <p className="text-slate-500 font-medium leading-relaxed">
+              {isRtl 
+                ? 'استكشف مجموعتنا المتزايدة من الرسوم التوضيحية والخرائط الذهنية للمفاهيم المحاسبية والمالية.' 
+                : 'Explore our growing collection of illustrations and mind maps for accounting and financial concepts.'}
+            </p>
+          </div>
+          <DynamicGallery tag="general" />
         </div>
       </section>
     </div>

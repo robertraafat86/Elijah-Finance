@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FINANCIAL_STATEMENTS } from '../constants';
 import { ArrowLeft, ArrowRight, FileText, PieChart } from 'lucide-react';
 import { cn } from '../lib/utils';
+import DynamicGallery from '../components/DynamicGallery';
 
 export default function FinancialStatements() {
   const { t, i18n } = useTranslation();
@@ -74,6 +75,13 @@ export default function FinancialStatements() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Illustrative Image Section (Dynamic from Drive) */}
+      <section className="pb-20">
+        <div className="container mx-auto px-4 text-center">
+          <DynamicGallery tag="financial-center" className="max-w-6xl mx-auto" />
         </div>
       </section>
 

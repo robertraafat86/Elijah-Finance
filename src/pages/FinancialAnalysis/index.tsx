@@ -18,6 +18,7 @@ import {
 import { Link } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { FINANCIAL_ANALYSIS_DATA } from '../../data/financialAnalysis';
+import DynamicGallery from '../../components/DynamicGallery';
 
 const iconMap: { [key: string]: React.ReactNode } = {
   liquidity: <Droplets className="w-8 h-8" />,
@@ -121,6 +122,14 @@ export default function FinancialAnalysis() {
               </motion.div>
             );
           })}
+        </div>
+      </section>
+
+      {/* Visual Analysis Section */}
+      <section className="container mx-auto px-6 mt-24">
+        <div className="bg-white rounded-[3rem] p-8 md:p-12 border border-slate-100 shadow-sm text-center">
+          <h2 className="text-3xl font-black text-slate-900 mb-8">رسوم توضيحية للتحليل المالي</h2>
+          <DynamicGallery tag="financial-analysis" />
         </div>
       </section>
 

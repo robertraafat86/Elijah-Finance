@@ -16,6 +16,7 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import DynamicGallery from '../components/DynamicGallery';
 
 export default function BadDebts() {
   const { t, i18n } = useTranslation();
@@ -169,6 +170,12 @@ export default function BadDebts() {
                    </div>
                 </motion.div>
               </div>
+            </section>
+
+            {/* Visual Guide */}
+            <section className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100">
+               <h3 className="text-3xl font-black text-slate-900 mb-8">{isRtl ? 'دليل مصور للديون المعدومة' : 'Bad Debts Visual Guide'}</h3>
+               <DynamicGallery tag="bad-debts" />
             </section>
           </div>
 

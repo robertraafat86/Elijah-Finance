@@ -38,6 +38,7 @@ import {
   Scale
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import DynamicGallery from '../components/DynamicGallery';
 
 export default function HospitalAccounting() {
   const { t, i18n } = useTranslation();
@@ -263,6 +264,12 @@ export default function HospitalAccounting() {
                   ))}
                 </div>
               </div>
+            </div>
+
+            {/* Visual Guide Section */}
+            <div className="bg-white p-8 md:p-12 rounded-[3rem] border border-gray-100 shadow-sm">
+              <h3 className="text-2xl font-bold text-primary mb-8">{isRtl ? 'دليل مصور للمحاسبة الطبية' : 'Medical Accounting Visual Guide'}</h3>
+              <DynamicGallery tag="hospital-accounting" />
             </div>
           </motion.div>
         )}

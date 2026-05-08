@@ -18,6 +18,7 @@ import {
   ChevronLeft
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import DynamicGallery from '../components/DynamicGallery';
 
 export default function DepreciationMethods() {
   const { t, i18n } = useTranslation();
@@ -160,6 +161,12 @@ export default function DepreciationMethods() {
                   </motion.div>
                 ))}
               </div>
+            </section>
+
+            {/* Visual Aids */}
+            <section className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100">
+               <h3 className="text-3xl font-black text-slate-900 mb-8">{isRtl ? 'رسوم توضيحية لطرق الإهلاك' : 'Depreciation Methods Illustrations'}</h3>
+               <DynamicGallery tag="depreciation" />
             </section>
 
             {/* Comparison Table */}

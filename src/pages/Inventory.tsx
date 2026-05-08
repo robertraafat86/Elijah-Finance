@@ -17,6 +17,7 @@ import {
   Layers
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import DynamicGallery from '../components/DynamicGallery';
 
 export default function Inventory() {
   const { t, i18n } = useTranslation();
@@ -236,6 +237,12 @@ export default function Inventory() {
                   </div>
                 </motion.div>
               </div>
+            </section>
+
+            {/* Visual Guide Section */}
+            <section className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-8">{isRtl ? 'دليل مصور للمخزون' : 'Visual Inventory Guide'}</h2>
+              <DynamicGallery tag="inventory" />
             </section>
           </div>
 

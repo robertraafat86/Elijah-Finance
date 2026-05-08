@@ -32,7 +32,10 @@ async function startServer() {
       const serviceAccountAuth = new JWT({
         email: serviceAccountEmail,
         key: privateKey,
-        scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+        scopes: [
+          "https://www.googleapis.com/auth/spreadsheets",
+          "https://www.googleapis.com/auth/drive.readonly"
+        ],
       });
 
       const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
@@ -50,6 +53,34 @@ async function startServer() {
     } catch (error) {
       console.error("Error saving to Google Sheets:", error);
       res.status(500).json({ success: false, error: "Failed to save data" });
+    }
+  });
+
+  // API route for Google Drive images
+  app.get("/api/drive-images", async (req, res) => {
+    try {
+      const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+      const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+      const FOLDER_ID = "1hBrB9rq0VAtH-zAm137K19eJK5i4d_HI";
+
+      if (!serviceAccountEmail || !privateKey) {
+        return res.status(200).json({ files: [] }); // Safe fallback
+      }
+
+      const auth = new JWT({
+        email: serviceAccountEmail,
+        key: privateKey,
+        scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+      });
+
+      const response = await auth.request({
+        url: `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents+and+mimeType+contains+'image/'&fields=files(id,name,mimeType)&pageSize=1000`,
+      });
+
+      res.status(200).json(response.data);
+    } catch (error) {
+      console.error("Error fetching Google Drive files:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
   });
 
