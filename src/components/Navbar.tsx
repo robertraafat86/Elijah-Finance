@@ -31,13 +31,83 @@ export default function Navbar() {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const midPoint = Math.ceil(NAV_ITEMS.length / 2);
+  const firstRow = NAV_ITEMS.slice(0, midPoint);
+  const secondRow = NAV_ITEMS.slice(midPoint);
+
+  const renderNavItem = (item: typeof NAV_ITEMS[0]) => (
+    <div 
+      key={item.title} 
+      className="relative group"
+      onMouseEnter={() => item.children && setActiveDropdown(item.title)}
+      onMouseLeave={() => setActiveDropdown(null)}
+    >
+      {item.children ? (
+        <button
+          className={cn(
+            'px-3 py-1.5 text-[12px] font-bold transition-all rounded-lg flex items-center gap-1',
+            activeDropdown === item.title ? 'text-blue-600 bg-slate-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
+          )}
+        >
+          {t(item.title)}
+          <ChevronDown className={cn('w-4 h-4 transition-transform', activeDropdown === item.title && 'rotate-180')} />
+        </button>
+      ) : (
+        <Link
+          to={item.path}
+          className={cn(
+            'px-3 py-1.5 text-[12px] font-bold transition-all rounded-lg relative group block whitespace-nowrap',
+            isActive(item.path)
+              ? 'text-blue-600'
+              : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
+          )}
+        >
+          {t(item.title)}
+          {isActive(item.path) && (
+            <motion.div 
+              layoutId="activeNav"
+              className="absolute bottom-0 left-2 right-2 h-0.5 bg-blue-600 rounded-full"
+            />
+          )}
+        </Link>
+      )}
+
+      {/* Dropdown Menu */}
+      {item.children && (
+        <AnimatePresence>
+          {activeDropdown === item.title && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden py-2 z-[60]"
+            >
+              {item.children.map((child) => (
+                <Link
+                  key={child.path}
+                  to={child.path}
+                  className={cn(
+                    'block px-4 py-2 text-sm font-bold transition-all',
+                    isActive(child.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
+                  )}
+                >
+                  {t(child.title)}
+                </Link>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </div>
+  );
+
   return (
     <nav
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b',
         scrolled 
           ? 'bg-white/95 backdrop-blur-md shadow-lg border-slate-100 py-2' 
-          : 'bg-white border-transparent py-4'
+          : 'bg-white border-transparent py-5'
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -52,73 +122,14 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Menu - Centered */}
-        <div className="hidden xl:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-          {NAV_ITEMS.map((item) => (
-            <div 
-              key={item.title} 
-              className="relative group"
-              onMouseEnter={() => item.children && setActiveDropdown(item.title)}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              {item.children ? (
-                <button
-                  className={cn(
-                    'px-3 py-2 text-[13px] font-bold transition-all rounded-lg flex items-center gap-1',
-                    activeDropdown === item.title ? 'text-blue-600 bg-slate-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
-                  )}
-                >
-                  {t(item.title)}
-                  <ChevronDown className={cn('w-4 h-4 transition-transform', activeDropdown === item.title && 'rotate-180')} />
-                </button>
-              ) : (
-                <Link
-                  to={item.path}
-                  className={cn(
-                    'px-3 py-2 text-[13px] font-bold transition-all rounded-lg relative group block whitespace-nowrap',
-                    isActive(item.path)
-                      ? 'text-blue-600'
-                      : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
-                  )}
-                >
-                  {t(item.title)}
-                  {isActive(item.path) && (
-                    <motion.div 
-                      layoutId="activeNav"
-                      className="absolute bottom-0 left-2 right-2 h-0.5 bg-blue-600 rounded-full"
-                    />
-                  )}
-                </Link>
-              )}
-
-              {/* Dropdown Menu */}
-              {item.children && (
-                <AnimatePresence>
-                  {activeDropdown === item.title && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden py-2"
-                    >
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.path}
-                          to={child.path}
-                          className={cn(
-                            'block px-4 py-2 text-sm font-bold transition-all',
-                            isActive(child.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
-                          )}
-                        >
-                          {t(child.title)}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              )}
-            </div>
-          ))}
+        {/* Desktop Menu - Two Rows Centered */}
+        <div className="hidden xl:flex flex-col items-center absolute left-1/2 -translate-x-1/2">
+          <div className="flex items-center justify-center gap-1">
+            {firstRow.map(renderNavItem)}
+          </div>
+          <div className="flex items-center justify-center gap-1">
+            {secondRow.map(renderNavItem)}
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
