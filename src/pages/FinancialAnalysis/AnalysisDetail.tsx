@@ -59,9 +59,9 @@ export default function AnalysisDetail() {
   const calculatedRatiosOutput = useMemo(() => {
     // Basic logic to show auto-calculation simulation
     if (id === 'liquidity') {
-      const assets = Number(editableData.find(d => d.label.includes('أصول'))?.value || 0);
-      const liabilities = Number(editableData.find(d => d.label.includes('التزامات'))?.value || 0);
-      const inventory = Number(editableData.find(d => d.label.includes('مخزون'))?.value || 0);
+      const assets = Number(editableData.find(d => String(d.label).includes('أصول'))?.value || 0);
+      const liabilities = Number(editableData.find(d => String(d.label).includes('التزامات'))?.value || 0);
+      const inventory = Number(editableData.find(d => String(d.label).includes('مخزون'))?.value || 0);
       
       const current = liabilities > 0 ? (assets / liabilities).toFixed(2) : '0';
       const quick = liabilities > 0 ? ((assets - inventory) / liabilities).toFixed(2) : '0';

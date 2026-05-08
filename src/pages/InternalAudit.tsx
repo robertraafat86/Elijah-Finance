@@ -43,7 +43,7 @@ export default function InternalAudit() {
     { key: 'systems', icon: <Monitor className="w-10 h-10" /> }
   ];
 
-  const stepsIcons = [
+  const stepsIcons: React.ReactElement<{ className?: string }>[] = [
     <ClipboardCheck />,
     <FileSearch />,
     <BarChart />,
@@ -51,7 +51,7 @@ export default function InternalAudit() {
     <RefreshCw />
   ];
 
-  const servicesIcons = [
+  const servicesIcons: React.ReactElement<{ className?: string }>[] = [
     <FileSearch />,
     <ShieldCheck />,
     <FileText />,
@@ -169,7 +169,7 @@ export default function InternalAudit() {
                   <h4 className="font-bold text-lg">{item.title}</h4>
                   <p className="text-xs text-gray-400 leading-relaxed px-2">{item.desc}</p>
                   <div className="pt-2 text-accent/40 hidden md:block">
-                    {React.cloneElement(stepsIcons[i] as React.ReactElement, { className: "w-6 h-6 mx-auto" })}
+                    {React.cloneElement(stepsIcons[i], { className: "w-6 h-6 mx-auto" })}
                   </div>
                 </div>
               ))}
