@@ -251,11 +251,8 @@ export default function Home() {
                 {t('common.quality_text')}
               </p>
               <div className="space-y-4">
-                {[
-                  isRtl ? 'تحديث مستمر للمحتوى وفق آخر التعديلات في المعايير.' : 'Continuous content updates according to latest standard amendments.',
-                  isRtl ? 'تركيز على الجانب العملي والتطبيقي للأرقام.' : 'Focus on the practical and applied aspect of numbers.',
-                  isRtl ? 'دعم فني واستشاري متواصل لكافة المستفيدين.' : 'Continuous technical and advisory support for all beneficiaries.'
-                ].map((item, i) => (
+                {t('home.quality_points', { returnObjects: true }) instanceof Array && 
+                  (t('home.quality_points', { returnObjects: true }) as string[]).map((item, i) => (
                   <div key={i} className="flex items-center gap-3 text-slate-700 font-medium text-sm">
                     <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                     <span>{item}</span>
@@ -266,13 +263,13 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="clean-card bg-white space-y-4">
                 <TrendingUp className="w-8 h-8 text-blue-600" />
-                <h4 className="font-bold">{isRtl ? 'استشارات نمو' : 'Growth Consulting'}</h4>
-                <p className="text-xs text-slate-500">{isRtl ? 'مساعدة المؤسسات في تحديد مسارات النمو المالي الآمن.' : 'Helping organizations identify safe financial growth paths.'}</p>
+                <h4 className="font-bold">{t('home.growth_consulting')}</h4>
+                <p className="text-xs text-slate-500">{t('home.growth_desc')}</p>
               </div>
               <div className="clean-card bg-white mt-8 space-y-4">
                 <Shield className="w-8 h-8 text-blue-600" />
-                <h4 className="font-bold">{isRtl ? 'رقابة داخلية' : 'Internal Control'}</h4>
-                <p className="text-xs text-slate-500">{isRtl ? 'تصميم وتدقيق أنظمة الرقابة لضمان نزاهة العمليات.' : 'Designing and auditing control systems to ensure process integrity.'}</p>
+                <h4 className="font-bold">{t('home.internal_control')}</h4>
+                <p className="text-xs text-slate-500">{t('home.internal_control_desc')}</p>
               </div>
             </div>
           </div>

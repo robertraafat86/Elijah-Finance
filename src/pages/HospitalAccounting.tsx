@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 import { 
   Hospital, 
   Stethoscope, 
@@ -37,9 +38,10 @@ import {
   Scale
 } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { useEffect } from 'react';
 
 export default function HospitalAccounting() {
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.language === 'ar';
   const [activeTab, setActiveTab] = useState('intro');
   const [selectedReport, setSelectedReport] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -155,10 +157,9 @@ export default function HospitalAccounting() {
   const calmGreen = "#10b981"; // Emerald 500
 
   return (
-    <div className="pt-24 min-h-screen bg-white" dir="rtl">
+    <div className={cn("pt-24 min-h-screen bg-white", isRtl ? "text-right" : "text-left")} dir={isRtl ? "rtl" : "ltr"}>
       {/* SEO Meta Tags */}
-      <title>محاسبة المستشفيات | إيليجا للخدمات المالية والمحاسبية</title>
-      <meta name="description" content="تعرف على محاسبة المستشفيات، الإيرادات الطبية، المصروفات، شركات التأمين، المخزون الطبي، والتقارير المالية للمراكز الطبية." />
+      <title>{t('hospital_page.title')} | {t('common.brand_name')}</title>
 
       {/* Hero Section */}
       <section className="bg-primary py-20 text-white relative overflow-hidden">
@@ -174,13 +175,24 @@ export default function HospitalAccounting() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-medium" style={{ color: calmGreen }}>
               <Activity className="w-4 h-4" />
-              <span>دليل المحاسبة في القطاع الطبي</span>
+              <span>{t('hospital_page.guide_title')}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-              محاسبة المستشفيات <span style={{ color: calmGreen }}>والمراكز الطبية</span>
+              {t('hospital_page.hero_title').split('<span class="text-emerald-500">').map((part, i) => {
+                if (part.includes('</span>')) {
+                  const [accentText, normalText] = part.split('</span>');
+                  return (
+                    <React.Fragment key={i}>
+                      <span className="text-emerald-500">{accentText}</span>
+                      {normalText}
+                    </React.Fragment>
+                  );
+                }
+                return part;
+              })}
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
-              شرح شامل واحترافي لإدارة الإيرادات والمصروفات الطبية، والتعامل مع شركات التأمين، وإدارة المخزون الطبي بدقة عالية.
+              {t('hospital_page.hero_subtitle')}
             </p>
           </motion.div>
         </div>
@@ -191,15 +203,15 @@ export default function HospitalAccounting() {
         <div className="container mx-auto px-4">
           <div className="flex gap-8 py-4 whitespace-nowrap">
             {[
-              { id: 'intro', label: 'المقدمة والخصائص', icon: <Hospital className="w-4 h-4" /> },
-              { id: 'revenue-expense', label: 'الإيرادات والمصروفات', icon: <DollarSign className="w-4 h-4" /> },
-              { id: 'cycle', label: 'الدورة المحاسبية', icon: <ClipboardList className="w-4 h-4" /> },
-              { id: 'inventory', label: 'المخزون الطبي', icon: <Pill className="w-4 h-4" /> },
-              { id: 'insurance', label: 'شركات التأمين', icon: <ShieldCheck className="w-4 h-4" /> },
-              { id: 'kpis', label: 'مؤشرات الأداء', icon: <BarChart3 className="w-4 h-4" /> },
-              { id: 'reports', label: 'التقارير الجاهزة', icon: <Printer className="w-4 h-4" /> },
-              { id: 'tools', label: 'أدوات وحاسبات', icon: <Calculator className="w-4 h-4" /> },
-              { id: 'examples', label: 'أمثلة عملية', icon: <Briefcase className="w-4 h-4" /> },
+              { id: 'intro', label: t('hospital_page.tabs.intro'), icon: <Hospital className="w-4 h-4" /> },
+              { id: 'revenue-expense', label: t('hospital_page.tabs.revenue_expense'), icon: <DollarSign className="w-4 h-4" /> },
+              { id: 'cycle', label: t('hospital_page.tabs.cycle'), icon: <ClipboardList className="w-4 h-4" /> },
+              { id: 'inventory', label: t('hospital_page.tabs.inventory'), icon: <Pill className="w-4 h-4" /> },
+              { id: 'insurance', label: t('hospital_page.tabs.insurance'), icon: <ShieldCheck className="w-4 h-4" /> },
+              { id: 'kpis', label: t('hospital_page.tabs.kpis'), icon: <BarChart3 className="w-4 h-4" /> },
+              { id: 'reports', label: t('hospital_page.tabs.reports'), icon: <Printer className="w-4 h-4" /> },
+              { id: 'tools', label: t('hospital_page.tabs.tools'), icon: <Calculator className="w-4 h-4" /> },
+              { id: 'examples', label: t('hospital_page.tabs.examples'), icon: <Briefcase className="w-4 h-4" /> },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -224,31 +236,26 @@ export default function HospitalAccounting() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-primary border-r-4 border-emerald-500 pr-4">مقدمة عن محاسبة المستشفيات</h2>
+                <h2 className={cn("text-3xl font-bold text-primary", isRtl ? "border-r-4 pr-4" : "border-l-4 pl-4", "border-emerald-500")}>{t('hospital_page.intro_section.title')}</h2>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
-                    <strong className="text-primary">تعريف محاسبة المستشفيات:</strong> هي نظام محاسبي متخصص يهدف إلى تسجيل وتبويب وتحليل العمليات المالية في المنشآت الطبية، مع التركيز على دقة حساب تكلفة الخدمة الطبية وتعدد مصادر الإيراد.
+                    <strong className="text-primary">{t('hospital_page.intro_section.def_title')}</strong> {t('hospital_page.intro_section.def_desc')}
                   </p>
                   <p>
-                    <strong className="text-primary">الأهمية:</strong> تكمن أهميتها في الرقابة الصارمة على المخزون الطبي (الأدوية والمستلزمات) وإدارة العلاقة المعقدة مع شركات التأمين الطبي، وضمان استدامة تقديم الخدمة الطبية بجودة عالية.
+                    <strong className="text-primary">{t('hospital_page.intro_section.importance_title')}</strong> {t('hospital_page.intro_section.importance_desc')}
                   </p>
                   <p>
-                    <strong className="text-primary">الفرق عن المحاسبة التجارية:</strong> تتميز بوجود "إيرادات مؤجلة" من شركات التأمين، وتنوع كبير في مراكز التكلفة (أقسام طبية مختلفة)، وضرورة الرقابة على تواريخ صلاحية المخزون الحرج.
+                    <strong className="text-primary">{t('hospital_page.intro_section.diff_title')}</strong> {t('hospital_page.intro_section.diff_desc')}
                   </p>
                 </div>
               </div>
               <div className="bg-emerald-50 p-8 rounded-3xl border border-emerald-100">
                 <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-2">
                   <Activity className="w-6 h-6 text-emerald-600" />
-                  أهمية الرقابة المالية الطبية
+                  {t('hospital_page.intro_section.control_title')}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    { title: 'الرقابة على الإيرادات', desc: 'ضمان تحصيل رسوم الكشوفات والعمليات بدقة.' },
-                    { title: 'إدارة المخزون', desc: 'منع الهدر في الأدوية والمستلزمات الطبية.' },
-                    { title: 'مطالبات التأمين', desc: 'تقليل المبالغ المرفوضة من شركات التأمين.' },
-                    { title: 'تكلفة الخدمة', desc: 'تحديد السعر العادل للخدمات الطبية.' },
-                  ].map((item, i) => (
+                  {(t('hospital_page.intro_section.control_items', { returnObjects: true }) as any[]).map((item, i) => (
                     <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-emerald-50">
                       <h4 className="font-bold text-primary text-sm mb-1">{item.title}</h4>
                       <p className="text-xs text-gray-500">{item.desc}</p>
@@ -265,23 +272,16 @@ export default function HospitalAccounting() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div className="space-y-8">
-                <h2 className="text-3xl font-bold text-primary">أنواع الإيرادات الطبية</h2>
+                <h2 className="text-3xl font-bold text-primary">{t('hospital_page.revenue_types')}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    { title: 'الكشف الطبي', icon: <Stethoscope />, items: ['عيادات خارجية', 'استشارات'] },
-                    { title: 'العمليات الجراحية', icon: <Syringe />, items: ['عمليات كبرى', 'عمليات صغرى'] },
-                    { title: 'الإقامة الداخلية', icon: <Bed />, items: ['غرف عادية', 'أجنحة', 'عناية'] },
-                    { title: 'الأشعة والتحاليل', icon: <Microscope />, items: ['مختبرات', 'أشعة مقطعية'] },
-                    { title: 'الصيدلية', icon: <Pill />, items: ['أدوية خارجية', 'مستلزمات'] },
-                    { title: 'شركات التأمين', icon: <ShieldCheck />, items: ['مطالبات آجلة', 'نسبة التحمل'] },
-                  ].map((rev, i) => (
+                  {(t('hospital_page.revenue_sections', { returnObjects: true }) as any[]).map((rev, i) => (
                     <div key={i} className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
                       <div className="flex items-center gap-3 mb-4 text-primary">
-                        {rev.icon}
+                        <Stethoscope className="w-5 h-5 text-blue-600" />
                         <h4 className="font-bold">{rev.title}</h4>
                       </div>
                       <ul className="space-y-1">
-                        {rev.items.map((item, j) => (
+                        {rev.items.map((item: string, j: number) => (
                           <li key={j} className="text-xs text-gray-500 flex items-center gap-2">
                             <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
                             {item}
@@ -296,21 +296,14 @@ export default function HospitalAccounting() {
               <div className="space-y-8">
                 <h2 className="text-3xl font-bold text-primary">أنواع المصروفات الطبية</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    { title: 'الرواتب والأجور', icon: <Users />, items: ['أطباء', 'تمريض', 'إداريين'] },
-                    { title: 'المستلزمات الطبية', icon: <Pill />, items: ['أدوية', 'شاش', 'محاليل'] },
-                    { title: 'صيانة الأجهزة', icon: <Activity />, items: ['عقود صيانة', 'قطع غيار'] },
-                    { title: 'التغذية والنظافة', icon: <ClipboardList />, items: ['وجبات مرضى', 'تعقيم'] },
-                    { title: 'المرافق العامة', icon: <TrendingUp />, items: ['كهرباء', 'مياه', 'إيجارات'] },
-                    { title: 'مصروفات إدارية', icon: <Briefcase />, items: ['قرطاسية', 'برامج طبية'] },
-                  ].map((exp, i) => (
+                  {(t('hospital_page.expense_sections', { returnObjects: true }) as any[]).map((exp, i) => (
                     <div key={i} className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
                       <div className="flex items-center gap-3 mb-4 text-emerald-700">
-                        {exp.icon}
+                        <DollarSign className="w-5 h-5 text-emerald-600" />
                         <h4 className="font-bold">{exp.title}</h4>
                       </div>
                       <ul className="space-y-1">
-                        {exp.items.map((item, j) => (
+                        {exp.items.map((item: string, j: number) => (
                           <li key={j} className="text-xs text-gray-500 flex items-center gap-2">
                             <span className="w-1 h-1 bg-emerald-500 rounded-full"></span>
                             {item}
@@ -330,15 +323,9 @@ export default function HospitalAccounting() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8">
-                <h2 className="text-3xl font-bold text-primary">الدورة المحاسبية للمستشفى</h2>
+                <h2 className="text-3xl font-bold text-primary">{t('hospital_page.cycle_title')}</h2>
                 <div className="space-y-4">
-                  {[
-                    { step: '1', title: 'تسجيل الإيرادات اليومية', desc: 'إثبات جميع الكشوفات والخدمات المقدمة نقداً أو تأمين.' },
-                    { step: '2', title: 'إدارة فواتير المرضى', desc: 'تجميع كافة الخدمات المقدمة للمريض المقيم في فاتورة واحدة.' },
-                    { step: '3', title: 'مطالبات التأمين', desc: 'إرسال المطالبات لشركات التأمين ومتابعة الموافقة عليها.' },
-                    { step: '4', title: 'تسجيل المصروفات', desc: 'إثبات رواتب الأطباء وتكلفة الأدوية المنصرفة.' },
-                    { step: '5', title: 'التقارير المالية', desc: 'إعداد قائمة الدخل لكل قسم طبي على حدة.' },
-                  ].map((item, i) => (
+                  {(t('hospital_page.cycle_steps', { returnObjects: true }) as any[]).map((item, i) => (
                     <div key={i} className="flex gap-4 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
                       <div className="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-bold">
                         {item.step}
@@ -353,24 +340,18 @@ export default function HospitalAccounting() {
               </div>
 
               <div className="space-y-8">
-                <h2 className="text-3xl font-bold text-primary">قيود محاسبية شائعة</h2>
+                <h2 className="text-3xl font-bold text-primary">{t('hospital_page.common_entries')}</h2>
                 <div className="space-y-4">
-                  {[
-                    { title: 'تحصيل رسوم كشف نقداً', debit: 'حـ/ الصندوق / البنك', credit: 'حـ/ إيرادات العيادات الخارجية' },
-                    { title: 'إثبات مستحقات شركة تأمين', debit: 'حـ/ مدينو شركات التأمين', credit: 'حـ/ إيرادات الخدمات الطبية' },
-                    { title: 'شراء أدوية للمخزن', debit: 'حـ/ مخزن الأدوية', credit: 'حـ/ الموردين' },
-                    { title: 'صرف رواتب الأطباء', debit: 'حـ/ مصروفات الرواتب (أطباء)', credit: 'حـ/ البنك / النقدية' },
-                    { title: 'إيرادات الصيدلية الداخلية', debit: 'حـ/ الصندوق / ذمم المرضى', credit: 'حـ/ إيرادات الصيدلية' },
-                  ].map((entry, i) => (
+                  {(t('hospital_page.entries_list', { returnObjects: true }) as any[]).map((entry, i) => (
                     <div key={i} className="p-4 bg-gray-50 rounded-xl border border-gray-100">
                       <h4 className="font-bold text-emerald-600 text-sm mb-2">{entry.title}</h4>
                       <div className="grid grid-cols-2 gap-4 text-xs">
                         <div className="p-2 bg-white rounded border border-gray-200">
-                          <span className="font-bold text-primary block mb-1">من حـ/ (مدين)</span>
+                          <span className="font-bold text-primary block mb-1">{isRtl ? 'من حـ/ (مدين)' : 'Dr. (Debit)'}</span>
                           {entry.debit}
                         </div>
                         <div className="p-2 bg-white rounded border border-gray-200">
-                          <span className="font-bold text-primary block mb-1">إلى حـ/ (دائن)</span>
+                          <span className="font-bold text-primary block mb-1">{isRtl ? 'إلى حـ/ (دائن)' : 'Cr. (Credit)'}</span>
                           {entry.credit}
                         </div>
                       </div>

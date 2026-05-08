@@ -36,7 +36,7 @@ export default function BadDebts() {
                 <AlertCircle className="w-4 h-4" />
                 {t('knowledge_bank.title')}
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight text-right">
+              <h1 className={cn("text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight", isRtl ? "text-right" : "text-left")}>
                 {t('bad_debts_page.title')}
               </h1>
               <p className="text-xl text-slate-600 leading-relaxed">
@@ -173,9 +173,9 @@ export default function BadDebts() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8 no-print text-right">
+          <div className={cn("space-y-8 no-print", isRtl ? "text-right" : "text-left")}>
             <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm">
-               <Clock className="w-10 h-10 text-blue-600 mb-6 mx-auto md:mx-0" />
+               <Clock className={cn("w-10 h-10 text-blue-600 mb-6 mx-auto", isRtl ? "md:ml-0" : "md:mr-0")} />
                <h4 className="text-xl font-bold text-slate-900 mb-4">{t('bad_debts_page.example.title')}</h4>
                <p className="text-slate-600 text-sm italic mb-6 leading-relaxed">"{t('bad_debts_page.example.desc')}"</p>
                <div className="space-y-3">
@@ -185,12 +185,12 @@ export default function BadDebts() {
             </div>
 
             <div className="bg-slate-900 rounded-[2rem] p-8 text-white relative overflow-hidden group shadow-2xl">
-               <div className="relative z-10 text-right">
+               <div className={cn("relative z-10", isRtl ? "text-right" : "text-left")}>
                   <ShieldAlert className="w-10 h-10 text-red-500 mb-4" />
-                  <h4 className="text-xl font-black mb-4">Risk Management</h4>
-                  <p className="text-slate-400 text-sm mb-8 leading-relaxed">Ensure your balance sheet reflects true realizable value through strategic allowances.</p>
+                  <h4 className="text-xl font-black mb-4">{t('bad_debts_page.risk_mgmt')}</h4>
+                  <p className="text-slate-400 text-sm mb-8 leading-relaxed">{t('bad_debts_page.risk_mgmt_desc')}</p>
                   <button className="w-full bg-white text-slate-900 py-4 rounded-xl font-black text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
-                    Consult Expert
+                    {t('bad_debts_page.consult_expert')}
                     <HelpCircle className="w-4 h-4" />
                   </button>
                </div>

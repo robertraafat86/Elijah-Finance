@@ -10,7 +10,11 @@
     "financial_analysis": "Financial Analysis",
     "customs_duties": "Customs Duties",
     "internal_audit": "Internal Audit",
+    "ai_group": "AI & Standards",
+    "specialties_group": "Accounting Specialties",
     "reports_group": "Standards & Regulations",
+    "audit_group": "Audit & Controls",
+    "general_group": "General Resources",
     "ai_standards": "Standards Explained (AI)",
     "financial_statements": "Financial Statements",
     "international_standards": "International Standards",
@@ -18,6 +22,7 @@
     "financial_regulations": "Financial Regulations",
     "accounting_misc": "Knowledge Bank",
     "inventory": "Inventory Methods",
+    "inventory_valuation": "Inventory Valuation",
     "bank_reconciliation": "Bank Reconciliation",
     "bad_debts": "Bad Debts",
     "scrap": "Scrap",
@@ -26,6 +31,9 @@
     "contact": "Contact Us"
   },
   "common": {
+    "home": "Home",
+    "title": "Title",
+    "dashboard": "Dashboard",
     "start_learning": "Start Learning",
     "professionalism": "Professionalism",
     "quality_text": "High professional standards in all services.",
@@ -41,24 +49,67 @@
     "print_btn": "Print",
     "download_pdf": "Download PDF",
     "copy": "Copy",
-    "save": "Save"
+    "save": "Save",
+    "brand_initial": "E",
+    "brand_name": "Elijah",
+    "brand_logo": "Elijah Logo",
+    "need_help": "Need help?",
+    "chat_now": "Chat with us",
+    "explore_content": "Explore Our Professional Content",
+    "explore_subtitle": "An integrated educational environment covering all specialized accounting fields.",
+    "vision_title": "Our Distinctive Vision",
+    "vision_text": "We believe that financial clarity is the foundation of growth. We work to simplify accounting processes so that business owners can focus on creativity and expansion.",
+    "core_values": "Our Core Values",
+    "accuracy": "Accuracy",
+    "transparency": "Transparency",
+    "quality_commitment": "Commitment to Quality",
+    "quality_commitment_text": "We don't just provide calculations; we provide reliable results that form the basis for sound strategic decisions.",
+    "examples_label": "Examples:",
+    "currency_egp": "EGP",
+    "unit": "Unit",
+    "units": "Units"
   },
   "home": {
     "hero_title": "Integrated Financial and Accounting Success Starts Here",
     "hero_subtitle": "Professional expertise in bookkeeping, internal audit, and full financial consultancy with a focus on accuracy and sustainable growth.",
+    "center_name": "Elijah Center",
+    "get_started": "Get Started Now",
     "financial_portal": "Financial Portal",
     "educational_bank": "Educational Bank",
     "years_exp": "Years of Experience",
     "clients": "Happy Clients",
+    "edu_programs": "Educational Programs",
+    "certificates": "Accredited Certificates",
     "projects": "Project Completed",
     "services_title": "Our Professional Services",
     "services_desc": "We provide a comprehensive range of accounting and financial services specifically designed to meet your company's needs.",
     "accounting_portal_title": "Simplified Financial Education",
     "accounting_portal_desc": "Explore our interactive educational portal to understand accounting basics and standards properly.",
+    "portal_desc": "Explore the integrated accounting portal to learn basics and advanced concepts.",
+    "cycle_desc": "Steps to record and analyze financial operations from beginning to end.",
+    "cost_desc": "Analyze costs to achieve maximum efficiency and profit in production.",
+    "tax_desc": "All types of taxes and how to handle them according to modern laws.",
+    "construction_accounting": "Construction Accounting",
+    "construction_desc": "Specialized accounting for construction and contracting projects.",
+    "hospital_accounting": "Hospital Accounting",
+    "hospital_desc": "Accounting systems for medical centers and hospitals.",
+    "customs_desc": "Customs duties and international trade procedures.",
+    "audit_desc": "Improving internal control and evaluating company performance.",
+    "standards_desc": "Egyptian and international accounting standards and their applications.",
+    "misc_desc": "Various information and basics that every accountant must know.",
     "principles_title": "Basic Accounting Principles",
     "principles_desc": "Accounting is based on a set of fundamental principles that ensure reliability and transparency in financial reporting.",
     "reviews_title": "Success Stories from Our Clients",
-    "reviews_desc": "We take pride in the trust of our clients across various sectors."
+    "reviews_desc": "We take pride in the trust of our clients across various sectors.",
+    "quality_points": [
+      "Continuous content updates according to latest standard amendments.",
+      "Focus on the practical and applied aspect of numbers.",
+      "Continuous technical and advisory support for all beneficiaries."
+    ],
+    "growth_consulting": "Growth Consulting",
+    "growth_desc": "Helping organizations identify safe financial growth paths.",
+    "internal_control": "Internal Control",
+    "internal_control_desc": "Designing and auditing control systems to ensure process integrity."
   },
   "about": {
     "title": "About Us",
@@ -168,7 +219,32 @@
   "misc": {
     "title": "Knowledge Bank",
     "subtitle": "Learn Smarter, Faster",
-    "desc": "A set of practical accounting treatments and advanced topics addressed in a simplified and professional scientific way."
+    "description": "A collection of practical accounting treatments and advanced topics simplified for professionals.",
+    "desc": "A set of practical accounting treatments and advanced topics addressed in a simplified and professional scientific way.",
+    "quick_questions": "Quick Answers",
+    "search_label": "Search Knowledge Bank",
+    "search_placeholder": "Search for concepts, terms, or tips...",
+    "categories_label": "Filter by Category",
+    "saved_items": "Saved Items",
+    "saved_desc": "Save important topics for quick access later.",
+    "details_label": "Detailed Explanation",
+    "example_label": "Practical Example",
+    "hide_details": "Hide Details",
+    "show_details": "Show Details",
+    "no_results": "No results found",
+    "no_results_desc": "Try adjusting your search or category filters.",
+    "show_all": "Show all topics",
+    "professional_tips": "Professional Tips",
+    "common_errors": "Common Pitfalls",
+    "categories": {
+      "all": "All Topics",
+      "basic-concepts": "Basic Concepts",
+      "terminology": "Accounting Terminology",
+      "tips": "Pro Tips",
+      "common-errors": "Common Errors",
+      "quick-q": "Quick Q&A",
+      "general-info": "General Info"
+    }
   },
   "tax": {
     "title": "Tax Accounting",
@@ -259,6 +335,8 @@
     "tax_rep_desc": "Attending tax inspection and defending your company's rights.",
     "risk_reduction": "Risk Reduction",
     "risk_reduction_desc": "Early warning of any tax gaps that may cause problems.",
+    "cta_tax_title": "Ready to manage your taxes accurately?",
+    "cta_tax_desc": "Our team helps you submit returns and optimize your tax base smoothly.",
     "order_now": "Order Service Now"
   },
   "construction": {
@@ -665,11 +743,28 @@
   "inventory_page": {
     "title": "Inventory Valuation Methods",
     "subtitle": "Comprehensive guide on managing inventory and its impact on COGS and net profit.",
+    "featured_title": "Educational Resources",
     "intro": {
+      "title": "Inventory Overview",
       "definition_title": "Inventory Definition",
       "definition_desc": "Inventory refers to the goods and products held by a business for resale or use in production. It is a key current asset, and its valuation directly affects Cost of Goods Sold (COGS) and net profit.",
+      "definition": "Inventory refers to the goods and products held by a business for resale or use in production. It is a key current asset.",
+      "desc": "Effective inventory management ensures the right balance between demand and storage costs.",
       "importance_title": "Importance of Inventory Management",
       "importance_desc": "Helps in reducing costs, preventing spoilage, ensuring product availability, and improving cash flow."
+    },
+    "importance": {
+      "items": [
+        "Reducing storage and holding costs",
+        "Preventing product spoilage or obsolescence",
+        "Ensuring consistent product availability",
+        "Improving business cash flow and liquidity"
+      ]
+    },
+    "cta_learn": {
+      "title": "Start Learning?",
+      "desc": "Explore the full accounting cycle and advanced reporting standards.",
+      "hub": "Portal Hub"
     },
     "methods": {
       "title": "Valuation Methods",
@@ -677,13 +772,18 @@
       "fifo": {
         "title": "First-In, First-Out (FIFO)",
         "desc": "Assumes that the goods purchased first are the ones sold first. Ending inventory is valued at most recent prices.",
+        "example_title": "FIFO Example",
         "example": "Example: Bought 100 units at $10, then 200 at $12. If 150 sold, cost is 100*$10 + 50*$12.",
+        "impact_title": "Financial Impact",
+        "impact_desc": "Impact: Results in higher profits during inflation and inventory value close to market price.",
         "impact": "Impact: Results in higher profits during inflation and inventory value close to market price."
       },
       "lifo": {
         "title": "Last-In, First-Out (LIFO)",
         "desc": "Assumes that the most recently purchased goods are sold first. (Note: Not allowed under IFRS).",
         "example": "Example: (same data) If 150 units sold, cost is 150 units at $12 (latest purchase).",
+        "impact_title": "Financial Impact",
+        "impact_desc": "Impact: Often used to reduce taxes during price hikes as it increases COGS.",
         "impact": "Impact: Often used to reduce taxes during price hikes as it increases COGS."
       },
       "average": {
@@ -691,6 +791,8 @@
         "desc": "Average cost per unit is calculated by dividing total cost of goods available by total units.",
         "formula": "Average Cost = Total Cost / Total Quantity",
         "example": "Example: (100*10 + 200*12) / 300 = $11.33 per unit. COGS (150 units) = $1,700.",
+        "impact_title": "Financial Impact",
+        "impact_desc": "Impact: Provides middle-ground results and smooths out price fluctuations.",
         "impact": "Impact: Provides middle-ground results and smooths out price fluctuations."
       }
     },
@@ -1071,6 +1173,9 @@
   "depreciation_page": {
     "title": "Accounting Depreciation Methods",
     "subtitle": "A comprehensive guide on distributing fixed asset costs over their useful life.",
+    "featured_title": "Featured Educational Resources",
+    "featured_desc": "Deepen your knowledge with our specialized modules on complex accounting treatments.",
+    "start_learning": "Start Learning Now",
     "intro": {
       "definition_title": "Depreciation Definition",
       "definition_desc": "The process of distributing fixed asset costs (machines, cars, buildings) over their estimated useful life to reflect consumption and value decrease over time.",
@@ -1115,6 +1220,12 @@
     "tax_impact": {
       "title": "Tax Impact of Depreciation",
       "desc": "Depreciation is a tax-deductible expense, which reduces taxable net profit and thus provides cash liquidity to the entity."
+    },
+    "sidebar": {
+      "tip_title": "Professional Tip",
+      "tip_desc": "Choose an allocation method that accurately reflects the consumption pattern of the asset's economic benefits. Reviewed annually under IFRS.",
+      "master_title": "Master More Topics",
+      "master_desc": "Expand your expertise with specialized accounting modules in the Knowledge Bank."
     }
   },
   "scrap_page": {
@@ -1162,9 +1273,161 @@
       "entry": "Entry: 5,000 Dr. Cash .. 5,000 Cr. Scrap Sale Income"
     }
   },
+  "cost": {
+    "title": "Cost Accounting",
+    "hero_title": "Achieve Maximum Efficiency and <span class=\"text-accent\">Profit Control</span>",
+    "hero_subtitle": "Specialized cost accounting systems help you calculate product costs accurately and identify waste points to improve competitiveness.",
+    "what_is_cost_accounting": "What is Cost Accounting?",
+    "cost_accounting_desc": "Cost accounting is an internal accounting system that tracks and analyzes all costs incurred by the company to produce a product or provide a service. It provides management with the data needed to make decisions about pricing, productivity, and control.",
+    "diff_financial": "Difference from Financial Accounting",
+    "diff_financial_desc": "Cost accounting focuses on internal details and specific products, while financial accounting focuses on the overall entity for external parties.",
+    "pricing_importance": "Importance in Pricing",
+    "pricing_desc": "Determining the minimum selling price that covers costs and achieves the targeted profit margin.",
+    "control_eval": "Performance Control and Evaluation",
+    "control_eval_desc": "Comparing actual costs with standard costs to detect deviations and address them promptly.",
+    "data_accuracy": "Cost Data Accuracy",
+    "core_elements": "Core Cost Elements",
+    "core_elements_subtitle": "Every product or service cost is fundamentally composed of three main elements.",
+    "direct_materials": "Direct Materials",
+    "direct_materials_desc": "Main materials that enter directly into manufacturing the product and can be easily traced.",
+    "direct_materials_examples": "Wood in furniture, iron in construction, fabric in clothes.",
+    "direct_labor": "Direct Labor",
+    "direct_labor_desc": "Wages of workers who work directly on producing the product or providing the service.",
+    "direct_labor_examples": "Factory workers, technicians, specialized engineers.",
+    "indirect_costs": "Overhead Costs",
+    "indirect_costs_desc": "Costs necessary for production but not directly linked to a specific unit of product.",
+    "indirect_costs_examples": "Factory rent, electricity, indirect labor (guards, supervisors).",
+    "cost_systems": "Cost Accounting Systems",
+    "orders_system": "Job Order Costing System",
+    "orders_system_desc": "Used for products made according to specific customer requests.",
+    "process_system": "Process Costing System",
+    "process_system_desc": "Used for mass production of similar products in continuous stages.",
+    "standard_system": "Standard Costing System",
+    "standard_system_desc": "Estimating costs in advance and comparing them with actual results.",
+    "abc_system": "Activity-Based Costing (ABC)",
+    "abc_system_desc": "Allocating indirect costs based on the activities that consume those costs.",
+    "mgmt_prod_ops": "Managing Production Operations",
+    "tools_title": "Interactive Cost Tools",
+    "tools_subtitle": "Simple tools to help you perform basic cost calculations and analyze profitability.",
+    "unit_cost_calc": "Unit Cost Calculator",
+    "materials_cost": "Total Materials Cost",
+    "labor_cost": "Total Labor Cost",
+    "indirect_exp": "Indirect Expenses (Overhead)",
+    "units_produced": "Units Produced",
+    "unit_cost_result": "Cost per Unit",
+    "break_even_calc": "Break-Even Point Calculator",
+    "fixed_costs": "Total Fixed Costs",
+    "selling_price": "Selling Price per Unit",
+    "variable_cost": "Variable Cost per Unit",
+    "break_even_qty": "Required Quantity (to break even)",
+    "break_even_desc": "The volume of sales at which total revenue equals total costs (Zero Profit).",
+    "reports_title": "Professional Cost Reports",
+    "industrial_cost_list": "Industrial Cost Sheet",
+    "industrial_cost_desc": "Summary of all costs incurred to manufacture products during a period.",
+    "deviation_report": "Variance Analysis Report",
+    "deviation_desc": "Detecting differences between estimated and actual costs for each production element.",
+    "margin_analysis": "Contribution Margin Analysis",
+    "margin_desc": "Evaluating the profitability of each product and its contribution to covering fixed costs.",
+    "cost_centers": "Cost Centers Report",
+    "cost_centers_desc": "Tracing and analyzing expenses for each department or production line independently.",
+    "cta_title": "Want to implement a professional cost system in your factory or project?",
+    "cta_desc": "Our team provides specialized consultations to design and implement cost systems that ensure you have a clear vision of every penny spent.",
+    "contact_now": "Contact Us Now"
+  },
+  "hospital_page": {
+    "title": "Hospital & Medical Centers Accounting",
+    "hero_title": "Hospital Accounting and <span class=\"text-emerald-500\">Medical Centers</span>",
+    "hero_subtitle": "Comprehensive and professional explanation of medical revenue and expense management, dealing with insurance companies, and managing medical inventory with high precision.",
+    "guide_title": "Accounting Guide in the Medical Sector",
+    "tabs": {
+      "intro": "Introduction & Characteristics",
+      "revenue_expense": "Revenue & Expenses",
+      "cycle": "Accounting Cycle",
+      "inventory": "Medical Inventory",
+      "insurance": "Insurance Companies",
+      "kpis": "Key Performance Indicators",
+      "reports": "Ready Reports",
+      "tools": "Tools & Calculators",
+      "examples": "Practical Examples"
+    },
+    "intro_section": {
+      "title": "Introduction to Hospital Accounting",
+      "def_title": "Hospital Accounting Definition:",
+      "def_desc": "A specialized accounting system that recording, classifying and analyzing financial operations in medical facilities, focusing on service cost accuracy and multiple revenue sources.",
+      "importance_title": "Importance:",
+      "importance_desc": "Lies in strict control over medical inventory (medicines and supplies) and managing the complex relationship with medical insurance companies, ensuring service sustainability with high quality.",
+      "diff_title": "Difference from Commercial Accounting:",
+      "diff_desc": "Features \"deferred revenue\" from insurance, diverse cost centers (different medical departments), and mandatory control over critical inventory expiry dates.",
+      "control_title": "Financial Medical Control Importance",
+      "control_items": [
+        { "title": "Revenue Control", "desc": "Ensuring accurate collection of fees for examinations and surgeries." },
+        { "title": "Inventory Management", "desc": "Preventing waste in medicines and medical supplies." },
+        { "title": "Insurance Claims", "desc": "Reducing rejected amounts from insurance companies." },
+        { "title": "Service Cost", "desc": "Determining fair pricing for medical services." }
+      ]
+    },
+    "revenue_types": "Medical Revenue Types",
+    "revenue_sections": [
+      { "title": "Medical Examination", "items": ["Outpatient", "Consultations"] },
+      { "title": "Surgeries", "items": ["Major Surgeries", "Minor Surgeries"] },
+      { "title": "Inpatient Stay", "items": ["Standard Rooms", "Suites", "ICU"] },
+      { "title": "Radiology & Lab", "items": ["Laboratories", "CT Scans"] },
+      { "title": "Pharmacy", "items": ["Outpatient Meds", "Supplies"] },
+      { "title": "Insurance Companies", "items": ["Deferred Claims", "Co-payment"] }
+    ],
+    "expense_types": "Medical Expense Types",
+    "expense_sections": [
+      { "title": "Salaries & Wages", "items": ["Doctors", "Nursing", "Admin"] },
+      { "title": "Medical Supplies", "items": ["Medicines", "Gauze", "Solutions"] },
+      { "title": "Equipment Maintenance", "items": ["Maintenance Contracts", "Spare Parts"] },
+      { "title": "Catering & Cleaning", "items": ["Patient Meals", "Sterilization"] },
+      { "title": "Public Utilities", "items": ["Electricity", "Water", "Rent"] },
+      { "title": "Administrative Expenses", "items": ["Stationery", "Medical Software"] }
+    ],
+    "cycle_title": "Hospital Accounting Cycle",
+    "cycle_steps": [
+      { "step": "1", "title": "Daily Revenue Recording", "desc": "Recording all exams and services provided via cash or insurance." },
+      { "step": "2", "title": "Patient Billing Management", "desc": "Collecting all services provided to an inpatient in a single invoice." },
+      { "step": "3", "title": "Insurance Claims", "desc": "Sending claims to insurance companies and following up on approvals." },
+      { "step": "4", "title": "Expense Recording", "desc": "Recording doctors' salaries and costs of dispensed medications." },
+      { "step": "5", "title": "Financial Reports", "desc": "Preparing the income statement for each medical department separately." }
+    ],
+    "common_entries": "Common Accounting Entries",
+    "entries_list": [
+      { "title": "Cash consultation fee collection", "debit": "A/C Cash / Bank", "credit": "A/C Outpatient Clinic Revenue" },
+      { "title": "Recognizing insurance co. receivables", "debit": "A/C Insurance Co. Debtors", "credit": "A/C Medical Service Revenue" },
+      { "title": "Purchasing medications for store", "debit": "A/C Medication Store", "credit": "A/C Suppliers" },
+      { "title": "Paying doctors' salaries", "debit": "A/C Salary Expenses (Doctors)", "credit": "A/C Bank / Cash" },
+      { "title": "Internal pharmacy revenue", "debit": "A/C Cash / Patient Receivables", "credit": "A/C Pharmacy Revenue" }
+    ],
+    "inventory_title": "Medical Inventory Management",
+    "inventory_desc": "Inventory in hospitals is not just numbers; it's patients' lives. Control over medicines and supplies requires high precision in tracking expiration dates and critical quantities.",
+    "periodic_inventory": "Periodic Inventory",
+    "periodic_desc": "Conducted at the end of each financial period.",
+    "perpetual_inventory": "Perpetual Inventory",
+    "perpetual_desc": "Immediate update with every issuance.",
+    "insurance_title": "Insurance Companies Accounts Management",
+    "insurance_desc": "Insurance companies are the largest source of revenue in modern hospitals, but they require precise claim management to avoid financial rejection.",
+    "kpis_title": "Medical Financial KPIs",
+    "kpis_subtitle": "Vital metrics to evaluate hospital management efficiency financially and operationally.",
+    "tools_title": "Medical Tools & Calculators",
+    "examples_title": "Practical Examples",
+    "reports_title": "Ready-to-Print Accounting and Medical Reports",
+    "reports_subtitle": "Integrated set of reports specifically designed to help financial and medical management track performance with high precision with full print and export support.",
+    "back_to_reports": "Back to Reports List",
+    "report_date": "Report Date:",
+    "official_header": "Elijah Financial Services",
+    "dept_name": "Medical & Hospital Accounting Department",
+    "official_report": "Official Report",
+    "acc_name": "Acc / Robier Raafat",
+    "print_date": "Print Date:"
+  },
   "bad_debts_page": {
     "title": "Bad Debts and Accounting Treatment",
     "subtitle": "Understanding the difference between doubtful and bad debts and protecting financial statements.",
+    "risk_mgmt": "Risk Management",
+    "risk_mgmt_desc": "Ensure your balance sheet reflects true realizable value through strategic allowances.",
+    "consult_expert": "Consult Expert",
     "intro": {
       "definition_title": "Bad Debts Definition",
       "definition_desc": "These are amounts that a business has lost hope of collecting from customers due to bankruptcy or disappearance, considered a realized loss that must be recognized.",
@@ -1193,6 +1456,8 @@
     "example": {
       "title": "Practical Example",
       "desc": "A customer owing $10,000 declared bankruptcy. Company decides to write off using Allowance method.",
+      "allowance_entry": "Allowance Entry: Dr. Allowance for Doubtful Accounts | Cr. Accounts Receivable",
+      "direct_entry": "Direct Entry: Dr. Bad Debt Expense | Cr. Accounts Receivable",
       "entry": "Entry: $10,000 Dr. Allowance for Doubtful Accounts | $10,000 Cr. Accounts Receivable"
     }
   }

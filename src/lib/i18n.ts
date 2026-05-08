@@ -13,6 +13,12 @@ i18n
       en: { translation: en }
     },
     fallbackLng: 'ar',
+    returnEmptyString: true,
+    parseMissingKeyHandler: (key) => {
+      // Return three dots or empty string for missing keys to maintain UI cleanliness
+      console.warn(`Missing translation key: ${key}`);
+      return '...';
+    },
     interpolation: {
       escapeValue: false
     },

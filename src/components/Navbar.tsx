@@ -45,7 +45,7 @@ export default function Navbar() {
           <div className="logo-container h-12 md:h-16 w-auto flex items-center">
              <img 
               src={LOGO_URL} 
-              alt="شعار إيليجا" 
+              alt={t('common.brand_logo')} 
               className="h-full w-auto object-contain"
               referrerPolicy="no-referrer"
             />

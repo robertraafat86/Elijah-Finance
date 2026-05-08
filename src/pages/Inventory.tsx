@@ -262,10 +262,10 @@ export default function Inventory() {
 
             <div className="bg-blue-600 rounded-[2rem] p-8 text-white relative overflow-hidden">
                <div className="relative z-10">
-                  <h4 className="text-xl font-bold mb-4">Start Learning?</h4>
-                  <p className="text-blue-100 text-sm mb-6">Explore the full accounting cycle and advanced reporting standards.</p>
+                  <h4 className="text-xl font-bold mb-4">{t('inventory_page.cta_learn.title')}</h4>
+                  <p className="text-blue-100 text-sm mb-6">{t('inventory_page.cta_learn.desc')}</p>
                   <Link to="/accounting-portal" className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-50 transition-all">
-                    Portal Hub
+                    {t('inventory_page.cta_learn.hub')}
                     {isRtl ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
                   </Link>
                </div>

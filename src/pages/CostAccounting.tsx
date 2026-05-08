@@ -183,7 +183,7 @@ const CostAccounting = () => {
                 <h3 className="text-xl font-bold text-primary mb-3">{element.title}</h3>
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed">{element.desc}</p>
                 <div className="pt-4 border-t border-gray-100">
-                  <span className="text-xs font-bold text-accent uppercase tracking-wider">{t('nav.reports_group').includes('معايير') ? 'أمثلة:' : 'Examples:'}</span>
+                  <span className="text-xs font-bold text-accent uppercase tracking-wider">{t('common.examples_label')}</span>
                   <p className="text-gray-500 text-sm mt-1">{element.examples}</p>
                 </div>
               </motion.div>
@@ -289,7 +289,7 @@ const CostAccounting = () => {
 
                 <div className="p-6 rounded-2xl bg-primary text-white text-center">
                   <div className="text-sm text-white/70 mb-1">{t('cost.unit_cost_result')}</div>
-                  <div className="text-3xl font-bold text-accent">{calculateUnitCost()} {isRtl ? 'ج.م' : 'EGP'}</div>
+                  <div className="text-3xl font-bold text-accent">{calculateUnitCost()} {t('common.currency_egp')}</div>
                 </div>
               </div>
             </div>
@@ -336,7 +336,7 @@ const CostAccounting = () => {
 
                 <div className="p-6 rounded-2xl bg-gray-50 border-2 border-dashed border-accent/30 text-center">
                   <div className="text-sm text-gray-500 mb-1">{t('cost.break_even_qty')}</div>
-                  <div className="text-3xl font-bold text-primary">{calculateBreakEven()} {isRtl ? 'وحدة' : 'Units'}</div>
+                  <div className="text-3xl font-bold text-primary">{calculateBreakEven()} {Number(calculateBreakEven()) === 1 ? t('common.unit') : t('common.units')}</div>
                   <p className="text-xs text-gray-400 mt-2">{t('cost.break_even_desc')}</p>
                 </div>
               </div>

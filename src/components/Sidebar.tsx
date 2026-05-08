@@ -85,10 +85,10 @@ export default function Sidebar() {
         <div className="flex items-center justify-between mb-10 px-2">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-200">
-              {i18n.language === 'ar' ? 'أ' : 'E'}
+              {t('common.brand_initial')}
             </div>
             <span className="text-2xl font-black text-slate-800 tracking-tighter">
-              {i18n.language === 'ar' ? 'إيليجا' : 'Elijah'}
+              {t('common.brand_name')}
             </span>
           </div>
           <LanguageSwitcher />
@@ -136,7 +136,7 @@ export default function Sidebar() {
       <div className="mt-auto p-6 border-t border-slate-100 bg-slate-50/50">
         <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <p className="text-xs text-slate-500 font-medium mb-1">
-            {i18n.language === 'ar' ? 'تحتاج مساعدة؟' : 'Need help?'}
+            {t('common.need_help')}
           </p>
           <a 
             href="https://wa.me/201208538580" 
@@ -144,7 +144,7 @@ export default function Sidebar() {
             rel="noopener noreferrer"
             className="text-sm font-bold text-blue-600 hover:underline inline-flex items-center gap-1"
           >
-            {i18n.language === 'ar' ? 'تحدث معنا' : 'Chat with us'} 
+            {t('common.chat_now')} 
             <ChevronRight className={cn("w-4 h-4", i18n.language === 'en' && "rotate-180")} />
           </a>
         </div>

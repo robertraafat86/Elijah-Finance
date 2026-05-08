@@ -192,17 +192,17 @@ export default function DepreciationMethods() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8 no-print text-right">
+          <div className={cn("space-y-8 no-print", isRtl ? "text-right" : "text-left")}>
             <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm relative overflow-hidden group">
-               <AlertCircle className="w-12 h-12 text-indigo-600 mb-6 mx-auto md:mr-0 group-hover:scale-110 transition-transform" />
-               <h4 className="text-xl font-bold text-slate-900 mb-4">Professional Tip</h4>
-               <p className="text-slate-600 text-sm font-medium leading-relaxed">Choose an allocation method that accurately reflects the consumption pattern of the asset's economic benefits. Reviewed annually under IFRS.</p>
+               <AlertCircle className={cn("w-12 h-12 text-indigo-600 mb-6 mx-auto group-hover:scale-110 transition-transform", isRtl ? "md:mr-0" : "md:ml-0")} />
+               <h4 className="text-xl font-bold text-slate-900 mb-4">{t('depreciation_page.sidebar.tip_title')}</h4>
+               <p className="text-slate-600 text-sm font-medium leading-relaxed">{t('depreciation_page.sidebar.tip_desc')}</p>
             </div>
 
             <div className="bg-slate-900 rounded-[2rem] p-8 text-white relative overflow-hidden shadow-2xl">
                <div className="relative z-10">
-                  <h4 className="text-xl font-black mb-4">Master More Topics</h4>
-                  <p className="text-slate-400 text-sm mb-8 leading-relaxed">Expand your expertise with specialized accounting modules in the Knowledge Bank.</p>
+                  <h4 className="text-xl font-black mb-4">{t('depreciation_page.sidebar.master_title')}</h4>
+                  <p className="text-slate-400 text-sm mb-8 leading-relaxed">{t('depreciation_page.sidebar.master_desc')}</p>
                   <nav className="space-y-2">
                     {[
                       { title: t('nav.inventory_valuation'), path: '/inventory' },
