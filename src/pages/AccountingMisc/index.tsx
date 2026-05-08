@@ -50,7 +50,6 @@ interface TreasuryTransaction {
 
 export default function AccountingMisc() {
   const { t, i18n } = useTranslation();
-  const isRtl = i18n.language === 'ar';
   
   const [activeSection, setActiveSection] = useState<Section>('customers');
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,17 +57,50 @@ export default function AccountingMisc() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  // Data State
+  /**
+   * 🟦 القسم الأول: محاسبة العملاء (Accounts Receivable)
+   * --------------------------------------------------
+   * فكرة القسم:
+   * إدارة المبالغ المستحقة للمنشأة طرف الغير (العملاء) نتيجة تقديم خدمات أو بيع بضائع بالآجل.
+   * 
+   * المبادئ المحاسبية:
+   * - مدين (Debit): يمثل المبالغ التي قام العميل بسدادها للمنشأة (تقلل رصيده المستحق عليه).
+   * - دائن (Credit): يمثل قيمة الفواتير الصادرة للعميل (تزيد رصيده المستحق عليه كالتزام تجاه المنشأة).
+   * 
+   * معادلة الرصيد:
+   * الرصيد = إجمالي الفواتير (دائن) - إجمالي السداد (مدين)
+   */
   const [customers, setCustomers] = useState<CustomerTransaction[]>([
     { id: '1', name: 'شركة النور للتجارة', invoiceNumber: 'INV-001', debit: 5000, credit: 0, date: '2024-03-01' },
     { id: '2', name: 'مؤسسة الرياض الصناعية', invoiceNumber: 'INV-002', debit: 0, credit: 7500, date: '2024-03-05' },
   ]);
 
+  /**
+   * 🟨 القسم الثاني: محاسبة الموردين (Accounts Payable)
+   * --------------------------------------------------
+   * فكرة القسم:
+   * إدارة الالتزامات المالية على المنشأة تجاه الغير (الموردين) نتيجة الحصول على بضائع أو خدمات بالآجل.
+   * 
+   * المبادئ المحاسبية:
+   * - الفرق بين العميل والمورد: العميل "مدين لنا بالمال"، بينما المورد "نحن دائنون له بالمال".
+   * - تسجيل الفواتير: يتم تسجيل فاتورة المورد في الجانب الدائن لزيادة الالتزام، والسداد له في الجانب المدين لتقليل الالتزام.
+   */
   const [suppliers, setSuppliers] = useState<SupplierTransaction[]>([
     { id: '1', name: 'شركة التوريدات العالمية', invoiceNumber: 'SUP-001', debit: 2000, credit: 10000, date: '2024-03-02' },
     { id: '2', name: 'مصنع الشرق للأثاث', invoiceNumber: 'SUP-002', debit: 5000, credit: 5000, date: '2024-03-06' },
   ]);
 
+  /**
+   * 🟩 القسم الثالث: الخزينة والتسويات (Cash & Settlements)
+   * ----------------------------------------------------
+   * فكرة القسم:
+   * مراقبة التدفقات النقدية الداخلة والخارجة من صندوق المنشأة أو حساباتها البنكية.
+   * 
+   * المفاهيم المالية:
+   * - الإيرادات: أي تدفق نقدي وارد يزيد من سيولة الخزينة.
+   * - المصروفات: أي تدفق نقدي صادر يقلل من سيولة الخزينة.
+   * - التسويات: عمليات تصحيحية لجعل الرصيد الدفتري مطابقاً للرصيد الفعلي (عجز أو زيادة).
+   */
   const [treasury, setTreasury] = useState<TreasuryTransaction[]>([
     { id: '1', type: 'income', description: 'مبيعات نقدية - فرع جدة', amount: 3500, date: '2024-03-10' },
     { id: '2', type: 'expense', description: 'مصاريف صيانة كهرباء', amount: 450, date: '2024-03-11' },
@@ -141,10 +173,10 @@ export default function AccountingMisc() {
           </motion.div>
           
           <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">
-            لوحة تحكم <span className="text-blue-400">بنك المعلومات</span>
+            فواتير و<span className="text-blue-400">تسويات</span>
           </h1>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg font-medium">
-            إدارة شاملة للعملاء والموردين وحركة الخزينة مع تقارير فورية ودقيقة.
+            لوحة تحكم ذكية لإدارة حسابات العملاء والموردين وحركة الخزينة بدقة احترافية.
           </p>
         </div>
       </section>
