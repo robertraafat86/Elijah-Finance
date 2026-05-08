@@ -22,6 +22,7 @@ import {
   Zap
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import DynamicGallery from '../components/DynamicGallery';
 
 export default function InternalAudit() {
   const { t, i18n } = useTranslation();
@@ -245,6 +246,10 @@ export default function InternalAudit() {
       {/* Our Services Section */}
       <section className="section-padding bg-white">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-16 px-4">
+            <h2 className="text-3xl font-black text-slate-900 mb-8">{isRtl ? 'رسوم توضيحية للمراجعة الداخلية' : 'Audit Process Illustrations'}</h2>
+            <DynamicGallery tag="internal-audit" />
+          </div>
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-primary">{t('audit_page.our_services.title')}</h2>
             <p className="text-gray-600 mt-4">{t('audit_page.our_services.subtitle')}</p>

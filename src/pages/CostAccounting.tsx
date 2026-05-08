@@ -20,6 +20,7 @@ import {
   ClipboardList
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import DynamicGallery from '../components/DynamicGallery';
 
 const CostAccounting = () => {
   const { t, i18n } = useTranslation();
@@ -195,6 +196,10 @@ const CostAccounting = () => {
       {/* Cost Systems Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-black text-slate-900 mb-8">{isRtl ? 'رسوم توضيحية لمحاسبة التكاليف' : 'Cost Accounting Illustrations'}</h2>
+            <DynamicGallery tag="cost-accounting" />
+          </div>
           <div className="bg-primary rounded-3xl overflow-hidden shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="p-12 lg:p-20">

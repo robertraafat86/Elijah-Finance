@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 import { 
   TrendingUp, 
   Droplets, 
@@ -19,6 +20,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { FINANCIAL_ANALYSIS_DATA } from '../../data/financialAnalysis';
 import DynamicGallery from '../../components/DynamicGallery';
+import { getDirectDriveUrl } from '../../services/driveService';
 
 const iconMap: { [key: string]: React.ReactNode } = {
   liquidity: <Droplets className="w-8 h-8" />,
@@ -39,6 +41,9 @@ const colorMap: { [key: string]: string } = {
 };
 
 export default function FinancialAnalysis() {
+  const { i18n } = useTranslation();
+  const isRtl = i18n.language === 'ar';
+
   return (
     <div className="pb-24">
       {/* Hero Section */}
@@ -75,6 +80,36 @@ export default function FinancialAnalysis() {
             استكشف مجموعتنا من أدوات التحليل المالي التعليمية والعملية. تعلم كيفية قراءة وفهم القوائم المالية باستخدام أدق المعايير والمؤشرات العالمية.
           </motion.p>
         </div>
+      </section>
+
+      {/* Visual Framework Section */}
+      <section className="container mx-auto px-6 -mt-12 mb-20 pointer-events-none relative z-20">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white rounded-[3rem] p-4 md:p-8 border border-white shadow-2xl shadow-blue-900/10 max-w-5xl mx-auto overflow-hidden pointer-events-auto"
+        >
+          <div className="relative group">
+            <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem]" />
+            <img 
+              src="https://drive.google.com/uc?export=download&id=1M1WxYIFZjGFhu0ompvAKNe2os4L5NlCj" 
+              alt="Financial Analysis Concept Map" 
+              className="w-full h-auto rounded-[2rem] shadow-sm transform group-hover:scale-[1.01] transition-transform duration-700"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+          <div className="mt-8 text-center">
+            <h2 className="text-xl font-black text-slate-900 flex items-center justify-center gap-2">
+              <div className="w-8 h-1 bg-blue-600 rounded-full" />
+              {isRtl ? 'خارطة طريق التحليل المالي الشامل' : 'Comprehensive Financial Analysis Roadmap'}
+              <div className="w-8 h-1 bg-blue-600 rounded-full" />
+            </h2>
+            <p className="text-slate-500 text-sm font-bold mt-2">
+              {isRtl ? 'نظرة بصرية شاملة تربط بين النسب المالية والقرارات الإدارية' : 'A holistic visual guide connecting financial ratios to management decisions'}
+            </p>
+          </div>
+        </motion.div>
       </section>
 
       {/* Analysis Grid */}
@@ -122,14 +157,6 @@ export default function FinancialAnalysis() {
               </motion.div>
             );
           })}
-        </div>
-      </section>
-
-      {/* Visual Analysis Section */}
-      <section className="container mx-auto px-6 mt-24">
-        <div className="bg-white rounded-[3rem] p-8 md:p-12 border border-slate-100 shadow-sm text-center">
-          <h2 className="text-3xl font-black text-slate-900 mb-8">رسوم توضيحية للتحليل المالي</h2>
-          <DynamicGallery tag="financial-analysis" />
         </div>
       </section>
 

@@ -39,6 +39,7 @@ import {
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import DynamicGallery from '../components/DynamicGallery';
+import { getDirectDriveUrl } from '../services/driveService';
 
 export default function HospitalAccounting() {
   const { t, i18n } = useTranslation();
@@ -267,9 +268,23 @@ export default function HospitalAccounting() {
             </div>
 
             {/* Visual Guide Section */}
-            <div className="bg-white p-8 md:p-12 rounded-[3rem] border border-gray-100 shadow-sm">
-              <h3 className="text-2xl font-bold text-primary mb-8">{isRtl ? 'دليل مصور للمحاسبة الطبية' : 'Medical Accounting Visual Guide'}</h3>
-              <DynamicGallery tag="hospital-accounting" />
+            <div className="bg-white p-8 md:p-12 rounded-[3rem] border border-gray-100 shadow-sm space-y-12 text-center">
+              <div>
+                <h3 className="text-2xl font-bold text-primary mb-8">{isRtl ? 'خريطة مفاهيم المحاسبة الطبية' : 'Medical Accounting Concept Map'}</h3>
+                <div className="max-w-4xl mx-auto rounded-[2rem] overflow-hidden border border-gray-100 shadow-xl">
+                  <img 
+                    src={getDirectDriveUrl('1GNQ2fSrGYEDrLYUheMpPcJ14jjpjSqF1')} 
+                    alt="Hospital Accounting Mind Map" 
+                    className="w-full h-auto hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-12 border-t border-gray-50">
+                <h3 className="text-2xl font-bold text-primary mb-8">{isRtl ? 'دليل مصور للمحاسبة الطبية' : 'Medical Accounting Visual Guide'}</h3>
+                <DynamicGallery tag="hospital-accounting" />
+              </div>
             </div>
           </motion.div>
         )}
