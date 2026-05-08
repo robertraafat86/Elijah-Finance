@@ -20,7 +20,7 @@ import {
 import { cn } from '../../lib/utils';
 
 // Types
-type Section = 'customers' | 'suppliers' | 'treasury';
+type Section = 'customers' | 'suppliers' | 'treasury' | 'invoices_settlements';
 
 interface CustomerTransaction {
   id: string;
@@ -173,10 +173,10 @@ export default function AccountingMisc() {
           </motion.div>
           
           <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">
-            فواتير و<span className="text-blue-400">تسويات</span>
+            بنك <span className="text-blue-400">المعلومات المحاسبي</span>
           </h1>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg font-medium">
-            لوحة تحكم ذكية لإدارة حسابات العملاء والموردين وحركة الخزينة بدقة احترافية.
+            نظام متكامل لإدارة العمليات المالية والتقارير المحاسبية بدقة احترافية.
           </p>
         </div>
       </section>
@@ -189,6 +189,7 @@ export default function AccountingMisc() {
             { id: 'customers', label: 'محاسبة العملاء', icon: <Users className="w-5 h-5" /> },
             { id: 'suppliers', label: 'محاسبة الموردين', icon: <Truck className="w-5 h-5" /> },
             { id: 'treasury', label: 'الخزينة والتسويات', icon: <Wallet className="w-5 h-5" /> },
+            { id: 'invoices_settlements', label: 'فواتير وتسويات', icon: <History className="w-5 h-5" /> },
           ].map(section => (
             <button
               key={section.id}
@@ -230,36 +231,16 @@ export default function AccountingMisc() {
               </div>
             </div>
           )}
-          {activeSection === 'treasury' && (
-            <>
-              <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-lg shadow-slate-200/50 flex items-center justify-between group">
-                <div>
-                  <p className="text-slate-400 font-bold text-sm mb-1">إجمالي الإيرادات</p>
-                  <h3 className="text-3xl font-black text-emerald-600">{treasuryStats.income.toLocaleString()} <span className="text-sm font-medium text-slate-400">جم</span></h3>
-                </div>
-                <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform">
-                  <ArrowUpRight className="w-7 h-7" />
-                </div>
+          {activeSection === 'invoices_settlements' && (
+            <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-lg shadow-slate-200/50 flex items-center justify-between group">
+              <div>
+                <p className="text-slate-400 font-bold text-sm mb-1">إجمالي العمليات المسجلة</p>
+                <h3 className="text-3xl font-black text-slate-900">{(customers.length + suppliers.length + treasury.length).toLocaleString()} <span className="text-sm font-medium text-slate-400">عملية</span></h3>
               </div>
-              <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-lg shadow-slate-200/50 flex items-center justify-between group">
-                <div>
-                  <p className="text-slate-400 font-bold text-sm mb-1">إجمالي المصروفات</p>
-                  <h3 className="text-3xl font-black text-rose-600">{treasuryStats.expense.toLocaleString()} <span className="text-sm font-medium text-slate-400">جم</span></h3>
-                </div>
-                <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 group-hover:scale-110 transition-transform">
-                  <ArrowDownLeft className="w-7 h-7" />
-                </div>
+              <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 group-hover:scale-110 transition-transform">
+                <History className="w-7 h-7" />
               </div>
-              <div className="bg-slate-900 p-8 rounded-[2rem] shadow-2xl flex items-center justify-between group">
-                <div>
-                  <p className="text-slate-400 font-bold text-sm mb-1 text-slate-400">صافي رصيد الخزينة</p>
-                  <h3 className="text-3xl font-black text-white">{treasuryStats.balance.toLocaleString()} <span className="text-sm font-medium text-slate-500">جم</span></h3>
-                </div>
-                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-                  <Wallet className="w-7 h-7" />
-                </div>
-              </div>
-            </>
+            </div>
           )}
         </div>
 
@@ -276,7 +257,7 @@ export default function AccountingMisc() {
                 className="w-full bg-slate-50 border-none rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-blue-500/20 font-bold text-sm"
               />
             </div>
-            {activeSection === 'treasury' && (
+            {activeSection === 'treasury' || activeSection === 'invoices_settlements' ? (
               <div className="hidden lg:flex items-center gap-2">
                 <div className="flex items-center gap-2 bg-slate-50 rounded-2xl px-4 py-2">
                   <Calendar className="w-4 h-4 text-slate-400" />
@@ -288,16 +269,18 @@ export default function AccountingMisc() {
                   <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="bg-transparent border-none focus:ring-0 text-sm font-bold" />
                 </div>
               </div>
-            )}
+            ) : null}
           </div>
           
-          <button 
-            onClick={() => setShowModal(true)}
-            className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black hover:bg-slate-800 transition-all shadow-lg"
-          >
-            <Plus className="w-5 h-5" />
-            {activeSection === 'customers' ? 'إضافة حركة عميل' : activeSection === 'suppliers' ? 'إضافة حركة مورد' : 'إضافة عملية خزينة'}
-          </button>
+          {activeSection !== 'invoices_settlements' && (
+            <button 
+              onClick={() => setShowModal(true)}
+              className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black hover:bg-slate-800 transition-all shadow-lg"
+            >
+              <Plus className="w-5 h-5" />
+              {activeSection === 'customers' ? 'إضافة حركة عميل' : activeSection === 'suppliers' ? 'إضافة حركة مورد' : 'إضافة عملية خزينة'}
+            </button>
+          )}
         </div>
 
         {/* content Table */}
@@ -382,7 +365,64 @@ export default function AccountingMisc() {
                     <td className="px-8 py-6 text-center font-medium text-slate-400">{item.date}</td>
                   </tr>
                 ))}
-                {(activeSection === 'customers' ? filteredCustomers : activeSection === 'suppliers' ? filteredSuppliers : filteredTreasury).length === 0 && (
+                {activeSection === 'invoices_settlements' && (
+                  <>
+                    {[
+                      { title: 'ملخص فواتير العملاء', data: filteredCustomers, type: 'customers' },
+                      { title: 'ملخص فواتير الموردين', data: filteredSuppliers, type: 'suppliers' },
+                      { title: 'ملخص حركة الخزينة', data: filteredTreasury, type: 'treasury' }
+                    ].map((group, idx) => (
+                      <React.Fragment key={idx}>
+                        <tr className="bg-slate-100/50">
+                          <td colSpan={5} className="px-8 py-4 font-black text-blue-600 text-sm border-y border-slate-200">
+                            {group.title}
+                          </td>
+                        </tr>
+                        {group.data.length > 0 ? (
+                          group.data.map((item: any) => (
+                            <tr key={item.id} className="hover:bg-slate-50 transition-colors">
+                              <td className="px-8 py-4 font-bold text-slate-900">
+                                {group.type === 'treasury' ? (
+                                  <div className="flex items-center gap-2">
+                                    <div className={cn(
+                                      "p-1.5 rounded-lg",
+                                      item.type === 'income' ? "bg-emerald-100 text-emerald-600" : item.type === 'expense' ? "bg-rose-100 text-rose-600" : "bg-amber-100 text-amber-600"
+                                    )}>
+                                      {item.type === 'income' ? <ArrowUpRight className="w-3 h-3" /> : item.type === 'expense' ? <ArrowDownLeft className="w-3 h-3" /> : <History className="w-3 h-3" />}
+                                    </div>
+                                    {item.type === 'income' ? 'إيراد' : item.type === 'expense' ? 'مصروف' : 'تسوية'}
+                                  </div>
+                                ) : item.name}
+                              </td>
+                              <td className="px-8 py-4 font-medium text-slate-500">
+                                {group.type === 'treasury' ? item.description : item.invoiceNumber}
+                              </td>
+                              <td className="px-8 py-4 text-center text-rose-600 font-bold">
+                                {group.type === 'treasury' ? (item.amount < 0 ? Math.abs(item.amount).toLocaleString() : '-') : item.debit.toLocaleString()}
+                              </td>
+                              <td className="px-8 py-4 text-center text-emerald-600 font-bold">
+                                {group.type === 'treasury' ? (item.amount > 0 ? item.amount.toLocaleString() : '-') : item.credit.toLocaleString()}
+                              </td>
+                              <td className="px-8 py-4 text-center">
+                                <span className={cn(
+                                  "px-3 py-1 rounded-full font-black text-[10px]",
+                                  group.type === 'treasury' ? "bg-blue-100 text-blue-700" : (item.credit - item.debit >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700")
+                                )}>
+                                  {group.type === 'treasury' ? item.date : (item.credit - item.debit).toLocaleString()}
+                                </span>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan={5} className="px-8 py-4 text-center text-slate-400 text-xs italic">لا توجد بيانات مسجلة في هذا القسم</td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </>
+                )}
+                {(activeSection === 'customers' ? filteredCustomers : activeSection === 'suppliers' ? filteredSuppliers : activeSection === 'treasury' ? filteredTreasury : []).length === 0 && activeSection !== 'invoices_settlements' && (
                   <tr>
                     <td colSpan={5} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center gap-4 text-slate-400">
