@@ -21,12 +21,45 @@ import {
   BookOpen,
   Microscope,
   RotateCcw,
-  BookMarked
+  BookMarked,
+  LayoutDashboard,
+  Box,
+  ClipboardList,
+  BarChart3,
+  PieChart as PieChartIcon,
+  ShoppingBag,
+  Briefcase
 } from 'lucide-react';
+import { 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer, 
+  Cell, 
+  PieChart, 
+  Pie,
+  LineChart,
+  Line,
+  AreaChart,
+  Area
+} from 'recharts';
 import { cn } from '../../lib/utils';
 
 // Types
-type Section = 'customers' | 'suppliers' | 'treasury' | 'settlements' | 'invoices_settlements';
+type Section = 
+  | 'erp_overview'
+  | 'customers' 
+  | 'suppliers' 
+  | 'treasury' 
+  | 'inventory_jard'
+  | 'settlements' 
+  | 'cogs' 
+  | 'cost_of_sales' 
+  | 'cost_of_purchases' 
+  | 'invoices_settlements';
 type ViewMode = 'dashboard' | 'learning';
 
 interface CustomerTransaction {
@@ -58,8 +91,8 @@ interface TreasuryTransaction {
 export default function AccountingMisc() {
   const { t } = useTranslation();
   
-  const [activeSection, setActiveSection] = useState<Section>('customers');
-  const [viewMode, setViewMode] = useState<ViewMode>('learning');
+  const [activeSection, setActiveSection] = useState<Section>('erp_overview');
+  const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [startDate, setStartDate] = useState('');
@@ -93,6 +126,30 @@ export default function AccountingMisc() {
   const [settlements, setSettlements] = useState<TreasuryTransaction[]>([
     { id: '1', type: 'adjustment', description: 'تسوية مصروف مسبق - إيجار يناير', amount: -2000, date: '2024-01-31' },
     { id: '2', type: 'adjustment', description: 'إثبات فوائد بنكية دائنة', amount: 150, date: '2024-02-28' },
+  ]);
+
+  const [inventory, setInventory] = useState<any[]>([
+    { id: '1', name: 'لابتوب ديل G15', sku: 'LAP-001', category: 'إلكترونيات', quantity: 15, cost: 3500, price: 4200 },
+    { id: '2', name: 'شاشة سامسونج 27', sku: 'MON-001', category: 'إلكترونيات', quantity: 24, cost: 800, price: 1100 },
+    { id: '3', name: 'طابعة اتش بي', sku: 'PRN-001', category: 'مكتبية', quantity: 8, cost: 1200, price: 1600 },
+  ]);
+
+  const [sales, setSales] = useState<any[]>([
+    { id: '1', customerName: 'شركة النور', amount: 8400, items: 2, date: '2024-03-01', type: 'credit' },
+    { id: '2', customerName: 'عميل نقدي', amount: 1100, items: 1, date: '2024-03-05', type: 'cash' },
+  ]);
+
+  const [purchases, setPurchases] = useState<any[]>([
+    { id: '1', supplierName: 'المورد العالمي', amount: 12000, items: 10, date: '2024-03-02', type: 'credit' },
+  ]);
+
+  const [inventoryJard, setInventoryJard] = useState<any[]>([
+    { id: '1', itemId: '1', itemName: 'لابتوب ديل', bookQty: 15, physicalQty: 14, diff: -1, note: 'جهاز تالف بالعرض', date: '2024-03-31' },
+  ]);
+
+  const [inventoryEntries, setInventoryEntries] = useState<any[]>([
+    { id: '1', type: 'cogs', description: 'تسوية مخزون آخر المدة', amount: 45000, date: '2024-12-31' },
+    { id: '2', type: 'purchases', description: 'مصاريف جمارك شحنة مارس', amount: 12000, date: '2024-03-15' },
   ]);
 
   // Form State
@@ -184,10 +241,99 @@ export default function AccountingMisc() {
       bankRec: 'يتم إعداد مذكرة تسوية البنك شهرياً لمطابقة رصيد البنك في الدفاتر مع رصيد كشف الحساب البنكي، ومعالجة فروق (شيكات بالطريق / عمولات بنكية).',
       reports: ['مذكرة تسوية البنك', 'قيد التسويات الجردية', 'بيان الأصول المستهلكة'],
       case: 'بلغت رواتب شهر ديسمبر 100,000 ريال سيتم صرفها في 5 يناير القادم. المطلوب إجراء قيد التسوية لإقفال حسابات السنة المالية وتطبيق مبدأ الاستحقاق لضمان دقة الأرباح.'
+    },
+    cogs: {
+      title: 'تكلفة البضاعة المباعة (COGS)',
+      definition: 'هي التكاليف المباشرة المرتبطة بإنتاج البضائع التي تبيعها الشركة، وتشمل تكلفة المواد والعمالة المباشرة.',
+      cycle: [
+        'تحديد مخزون أول الفترة.',
+        'إضافة صافي المشتريات خلال الفترة.',
+        'إضافة مصروفات الشراء (نقل، جمارك).',
+        'طرح مخزون آخر الفترة.',
+        'احتساب تكلفة البضاعة المباعة النهائية.'
+      ],
+      entries: [
+        { desc: 'إثبات مشتريات بضاعة', debit: 'حـ/ المشتريات', credit: 'حـ/ الموردين / النقدية', note: 'زيادة تكلفة المشتريات' },
+        { desc: 'إقفال مخزون أول المدة', debit: 'حـ/ المتاجرة / ملخص الدخل', credit: 'حـ/ مخزون أول المدة', note: 'ترحيل المخزون لقائمة الدخل' },
+        { desc: 'إثبات مخزون آخر المدة', debit: 'حـ/ مخزون آخر المدة', credit: 'حـ/ المتاجرة / ملخص الدخل', note: 'إثبات قيمة البضاعة المتبقية كأصل' }
+      ],
+      badDebts: 'المعادلة الأساسية: (مخزون أول المدة + صافي المشتريات) - مخزون آخر المدة = تكلفة البضاعة المباعة.',
+      reports: ['قائمة تكلفة المبيعات', 'تقرير تقييم المخزون', 'ميزان المراجعة'],
+      case: 'بدأت شركة مخزونها بـ 50,000 ريال، واشترت بضاعة بـ 200,000 ريال، وبلغ مخزون آخر المدة 30,000 ريال. احسب تكلفة البضاعة المباعة ووضح تأثيرها على الربح إذا كانت المبيعات 400,000 ريال.'
+    },
+    cost_of_sales: {
+      title: 'تكلفة المبيعات (Cost of Sales)',
+      definition: 'مفهوم أشمل من COGS، حيث يضم التكاليف المباشرة للأنشطة الخدمية أو الإنتاجية المتكاملة (عمالة، مواد، طاقة).',
+      cycle: [
+        'حصر التكاليف الصناعية المباشرة.',
+        'تحديد تكاليف العمالة المباشرة.',
+        'تحميل التكاليف غير المباشرة المخصصة.',
+        'ربط التكاليف بالوحدات المباعة فعلياً.',
+        'مقارنة التكلفة بالإيرادات المحققة.'
+      ],
+      entries: [
+        { desc: 'تحميل العمالة المباشرة', debit: 'حـ/ تكلفة المبيعات', credit: 'حـ/ الأجور المستحقة', note: 'إثبات تكلفة العمل المباشر' },
+        { desc: 'إغلاق تكلفة المواد المستخدمة', debit: 'حـ/ تكلفة المبيعات', credit: 'حـ/ المخزون / المواد الخام', note: 'نقص المخزون مقابل تكلفة البيع' },
+        { desc: 'تحميل مصاريف مباشرة (شحن للعملاء)', debit: 'حـ/ تكلفة المبيعات', credit: 'حـ/ النقدية', note: 'إثبات مصروفات مرتبطة بعملية البيع' }
+      ],
+      aging: 'في الشركات الخدمية، تكلفة المبيعات هي الأجور والوقت المستغرق لتقديم الخدمة، بينما في التجارية هي قيمة البضاعة المشتراة.',
+      reports: ['تحليل هوامش الربح', 'تقرير تكاليف التشغيل', 'قائمة الدخل التفصيلية'],
+      case: 'مصنع ينتج وحدات بتكلفة مواد 20 ريال وعمالة 10 ريال وتكاليف عامة 5 ريال. إذا بيعت 1,000 وحدة بسعر 60 ريال للواحدة، احسب تكلفة المبيعات وصافي ربح العملية.'
+    },
+    cost_of_purchases: {
+      title: 'تكلفة المشتريات (Cost of Purchases)',
+      definition: 'إجمالي المبالغ والاعباء المالية التي تتحملها المنشأة حتى تصل البضاعة المشتراة إلى مخازنها وتصبح جاهزة للبيع.',
+      cycle: [
+        'قيمة الفاتورة الأساسية للمورد.',
+        'إضافة تكاليف الشحن والنقل.',
+        'إضافة الرسوم الجمركية والضرائب غير المستردة.',
+        'طرح الخصومات المكتسبة والمسموح بها.',
+        'طرح مردودات المشتريات.'
+      ],
+      entries: [
+        { desc: 'إثبات مصروف نقل مشتريات', debit: 'حـ/ مصاريف نقل مشتريات', credit: 'حـ/ الخزينة / الدائنون', note: 'زيادة تكلفة الحصول على البضاعة' },
+        { desc: 'الحصول على خصم مكتسب', debit: 'حـ/ الموردين', credit: 'حـ/ الخصم المكتسب', note: 'تخفيض الالتزام وتحقيق إيراد عرضي' },
+        { desc: 'إثبات سداد رسوم جمركية', debit: 'حـ/ رسوم جمركية / المشتريات', credit: 'حـ/ النقدية', note: 'تحميل البضاعة بتكاليف دخولها' }
+      ],
+      pettyCash: 'صافي المشتريات = (إجمالي المشتريات + مصاريف الشراء) - (مردودات المشتريات + الخصم المكتسب).',
+      reports: ['تتبع تكاليف الاستيراد', 'سجل فواتير المشتريات', 'ملخص الأعباء الجمركية'],
+      case: 'استوردت شركة بضاعة بمبلغ 100,000 ريال، ودفعت 5,000 ريال شحن و10,000 ريال جمارك، وحصلت على خصم 2,000 ريال. ما هي التكلفة النهائية للمشتريات التي ستدخل المخزن؟'
     }
   };
 
   // Calculations
+  const erpStats = useMemo(() => {
+    const totalSales = sales.reduce((acc, curr) => acc + curr.amount, 0);
+    const totalPurchases = purchases.reduce((acc, curr) => acc + curr.amount, 0);
+    
+    // COGS = Opening Inventory + Purchases - Closing Inventory
+    // Simplified for demo: Sum of costs of sold items
+    const estimatedCogs = sales.reduce((acc, curr) => acc + (curr.amount * 0.75), 0);
+    
+    const customerReceivables = customers.reduce((acc, curr) => acc + (curr.credit - curr.debit), 0);
+    const supplierPayables = suppliers.reduce((acc, curr) => acc + (curr.credit - curr.debit), 0);
+    
+    const treasuryBalance = treasury.reduce((acc, curr) => {
+      if (curr.type === 'income') return acc + curr.amount;
+      if (curr.type === 'expense') return acc - curr.amount;
+      return acc + curr.amount;
+    }, 0);
+
+    const inventoryValue = inventory.reduce((acc, curr) => acc + (curr.quantity * curr.cost), 0);
+    const grossProfit = totalSales - estimatedCogs;
+    
+    return {
+      totalSales,
+      totalPurchases,
+      estimatedCogs,
+      customerReceivables,
+      supplierPayables,
+      treasuryBalance,
+      inventoryValue,
+      grossProfit
+    };
+  }, [sales, purchases, customers, suppliers, treasury, inventory]);
+
   const customerStats = useMemo(() => {
     const totalBalance = customers.reduce((acc, curr) => acc + (curr.credit - curr.debit), 0);
     return { totalBalance };
@@ -226,11 +372,60 @@ export default function AccountingMisc() {
     const date = new Date().toISOString().split('T')[0];
 
     if (activeSection === 'customers') {
-      setCustomers([...customers, { ...formData, id, date, debit: Number(formData.debit || 0), credit: Number(formData.credit || 0) }]);
+      const debit = Number(formData.debit || 0);
+      const credit = Number(formData.credit || 0);
+      setCustomers([...customers, { ...formData, id, date, debit, credit }]);
+      
+      // If sell on credit, we should also track it in sales
+      if (credit > 0) {
+        setSales([...sales, { id: 's-' + id, customerName: formData.name, amount: credit, items: 1, date, type: 'credit' }]);
+      }
     } else if (activeSection === 'suppliers') {
-      setSuppliers([...suppliers, { ...formData, id, date, debit: Number(formData.debit || 0), credit: Number(formData.credit || 0) }]);
+      const debit = Number(formData.debit || 0);
+      const credit = Number(formData.credit || 0);
+      setSuppliers([...suppliers, { ...formData, id, date, debit, credit }]);
+      
+      // If purchase on credit
+      if (credit > 0) {
+        setPurchases([...purchases, { id: 'p-' + id, supplierName: formData.name, amount: credit, items: 1, date, type: 'credit' }]);
+      }
     } else if (activeSection === 'treasury') {
-      setTreasury([...treasury, { ...formData, id, date, amount: Number(formData.amount || 0) }]);
+      const amount = Number(formData.amount || 0);
+      setTreasury([...treasury, { ...formData, id, date, amount }]);
+      
+      // If it's a customer payment (income), decrease customer balance
+      if (formData.type === 'income' && formData.customerId) {
+        const customer = customers.find(c => c.id === formData.customerId);
+        if (customer) {
+          setCustomers(customers.map(c => c.id === customer.id ? { ...c, debit: c.debit + amount } : c));
+        }
+      }
+    } else if (activeSection === 'inventory_jard') {
+      const diff = Number(formData.physicalQty) - Number(formData.bookQty);
+      setInventoryJard([...inventoryJard, { 
+        id, 
+        itemId: formData.itemId, 
+        itemName: inventory.find(i => i.id === formData.itemId)?.name,
+        bookQty: Number(formData.bookQty),
+        physicalQty: Number(formData.physicalQty),
+        diff,
+        note: formData.note,
+        date
+      }]);
+      
+      // Update real inventory quantity
+      setInventory(inventory.map(i => i.id === formData.itemId ? { ...i, quantity: Number(formData.physicalQty) } : i));
+      
+      // Create adjustment in treasury/settlements if there's a diff
+      if (diff !== 0) {
+        setSettlements([...settlements, { 
+          id: 'adj-' + id, 
+          type: 'adjustment', 
+          description: `تسوية جرد بضاعة: ${inventory.find(i => i.id === formData.itemId)?.name}`,
+          amount: diff * (inventory.find(i => i.id === formData.itemId)?.cost || 0),
+          date
+        }]);
+      }
     } else if (activeSection === 'settlements') {
       setSettlements([...settlements, { ...formData, id, date, amount: Number(formData.amount || 0) }]);
     }
@@ -271,10 +466,15 @@ export default function AccountingMisc() {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-8">
           <div className="bg-white rounded-[2rem] p-2 shadow-xl border border-slate-100 flex flex-wrap gap-2 transition-all duration-500">
             {[
+              { id: 'erp_overview', label: 'لوحة القيادة', icon: <LayoutDashboard className="w-5 h-5" /> },
               { id: 'customers', label: 'العملاء', icon: <Users className="w-5 h-5" /> },
               { id: 'suppliers', label: 'الموردين', icon: <Truck className="w-5 h-5" /> },
               { id: 'treasury', label: 'الخزينة', icon: <Wallet className="w-5 h-5" /> },
+              { id: 'inventory_jard', label: 'المخزن والجرد', icon: <Box className="w-5 h-5" /> },
               { id: 'settlements', label: 'التسويات', icon: <RotateCcw className="w-5 h-5" /> },
+              { id: 'cogs', label: 'تكلفة البضاعة', icon: <TrendingUp className="w-5 h-5" /> },
+              { id: 'cost_of_sales', label: 'تكلفة المبيعات', icon: <AlertCircle className="w-5 h-5" /> },
+              { id: 'cost_of_purchases', label: 'تكلفة المشتريات', icon: <Plus className="w-5 h-5" /> },
               { id: 'invoices_settlements', label: 'نظرة شمولية', icon: <History className="w-5 h-5" /> },
             ].map(section => (
               <button
@@ -332,7 +532,155 @@ export default function AccountingMisc() {
         {/* Dashboard View */}
         {viewMode === 'dashboard' && (
           <div className="space-y-8">
-            {/* Stats */}
+            {activeSection === 'erp_overview' && (
+              <div className="space-y-8">
+                {/* ERP KPI Cards */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  {[
+                    { label: 'إجمالي المبيعات', value: erpStats.totalSales, icon: <TrendingUp />, color: 'blue' },
+                    { label: 'تكلفة المبيعات', value: erpStats.estimatedCogs, icon: <AlertCircle />, color: 'rose' },
+                    { label: 'مجمل الربح', value: erpStats.grossProfit, icon: <BarChart3 />, color: 'emerald' },
+                    { label: 'رصيد الخزينة', value: erpStats.treasuryBalance, icon: <Wallet />, color: 'amber' },
+                  ].map((kpi, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm flex flex-col justify-between gap-3"
+                    >
+                      <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center", 
+                        kpi.color === 'blue' ? "bg-blue-50 text-blue-600" :
+                        kpi.color === 'rose' ? "bg-rose-50 text-rose-600" :
+                        kpi.color === 'emerald' ? "bg-emerald-50 text-emerald-600" :
+                        "bg-amber-50 text-amber-600"
+                      )}>
+                        {kpi.icon}
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{kpi.label}</p>
+                        <h4 className="text-xl font-black text-slate-900">{kpi.value.toLocaleString()} <span className="text-[10px]">جم</span></h4>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Charts Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-lg h-[400px] flex flex-col">
+                    <h3 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                       <BarChart3 className="w-5 h-5 text-blue-600" />
+                       مقارنة المبيعات والتكاليف
+                    </h3>
+                    <div className="flex-grow">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={[
+                          { name: 'العمليات', sales: erpStats.totalSales, costs: erpStats.estimatedCogs, profit: erpStats.grossProfit }
+                        ]}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                          <XAxis dataKey="name" hide />
+                          <YAxis />
+                          <Tooltip 
+                            contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                            cursor={{ fill: '#f8fafc' }}
+                          />
+                          <Bar dataKey="sales" name="المبيعات" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={60} />
+                          <Bar dataKey="costs" name="التكاليف" fill="#f43f5e" radius={[4, 4, 0, 0]} barSize={60} />
+                          <Bar dataKey="profit" name="الربح" fill="#10b981" radius={[4, 4, 0, 0]} barSize={60} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-lg h-[400px] flex flex-col">
+                    <h3 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                       <PieChartIcon className="w-5 h-5 text-rose-600" />
+                       توزيع المركز المالي
+                    </h3>
+                    <div className="flex-grow">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={[
+                              { name: 'أرصدة العملاء', value: erpStats.customerReceivables, color: '#3b82f6' },
+                              { name: 'قيمة المخزون', value: erpStats.inventoryValue, color: '#8b5cf6' },
+                              { name: 'رصيد المشتريات', value: erpStats.totalPurchases, color: '#10b981' },
+                              { name: 'إجمالي المطلوبات', value: erpStats.supplierPayables, color: '#f43f5e' },
+                            ]}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={60}
+                            outerRadius={100}
+                            paddingAngle={5}
+                            dataKey="value"
+                            nameKey="name"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          >
+                            {[1, 2, 3, 4].map((_, index) => (
+                              <Cell key={`cell-${index}`} fill={['#3b82f6', '#8b5cf6', '#10b981', '#f43f5e'][index]} />
+                            ))}
+                          </Pie>
+                          <Tooltip 
+                            contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Activities Summary */}
+                <div className="bg-slate-900 rounded-[3rem] p-10 overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-3xl rounded-full" />
+                  <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="space-y-4">
+                      <h4 className="text-white font-black flex items-center gap-2">
+                        <ShoppingBag className="w-5 h-5 text-blue-400" />
+                        آخر المبيعات
+                      </h4>
+                      <div className="space-y-2">
+                        {sales.slice(-2).map((s, i) => (
+                          <div key={i} className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <span className="text-slate-300 text-xs font-bold">{s.customerName}</span>
+                            <span className="text-blue-400 font-black text-sm">{s.amount.toLocaleString()}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="text-white font-black flex items-center gap-2">
+                        <Users className="w-5 h-5 text-emerald-400" />
+                        التحصيل والمدفوعات
+                      </h4>
+                      <div className="space-y-2">
+                        {treasury.slice(-2).map((t, i) => (
+                          <div key={i} className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <span className="text-slate-300 text-xs font-bold">{t.description}</span>
+                            <span className={cn("font-black text-sm", t.type === 'income' ? 'text-emerald-400' : 'text-rose-400')}>{t.amount.toLocaleString()}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="text-white font-black flex items-center gap-2">
+                        <AlertCircle className="w-5 h-5 text-amber-400" />
+                        أرصدة حرجة
+                      </h4>
+                      <div className="space-y-2">
+                        {inventory.filter(i => i.quantity < 10).map((item, i) => (
+                          <div key={i} className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <span className="text-slate-300 text-xs font-bold">{item.name}</span>
+                            <span className="text-amber-400 font-black text-xs">نقص: {item.quantity}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Existing Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {activeSection === 'customers' && (
                 <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-lg flex items-center justify-between">
@@ -378,6 +726,25 @@ export default function AccountingMisc() {
                   </div>
                 </div>
               )}
+              {['cogs', 'cost_of_sales', 'cost_of_purchases'].includes(activeSection) && (
+                <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-lg flex items-center justify-between col-span-full">
+                  <div className="flex items-center gap-6">
+                    <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center">
+                      <BookMarked className="w-8 h-8" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-black text-slate-900">هذا القسم مخصص للجانب التعليمي والمرجعي</h4>
+                      <p className="text-slate-500 font-bold">يمكنك الانتقال إلى "المرجع التعليمي" للاطلاع على الشرح والقيود والحالات العملية.</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setViewMode('learning')}
+                    className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black shadow-lg shadow-blue-100"
+                  >
+                    عرض الشرح المحاسبي
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Action Bar */}
@@ -392,124 +759,215 @@ export default function AccountingMisc() {
                   className="w-full bg-slate-50 border-none rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-blue-500/20 font-bold text-sm"
                 />
               </div>
-              {activeSection !== 'invoices_settlements' && (
+              {activeSection !== 'invoices_settlements' && activeSection !== 'erp_overview' && (
                 <button onClick={() => setShowModal(true)} className="flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black hover:bg-slate-800 transition-all shadow-lg">
                   <Plus className="w-5 h-5" />
-                  {activeSection === 'customers' ? 'إضافة حركة عميل' : activeSection === 'suppliers' ? 'إضافة حركة مورد' : activeSection === 'settlements' ? 'إضافة تسوية' : 'إضافة عملية خزينة'}
+                  {activeSection === 'customers' ? 'إضافة حركة عميل' : 
+                   activeSection === 'suppliers' ? 'إضافة حركة مورد' : 
+                   activeSection === 'settlements' ? 'إضافة تسوية' : 
+                   activeSection === 'inventory_jard' ? 'إضافة عملية جرد' :
+                   'إضافة عملية خزينة'}
                 </button>
               )}
             </div>
 
             {/* Table */}
-            <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-right">
-                  <thead className="bg-slate-50 border-b border-slate-100">
-                    <tr>
-                      {activeSection === 'treasury' || activeSection === 'settlements' ? (
+            {activeSection === 'inventory_jard' && (
+              <div className="space-y-6">
+                {/* Inventory Balances */}
+                <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
+                  <div className="p-8 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                    <h3 className="text-xl font-black text-slate-900">رصيد المخزن الحالي</h3>
+                    <div className="text-xs font-bold text-slate-500 bg-white px-4 py-2 rounded-xl shadow-sm">
+                      إجمالي قيمة المخزون: <span className="text-blue-600">{erpStats.inventoryValue.toLocaleString()}</span> جم
+                    </div>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-right">
+                      <thead className="bg-slate-50 border-b border-slate-100 text-[10px] uppercase font-black text-slate-400">
+                        <tr>
+                          <th className="px-8 py-4">الصنف</th>
+                          <th className="px-8 py-4">الفئة</th>
+                          <th className="px-8 py-4 text-center">الكمية</th>
+                          <th className="px-8 py-4 text-center">التكلفة</th>
+                          <th className="px-8 py-4 text-center">سعر البيع</th>
+                          <th className="px-8 py-4 text-center">القيمة الإجمالية</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-50">
+                        {inventory.map(item => (
+                          <tr key={item.id} className="hover:bg-slate-50 transition-colors">
+                            <td className="px-8 py-4">
+                              <div className="flex flex-col">
+                                <span className="font-bold text-slate-900">{item.name}</span>
+                                <span className="text-[10px] text-slate-400">SKU: {item.sku}</span>
+                              </div>
+                            </td>
+                            <td className="px-8 py-4"><span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold">{item.category}</span></td>
+                            <td className="px-8 py-4 text-center font-black">{item.quantity}</td>
+                            <td className="px-8 py-4 text-center">{item.cost.toLocaleString()}</td>
+                            <td className="px-8 py-4 text-center">{item.price.toLocaleString()}</td>
+                            <td className="px-8 py-4 text-center font-black text-blue-600">{(item.quantity * item.cost).toLocaleString()}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Jard Records */}
+                <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
+                  <div className="p-8 border-b border-slate-100 bg-slate-50">
+                    <h3 className="text-xl font-black text-slate-900">سجل عمليات الجرد</h3>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-right">
+                      <thead className="bg-slate-50 border-b border-slate-100 text-[10px] uppercase font-black text-slate-400">
+                        <tr>
+                          <th className="px-8 py-4">التاريخ</th>
+                          <th className="px-8 py-4">الصنف</th>
+                          <th className="px-8 py-4 text-center">الرصيد الدفتري</th>
+                          <th className="px-8 py-4 text-center">الجرد الفعلي</th>
+                          <th className="px-8 py-4 text-center">الفرق</th>
+                          <th className="px-8 py-4">ملاحظات</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-50">
+                        {inventoryJard.map(record => (
+                          <tr key={record.id} className="hover:bg-amber-50/10">
+                            <td className="px-8 py-4 text-slate-500 font-medium text-xs">{record.date}</td>
+                            <td className="px-8 py-4 font-bold text-slate-900">{record.itemName}</td>
+                            <td className="px-8 py-4 text-center font-bold">{record.bookQty}</td>
+                            <td className="px-8 py-4 text-center font-bold text-blue-600">{record.physicalQty}</td>
+                            <td className="px-8 py-4 text-center">
+                              <span className={cn("px-2 py-1 rounded font-black text-xs", 
+                                record.diff === 0 ? "bg-slate-100 text-slate-500" :
+                                record.diff > 0 ? "bg-emerald-100 text-emerald-600" : "bg-rose-100 text-rose-600"
+                              )}>
+                                {record.diff > 0 ? `+${record.diff}` : record.diff}
+                              </span>
+                            </td>
+                            <td className="px-8 py-4 text-slate-400 text-xs italic">{record.note}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {!['erp_overview', 'inventory_jard', 'cogs', 'cost_of_sales', 'cost_of_purchases'].includes(activeSection) && (
+              <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-right">
+                    <thead className="bg-slate-50 border-b border-slate-100">
+                      <tr>
+                        {activeSection === 'treasury' || activeSection === 'settlements' ? (
+                          <>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm">نوع العملية</th>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm">الوصف</th>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm text-center">المبلغ</th>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm text-center">التاريخ</th>
+                          </>
+                        ) : (
+                          <>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm">{activeSection === 'customers' ? 'اسم العميل' : 'اسم المورد'}</th>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm">رقم الفاتورة</th>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm text-center text-rose-600">مدين / سداد</th>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm text-center text-emerald-600">دائن / فاتورة</th>
+                            <th className="px-8 py-6 font-black text-slate-900 text-sm text-center">الرصيد</th>
+                          </>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50">
+                      {activeSection === 'customers' && filteredCustomers.map(item => (
+                        <tr key={item.id} className="hover:bg-blue-50/10">
+                          <td className="px-8 py-6 font-bold text-slate-900">{item.name}</td>
+                          <td className="px-8 py-6 font-medium text-slate-500">{item.invoiceNumber}</td>
+                          <td className="px-8 py-6 text-center text-rose-600 font-black">{item.debit.toLocaleString()}</td>
+                          <td className="px-8 py-6 text-center text-emerald-600 font-black">{item.credit.toLocaleString()}</td>
+                          <td className="px-8 py-6 text-center">
+                            <span className={cn("px-4 py-1.5 rounded-full font-black text-xs", (item.credit - item.debit) >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700")}>
+                              {(item.credit - item.debit).toLocaleString()}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                      {activeSection === 'suppliers' && filteredSuppliers.map(item => (
+                        <tr key={item.id} className="hover:bg-emerald-50/10">
+                          <td className="px-8 py-6 font-bold text-slate-900">{item.name}</td>
+                          <td className="px-8 py-6 font-medium text-slate-500">{item.invoiceNumber}</td>
+                          <td className="px-8 py-6 text-center text-rose-600 font-black">{item.debit.toLocaleString()}</td>
+                          <td className="px-8 py-6 text-center text-emerald-600 font-black">{item.credit.toLocaleString()}</td>
+                          <td className="px-8 py-6 text-center">
+                            <span className={cn("px-4 py-1.5 rounded-full font-black text-xs", (item.credit - item.debit) >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700")}>
+                              {(item.credit - item.debit).toLocaleString()}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                      {(activeSection === 'treasury' || activeSection === 'settlements') && (activeSection === 'treasury' ? filteredTreasury : filteredSettlements).map(item => (
+                        <tr key={item.id} className="hover:bg-slate-50 transition-colors">
+                          <td className="px-8 py-6 whitespace-nowrap">
+                            <div className="flex items-center gap-3">
+                              <div className={cn("p-2 rounded-lg", item.type === 'income' ? "bg-emerald-100 text-emerald-600" : item.type === 'expense' ? "bg-rose-100 text-rose-600" : "bg-amber-100 text-amber-600")}>
+                                {item.type === 'income' ? <ArrowUpRight className="w-4 h-4" /> : item.type === 'expense' ? <ArrowDownLeft className="w-4 h-4" /> : <RotateCcw className="w-4 h-4" />}
+                              </div>
+                              <span className="font-bold text-slate-900">{item.type === 'income' ? 'إيراد' : item.type === 'expense' ? 'مصروف' : 'تسوية'}</span>
+                            </div>
+                          </td>
+                          <td className="px-8 py-6 font-medium text-slate-600">{item.description}</td>
+                          <td className={cn("px-8 py-6 text-center font-black", item.amount > 0 ? "text-emerald-600" : "text-rose-600")}>{item.amount.toLocaleString()}</td>
+                          <td className="px-8 py-6 text-center font-medium text-slate-400">{item.date}</td>
+                        </tr>
+                      ))}
+                      {activeSection === 'invoices_settlements' && (
                         <>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm">نوع العملية</th>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm">الوصف</th>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm text-center">المبلغ</th>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm text-center">التاريخ</th>
-                        </>
-                      ) : (
-                        <>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm">{activeSection === 'customers' ? 'اسم العميل' : 'اسم المورد'}</th>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm">رقم الفاتورة</th>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm text-center text-rose-600">مدين / سداد</th>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm text-center text-emerald-600">دائن / فاتورة</th>
-                          <th className="px-8 py-6 font-black text-slate-900 text-sm text-center">الرصيد</th>
+                          {[
+                            { title: 'ملخص فواتير العملاء', data: filteredCustomers, type: 'customers' },
+                            { title: 'ملخص فواتير الموردين', data: filteredSuppliers, type: 'suppliers' },
+                            { title: 'ملخص حركة الخزينة', data: filteredTreasury, type: 'treasury' },
+                            { title: 'ملخص التسويات', data: filteredSettlements, type: 'settlements' }
+                          ].map((group, idx) => (
+                            <React.Fragment key={idx}>
+                              <tr className="bg-slate-100/50">
+                                <td colSpan={5} className="px-8 py-4 font-black text-blue-600 text-sm border-y border-slate-200">{group.title}</td>
+                              </tr>
+                              {group.data.length > 0 ? group.data.map((item: any) => (
+                                <tr key={item.id} className="hover:bg-slate-50 transition-colors">
+                                  <td className="px-8 py-4 font-bold text-slate-900">
+                                    {['treasury', 'settlements'].includes(group.type) ? (
+                                      <div className="flex items-center gap-2">
+                                        <div className={cn("p-1.5 rounded-lg", item.type === 'income' ? "bg-emerald-100 text-emerald-600" : item.type === 'expense' ? "bg-rose-100 text-rose-600" : "bg-amber-100 text-amber-600")}>
+                                          {item.type === 'income' ? <ArrowUpRight className="w-3 h-3" /> : item.type === 'expense' ? <ArrowDownLeft className="w-3 h-3" /> : <RotateCcw className="w-3 h-3" />}
+                                        </div>
+                                        {item.type === 'income' ? 'إيراد' : item.type === 'expense' ? 'مصروف' : 'تسوية'}
+                                      </div>
+                                    ) : item.name}
+                                  </td>
+                                  <td className="px-8 py-4 font-medium text-slate-500">{['treasury', 'settlements'].includes(group.type) ? item.description : item.invoiceNumber}</td>
+                                  <td className="px-8 py-4 text-center text-rose-600 font-bold">{['treasury', 'settlements'].includes(group.type) ? (item.amount < 0 ? Math.abs(item.amount).toLocaleString() : '-') : item.debit.toLocaleString()}</td>
+                                  <td className="px-8 py-4 text-center text-emerald-600 font-bold">{['treasury', 'settlements'].includes(group.type) ? (item.amount > 0 ? item.amount.toLocaleString() : '-') : item.credit.toLocaleString()}</td>
+                                  <td className="px-8 py-4 text-center">
+                                    <span className={cn("px-3 py-1 rounded-full font-black text-[10px]", ['treasury', 'settlements'].includes(group.type) ? "bg-blue-100 text-blue-700" : (item.credit - item.debit >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"))}>
+                                      {['treasury', 'settlements'].includes(group.type) ? item.date : (item.credit - item.debit).toLocaleString()}
+                                    </span>
+                                  </td>
+                                </tr>
+                              )) : (
+                                <tr><td colSpan={5} className="px-8 py-4 text-center text-slate-400 text-xs italic">لا توجد بيانات مسجلة في هذا القسم</td></tr>
+                              )}
+                            </React.Fragment>
+                          ))}
                         </>
                       )}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-50">
-                    {activeSection === 'customers' && filteredCustomers.map(item => (
-                      <tr key={item.id} className="hover:bg-blue-50/10">
-                        <td className="px-8 py-6 font-bold text-slate-900">{item.name}</td>
-                        <td className="px-8 py-6 font-medium text-slate-500">{item.invoiceNumber}</td>
-                        <td className="px-8 py-6 text-center text-rose-600 font-black">{item.debit.toLocaleString()}</td>
-                        <td className="px-8 py-6 text-center text-emerald-600 font-black">{item.credit.toLocaleString()}</td>
-                        <td className="px-8 py-6 text-center">
-                          <span className={cn("px-4 py-1.5 rounded-full font-black text-xs", (item.credit - item.debit) >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700")}>
-                            {(item.credit - item.debit).toLocaleString()}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                    {activeSection === 'suppliers' && filteredSuppliers.map(item => (
-                      <tr key={item.id} className="hover:bg-emerald-50/10">
-                        <td className="px-8 py-6 font-bold text-slate-900">{item.name}</td>
-                        <td className="px-8 py-6 font-medium text-slate-500">{item.invoiceNumber}</td>
-                        <td className="px-8 py-6 text-center text-rose-600 font-black">{item.debit.toLocaleString()}</td>
-                        <td className="px-8 py-6 text-center text-emerald-600 font-black">{item.credit.toLocaleString()}</td>
-                        <td className="px-8 py-6 text-center">
-                          <span className={cn("px-4 py-1.5 rounded-full font-black text-xs", (item.credit - item.debit) >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700")}>
-                            {(item.credit - item.debit).toLocaleString()}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                    {(activeSection === 'treasury' || activeSection === 'settlements') && (activeSection === 'treasury' ? filteredTreasury : filteredSettlements).map(item => (
-                      <tr key={item.id} className="hover:bg-slate-50 transition-colors">
-                        <td className="px-8 py-6 whitespace-nowrap">
-                          <div className="flex items-center gap-3">
-                            <div className={cn("p-2 rounded-lg", item.type === 'income' ? "bg-emerald-100 text-emerald-600" : item.type === 'expense' ? "bg-rose-100 text-rose-600" : "bg-amber-100 text-amber-600")}>
-                              {item.type === 'income' ? <ArrowUpRight className="w-4 h-4" /> : item.type === 'expense' ? <ArrowDownLeft className="w-4 h-4" /> : <RotateCcw className="w-4 h-4" />}
-                            </div>
-                            <span className="font-bold text-slate-900">{item.type === 'income' ? 'إيراد' : item.type === 'expense' ? 'مصروف' : 'تسوية'}</span>
-                          </div>
-                        </td>
-                        <td className="px-8 py-6 font-medium text-slate-600">{item.description}</td>
-                        <td className={cn("px-8 py-6 text-center font-black", item.amount > 0 ? "text-emerald-600" : "text-rose-600")}>{item.amount.toLocaleString()}</td>
-                        <td className="px-8 py-6 text-center font-medium text-slate-400">{item.date}</td>
-                      </tr>
-                    ))}
-                    {activeSection === 'invoices_settlements' && (
-                      <>
-                        {[
-                          { title: 'ملخص فواتير العملاء', data: filteredCustomers, type: 'customers' },
-                          { title: 'ملخص فواتير الموردين', data: filteredSuppliers, type: 'suppliers' },
-                          { title: 'ملخص حركة الخزينة', data: filteredTreasury, type: 'treasury' },
-                          { title: 'ملخص التسويات', data: filteredSettlements, type: 'settlements' }
-                        ].map((group, idx) => (
-                          <React.Fragment key={idx}>
-                            <tr className="bg-slate-100/50">
-                              <td colSpan={5} className="px-8 py-4 font-black text-blue-600 text-sm border-y border-slate-200">{group.title}</td>
-                            </tr>
-                            {group.data.length > 0 ? group.data.map((item: any) => (
-                              <tr key={item.id} className="hover:bg-slate-50 transition-colors">
-                                <td className="px-8 py-4 font-bold text-slate-900">
-                                  {['treasury', 'settlements'].includes(group.type) ? (
-                                    <div className="flex items-center gap-2">
-                                      <div className={cn("p-1.5 rounded-lg", item.type === 'income' ? "bg-emerald-100 text-emerald-600" : item.type === 'expense' ? "bg-rose-100 text-rose-600" : "bg-amber-100 text-amber-600")}>
-                                        {item.type === 'income' ? <ArrowUpRight className="w-3 h-3" /> : item.type === 'expense' ? <ArrowDownLeft className="w-3 h-3" /> : <RotateCcw className="w-3 h-3" />}
-                                      </div>
-                                      {item.type === 'income' ? 'إيراد' : item.type === 'expense' ? 'مصروف' : 'تسوية'}
-                                    </div>
-                                  ) : item.name}
-                                </td>
-                                <td className="px-8 py-4 font-medium text-slate-500">{['treasury', 'settlements'].includes(group.type) ? item.description : item.invoiceNumber}</td>
-                                <td className="px-8 py-4 text-center text-rose-600 font-bold">{['treasury', 'settlements'].includes(group.type) ? (item.amount < 0 ? Math.abs(item.amount).toLocaleString() : '-') : item.debit.toLocaleString()}</td>
-                                <td className="px-8 py-4 text-center text-emerald-600 font-bold">{['treasury', 'settlements'].includes(group.type) ? (item.amount > 0 ? item.amount.toLocaleString() : '-') : item.credit.toLocaleString()}</td>
-                                <td className="px-8 py-4 text-center">
-                                  <span className={cn("px-3 py-1 rounded-full font-black text-[10px]", ['treasury', 'settlements'].includes(group.type) ? "bg-blue-100 text-blue-700" : (item.credit - item.debit >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"))}>
-                                    {['treasury', 'settlements'].includes(group.type) ? item.date : (item.credit - item.debit).toLocaleString()}
-                                  </span>
-                                </td>
-                              </tr>
-                            )) : (
-                              <tr><td colSpan={5} className="px-8 py-4 text-center text-slate-400 text-xs italic">لا توجد بيانات مسجلة في هذا القسم</td></tr>
-                            )}
-                          </React.Fragment>
-                        ))}
-                      </>
-                    )}
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 
@@ -571,7 +1029,7 @@ export default function AccountingMisc() {
                   </div>
                 </div>
 
-                {/* Technical Treatments */}
+                {/* Special cases Section */}
                 <div className="pt-10 border-t border-slate-100">
                   <h3 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
                     <AlertCircle className="w-5 h-5 text-amber-500" />
@@ -583,9 +1041,64 @@ export default function AccountingMisc() {
                        {activeSection === 'suppliers' && learningContent.suppliers.aging}
                        {activeSection === 'treasury' && learningContent.treasury.pettyCash}
                        {activeSection === 'settlements' && learningContent.settlements.bankRec}
+                       {activeSection === 'cogs' && learningContent.cogs.badDebts}
+                       {activeSection === 'cost_of_sales' && learningContent.cost_of_sales.aging}
+                       {activeSection === 'cost_of_purchases' && learningContent.cost_of_purchases.pettyCash}
                     </p>
                   </div>
                 </div>
+
+                {activeSection === 'cogs' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-10">
+                    <div className="p-8 bg-blue-50 border border-blue-100 rounded-[2rem]">
+                      <h4 className="font-black text-blue-900 mb-4">طرق تقييم المخزون</h4>
+                      <ul className="space-y-3 font-bold text-blue-800 text-sm">
+                        <li className="flex justify-between"><span>وارد أولاً صادر أولاً (FIFO)</span> <span className="text-xs bg-blue-200 px-2 py-1 rounded">الأكثر شيوعاً</span></li>
+                        <li className="flex justify-between"><span>وارد أخيراً صادر أولاً (LIFO)</span> <span className="text-xs bg-slate-200 px-2 py-1 rounded">غير معترف بها دولياً غالباً</span></li>
+                        <li className="flex justify-between"><span>المتوسط المرجح (W. Average)</span> <span className="text-xs bg-blue-200 px-2 py-1 rounded">توازن التذبذب</span></li>
+                      </ul>
+                    </div>
+                    <div className="p-8 bg-indigo-50 border border-indigo-100 rounded-[2rem]">
+                      <h4 className="font-black text-indigo-900 mb-4">التأثير على القوائم</h4>
+                      <div className="space-y-2 text-sm font-bold text-indigo-800">
+                        <p>زيادة COGS = انخفاض مجمل الربح.</p>
+                        <p>زيادة مخزون آخر المدة = انخفاض COGS وزيادة الأرباح.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeSection === 'cost_of_sales' && (
+                  <div className="pt-10 space-y-6">
+                    <h4 className="text-xl font-black text-slate-900">مقارنة تكلفة المبيعات حسب نوع النشاط</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {[
+                        { title: 'النشاط التجاري', desc: 'تكلفة البضاعة المشتراة + مصاريف الشراء والنقل للمخازن.' },
+                        { title: 'النشاط الصناعي', desc: 'مواد خام + عمالة مباشرة + تكاليف صناعية غير مباشرة.' },
+                        { title: 'النشاط الخدمي', desc: 'أجور المهنيين + المواد المستهلكة في تقديم الخدمة.' }
+                      ].map((item, i) => (
+                        <div key={i} className="p-6 bg-white border border-slate-100 rounded-3xl shadow-sm">
+                          <h5 className="font-black text-sm text-blue-600 mb-3">{item.title}</h5>
+                          <p className="text-xs font-bold text-slate-500 leading-relaxed">{item.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeSection === 'cost_of_purchases' && (
+                  <div className="pt-10">
+                    <h4 className="text-xl font-black text-slate-900 mb-6 font-black">مكونات تكلفة المشتريات (Total Landed Cost)</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                      {['قيمة الفاتورة', 'النقل والشحن', 'التأمين', 'الرسوم الجمركية', 'العمولات المباشرة'].map((comp, i) => (
+                        <div key={i} className="p-4 bg-slate-50 border border-slate-100 rounded-2xl text-center">
+                          <div className="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center text-[10px] mx-auto mb-2 font-black">{i + 1}</div>
+                          <span className="text-[10px] font-black text-slate-600">{comp}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -614,7 +1127,35 @@ export default function AccountingMisc() {
                 <button onClick={() => setShowModal(false)} className="p-2 hover:bg-slate-100 rounded-full transition-colors"><X className="w-6 h-6 text-slate-400" /></button>
               </div>
               <form onSubmit={handleAddEntry} className="p-8 space-y-6 text-right">
-                {activeSection === 'customers' || activeSection === 'suppliers' ? (
+                {activeSection === 'inventory_jard' ? (
+                  <>
+                    <div className="space-y-2">
+                       <label className="text-sm font-black text-slate-900">اختر الصنف</label>
+                       <select required className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold" 
+                         onChange={e => {
+                           const item = inventory.find(i => i.id === e.target.value);
+                           setFormData({...formData, itemId: e.target.value, bookQty: item?.quantity || 0});
+                         }}>
+                         <option value="">اختر صنف...</option>
+                         {inventory.map(i => <option key={i.id} value={i.id}>{i.name} (الدفتري: {i.quantity})</option>)}
+                       </select>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                       <div className="space-y-2">
+                        <label className="text-sm font-black text-slate-900">الرصيد الدفتري</label>
+                        <input readOnly value={formData.bookQty || 0} className="w-full bg-slate-100 border-none rounded-2xl px-6 py-4 font-black text-slate-500" />
+                       </div>
+                       <div className="space-y-2">
+                        <label className="text-sm font-black text-slate-900">الجرد الفعلي</label>
+                        <input type="number" required placeholder="الكمية الحقيقية" className="w-full bg-blue-50 border-none rounded-2xl px-6 py-4 font-black" onChange={e => setFormData({...formData, physicalQty: e.target.value})} />
+                       </div>
+                    </div>
+                    <div className="space-y-2">
+                       <label className="text-sm font-black text-slate-900">ملاحظات</label>
+                       <textarea className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold" rows={3} onChange={e => setFormData({...formData, note: e.target.value})} />
+                    </div>
+                  </>
+                ) : activeSection === 'customers' || activeSection === 'suppliers' ? (
                   <>
                     <div className="space-y-2">
                        <label className="text-sm font-black text-slate-900">{activeSection === 'customers' ? 'اسم العميل' : 'اسم المورد'}</label>
@@ -636,13 +1177,23 @@ export default function AccountingMisc() {
                        <input required className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold" onChange={e => setFormData({...formData, description: e.target.value})} />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
-                       <select className="bg-slate-50 border-none rounded-2xl px-4 font-bold" onChange={e => setFormData({...formData, type: e.target.value})}>
-                         <option value="income">إيراد</option>
-                         <option value="expense">مصروف</option>
+                       <select required className="bg-slate-50 border-none rounded-2xl px-4 font-bold" onChange={e => setFormData({...formData, type: e.target.value})}>
+                         <option value="">النوع...</option>
+                         <option value="income">إيراد (قبض)</option>
+                         <option value="expense">مصروف (صرف)</option>
                          <option value="adjustment">تسوية</option>
                        </select>
-                       <input type="number" placeholder="المبلغ" className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-black" onChange={e => setFormData({...formData, amount: e.target.value})} />
+                       <input type="number" required placeholder="المبلغ" className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-black" onChange={e => setFormData({...formData, amount: e.target.value})} />
                     </div>
+                    {formData.type === 'income' && activeSection === 'treasury' && (
+                      <div className="space-y-2">
+                        <label className="text-sm font-black text-slate-900">ربط بتحصيل عميل (اختياري)</label>
+                        <select className="w-full bg-blue-50 border-none rounded-2xl px-6 py-4 font-bold" onChange={e => setFormData({...formData, customerId: e.target.value})}>
+                          <option value="">اختر عميل لاستنزال مديونيته...</option>
+                          {customers.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                        </select>
+                      </div>
+                    )}
                   </>
                 )}
                 <button type="submit" className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-lg shadow-xl shadow-blue-200">حفظ الحركة</button>
