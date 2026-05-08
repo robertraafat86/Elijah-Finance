@@ -58,7 +58,7 @@ export default function FinancialAnalysis() {
             className="inline-flex items-center gap-3 px-4 py-2 bg-blue-50 rounded-full text-blue-600 font-black text-xs uppercase tracking-widest shadow-sm"
           >
             <BarChart className="w-4 h-4" />
-            أدوات ذكاء الأعمال
+            أدوات التحليل المتقدم
           </motion.div>
           
           <motion.h1
@@ -168,7 +168,7 @@ export default function FinancialAnalysis() {
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
             <div className="lg:col-span-1 space-y-6">
-              <h2 className="text-3xl font-black">تحكم ذكي في البيانات</h2>
+              <h2 className="text-3xl font-black">تحليل متكامل للبيانات</h2>
               <p className="text-slate-400 font-medium">
                 تم دمج جميع أدوات التحليل مع بياناتك المالية الحالية. اختر الفترة والشركة لعرض النتائج لحظياً.
               </p>

@@ -2,18 +2,33 @@ export interface DriveFile {
   id: string;
   name: string;
   mimeType: string;
+  tag?: string;
 }
 
-export async function fetchDriveImages(): Promise<DriveFile[]> {
-  try {
-    const response = await fetch('/api/drive-images');
-    if (!response.ok) throw new Error('Failed to fetch drive images');
-    const data = await response.json();
-    return data.files || [];
-  } catch (error) {
-    console.error('Error in fetchDriveImages:', error);
-    return [];
+// Static database of images for fully static deployment
+const STATIC_IMAGES: DriveFile[] = [
+  { 
+    id: '1GNQ2fSrGYEDrLYUheMpPcJ14jjpjSqF1', 
+    name: 'Hospital Accounting Concept Map', 
+    mimeType: 'image/jpeg',
+    tag: 'hospital-accounting'
+  },
+  { 
+    id: '1M1WxYIFZjGFhu0ompvAKNe2os4L5NlCj', 
+    name: 'Financial Analysis Concept Map', 
+    mimeType: 'image/jpeg',
+    tag: 'financial-analysis'
   }
+];
+
+export async function fetchDriveImages(tag?: string): Promise<DriveFile[]> {
+  // Simulate network delay for UI consistency
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  if (tag) {
+    return STATIC_IMAGES.filter(img => img.tag === tag);
+  }
+  return STATIC_IMAGES;
 }
 
 export function getDirectDriveUrl(fileId: string): string {

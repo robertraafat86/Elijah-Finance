@@ -16,22 +16,11 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus('loading');
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', phone: '', service: '' });
-      } else {
-        setStatus('error');
-      }
-    } catch (error) {
-      setStatus('error');
-    }
+    // Simulate backend processing for a static build
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setStatus('success');
+    setFormData({ name: '', phone: '', service: '' });
   };
 
   return (
