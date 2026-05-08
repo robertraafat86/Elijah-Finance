@@ -38,7 +38,6 @@ export const NAV_ITEMS: NavItem[] = [
     title: 'nav.reports_group', 
     path: '#standards', 
     children: [
-      { title: 'nav.ai_standards', path: '/ias/1' },
       { title: 'nav.financial_statements', path: '/financial-statements' },
       { title: 'nav.international_standards', path: '/accounting-standards' },
       { title: 'nav.egyptian_standards', path: '/egyptian-standards' },

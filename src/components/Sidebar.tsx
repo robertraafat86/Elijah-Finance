@@ -19,7 +19,6 @@ import {
   Users,
   MessageSquare,
   ChevronRight,
-  Sparkles,
   HelpCircle
 } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -28,12 +27,6 @@ import LanguageSwitcher from './LanguageSwitcher';
 const sidebarItems = [
   { title: 'nav.home', path: '/', icon: <Home className="w-5 h-5" /> },
   { title: 'nav.portal', path: '/accounting-portal', icon: <LayoutDashboard className="w-5 h-5" /> },
-  { 
-    group: 'nav.ai_group',
-    items: [
-      { title: 'nav.ai_standards', path: '/ias/1', icon: <Sparkles className="w-5 h-5 text-amber-500" /> },
-    ]
-  },
   { 
     group: 'nav.specialties_group',
     items: [

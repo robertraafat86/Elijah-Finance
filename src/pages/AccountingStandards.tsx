@@ -16,8 +16,7 @@ import {
   FileDown,
   ArrowRight,
   ArrowLeft,
-  SearchX,
-  Sparkles
+  SearchX
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { DETAILED_STANDARDS } from '../data/standardsDetailed';
@@ -154,13 +153,6 @@ export default function AccountingStandards() {
                     </div>
                     <h1 className="text-3xl md:text-4xl font-black text-slate-900">{selectedStandard.title}</h1>
                     <p className="text-slate-500 max-w-2xl font-medium leading-relaxed">{selectedStandard.description}</p>
-                    <Link 
-                      to={`/${selectedStandard.category.toLowerCase()}/${selectedStandard.code.split(' ')[1]}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl text-sm font-black hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 group"
-                    >
-                      <Sparkles className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-                      شرح معزز بالذكاء الاصطناعي
-                    </Link>
                   </div>
                   <div className="flex items-center gap-3">
                     <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">

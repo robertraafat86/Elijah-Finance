@@ -13,6 +13,10 @@ function cleanPrivateKey(key: string | undefined) {
   
   let cleaned = key.trim();
   
+  // Remove non-printable characters (except \n and \r) and carriage returns
+  cleaned = cleaned.replace(/[^\x20-\x7E\n\r]/g, "");
+  cleaned = cleaned.replace(/\r/g, "");
+  
   // 1. Try JSON parsing (if the entire service account JSON was provided)
   if (cleaned.startsWith("{")) {
     try {
@@ -44,18 +48,23 @@ function cleanPrivateKey(key: string | undefined) {
   cleaned = cleaned.replace(/\\n/g, "\n");
 
   // 5. Standardize PEM format (ensure headers and wrap body to 64 chars)
+  // OpenSSL 3 is very strict about headers and line breaks.
   const pemMatch = cleaned.match(/-----BEGIN ([^-]+)-----/);
   if (pemMatch) {
-    const type = pemMatch[1];
+    const type = pemMatch[1].trim(); // e.g. "PRIVATE KEY" or "RSA PRIVATE KEY"
     const header = `-----BEGIN ${type}-----`;
     const footer = `-----END ${type}-----`;
     
     try {
-      const body = cleaned.split(header)[1].split(footer)[0].replace(/\s/g, "");
-      const lines = body.match(/.{1,64}/g) || [];
-      cleaned = `${header}\n${lines.join("\n")}\n${footer}\n`;
+      if (cleaned.includes(header) && cleaned.includes(footer)) {
+        const body = cleaned.split(header)[1].split(footer)[0].replace(/\s/g, "");
+        if (body.length > 0) {
+          const lines = body.match(/.{1,64}/g) || [];
+          cleaned = `${header}\n${lines.join("\n")}\n${footer}\n`;
+        }
+      }
     } catch (e) {
-      // If splitting fails, return the current cleaned version
+      console.error("Standardization failed:", e);
     }
   }
   
@@ -71,13 +80,19 @@ async function startServer() {
   // Startup configuration check (vitals only)
   const rawKey = process.env.GOOGLE_PRIVATE_KEY;
   const processedKey = cleanPrivateKey(rawKey);
-  console.log("Credentials Audit:", {
-    hasEmail: !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    hasKey: !!rawKey,
-    keyProcessedLength: processedKey?.length,
-    isPem: processedKey?.startsWith("-----BEGIN"),
-    keyType: processedKey?.match(/-----BEGIN ([^-]+)-----/)?.[1] || "unknown"
-  });
+  
+  if (rawKey) {
+    console.log("Credentials Audit:", {
+      hasEmail: !!process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      rawLength: rawKey.length,
+      processedLength: processedKey?.length,
+      isPem: processedKey?.startsWith("-----BEGIN"),
+      keyType: processedKey?.match(/-----BEGIN ([^-]+)-----/)?.[1] || "unknown",
+      // Safely check if it still has literal \n
+      hasLiteralSlashN: rawKey.includes("\\n"),
+      hasActualNewlines: rawKey.includes("\n")
+    });
+  }
 
   // API route for contact form
   app.post("/api/contact", async (req, res) => {
