@@ -40,6 +40,7 @@ export default function Breadcrumbs() {
       'financial-statements': 'nav.financial_statements',
       'inventory': 'nav.inventory',
       'bank-reconciliation': 'nav.bank_reconciliation',
+      'accounting': 'nav.accounting_knowledge_base',
       'about': 'nav.about',
       'services': 'nav.services',
       'contact': 'nav.contact'

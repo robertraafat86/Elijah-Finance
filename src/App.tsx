@@ -23,6 +23,7 @@ import CostAccounting from './pages/CostAccounting';
 import FinancialAnalysis from './pages/FinancialAnalysis';
 import AnalysisDetail from './pages/FinancialAnalysis/AnalysisDetail';
 import AccountingMisc from './pages/AccountingMisc';
+import SavedContent from './pages/SavedContent';
 import DepreciationMethods from './pages/DepreciationMethods';
 import Scrap from './pages/Scrap';
 import BadDebts from './pages/BadDebts';
@@ -58,6 +59,7 @@ export default function App() {
             <Route path="/bank-reconciliation" element={<BankReconciliation />} />
             <Route path="/internal-audit" element={<InternalAudit />} />
             <Route path="/accounting-portal" element={<AccountingPortal />} />
+            <Route path="/accounting/:sectionId" element={<AccountingMisc />} />
             <Route path="/tax-accounting" element={<TaxAccounting />} />
             <Route path="/customs-duties" element={<CustomsDuties />} />
             <Route path="/construction-accounting" element={<ConstructionAccounting />} />
@@ -66,6 +68,7 @@ export default function App() {
             <Route path="/financial-analysis" element={<FinancialAnalysis />} />
             <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
             <Route path="/accounting-misc" element={<AccountingMisc />} />
+            <Route path="/saved-content" element={<SavedContent />} />
             <Route path="/depreciation-methods" element={<DepreciationMethods />} />
             <Route path="/scrap" element={<Scrap />} />
             <Route path="/bad-debts" element={<BadDebts />} />

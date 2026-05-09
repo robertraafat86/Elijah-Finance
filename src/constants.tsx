@@ -45,6 +45,29 @@ export const NAV_ITEMS: NavItem[] = [
     ]
   },
   { 
+    title: 'nav.accounting_knowledge_base', 
+    path: '/accounting-portal#knowledge-base', 
+    isMega: true,
+    children: [
+      { title: 'accounting.customers', path: '/accounting/customers', icon: <Users className="w-4 h-4" /> },
+      { title: 'accounting.suppliers', path: '/accounting/suppliers', icon: <Briefcase className="w-4 h-4" /> },
+      { title: 'accounting.treasury', path: '/accounting/treasury', icon: <Calculator className="w-4 h-4" /> },
+      { title: 'accounting.settlements', path: '/accounting/settlements', icon: <ArrowLeftRight className="w-4 h-4" /> },
+      { title: 'accounting.inventory_jard', path: '/accounting/inventory_jard', icon: <CheckCircle className="w-4 h-4" /> },
+      { title: 'accounting.cogs', path: '/accounting/cogs', icon: <TrendingUp className="w-4 h-4" /> },
+      { title: 'accounting.cost_of_sales', path: '/accounting/cost_of_sales', icon: <PieChart className="w-4 h-4" /> },
+      { title: 'accounting.cost_of_purchases', path: '/accounting/cost_of_purchases', icon: <FileText className="w-4 h-4" /> },
+      { title: 'accounting.depreciation', path: '/accounting/depreciation', icon: <Clock className="w-4 h-4" /> },
+      { title: 'accounting.inventory_valuation', path: '/accounting/inventory_valuation', icon: <BarChart3 className="w-4 h-4" /> },
+      { title: 'accounting.bad_debts', path: '/accounting/bad_debts', icon: <AlertTriangle className="w-4 h-4" /> },
+      { title: 'accounting.scrap', path: '/accounting/scrap', icon: <RefreshCcw className="w-4 h-4" /> },
+      { title: 'accounting.bank_reconciliation', path: '/accounting/bank_reconciliation', icon: <Scale className="w-4 h-4" /> },
+      { title: 'accounting.bank_accounting', path: '/accounting/bank_accounting', icon: <ShieldCheck className="w-4 h-4" /> },
+      { title: 'accounting.financial_analysis', path: '/accounting/financial_analysis', icon: <BarChart3 className="w-4 h-4" /> },
+      { title: 'accounting.international_standards', path: '/accounting/international_standards', icon: <Globe className="w-4 h-4" /> },
+    ]
+  },
+  { 
     title: 'nav.accounting_misc', 
     path: '/accounting-portal#knowledge-bank', 
     children: [

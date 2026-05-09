@@ -1,6 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { 
   Search, 
   Plus,
@@ -28,7 +31,13 @@ import {
   BarChart3,
   PieChart as PieChartIcon,
   ShoppingBag,
-  Briefcase
+  Briefcase,
+  Save,
+  Check,
+  Globe,
+  RefreshCcw,
+  Scale,
+  Calculator
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -59,7 +68,15 @@ type Section =
   | 'cogs' 
   | 'cost_of_sales' 
   | 'cost_of_purchases' 
-  | 'invoices_settlements';
+  | 'invoices_settlements'
+  | 'depreciation'
+  | 'inventory_valuation'
+  | 'bad_debts'
+  | 'scrap'
+  | 'bank_reconciliation'
+  | 'bank_accounting'
+  | 'financial_analysis'
+  | 'international_standards';
 type ViewMode = 'dashboard' | 'learning';
 
 interface CustomerTransaction {
@@ -90,6 +107,10 @@ interface TreasuryTransaction {
 
 export default function AccountingMisc() {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { sectionId } = useParams<{ sectionId: string }>();
+  const contentRef = useRef<HTMLDivElement>(null);
   
   const [activeSection, setActiveSection] = useState<Section>('erp_overview');
   const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
@@ -97,6 +118,35 @@ export default function AccountingMisc() {
   const [showModal, setShowModal] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [isSaved, setIsSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      if (sectionId) {
+        setActiveSection(sectionId as Section);
+        setViewMode('learning');
+      } else {
+        const params = new URLSearchParams(location.search);
+        const section = params.get('section');
+        if (section) {
+          setActiveSection(section as Section);
+          setViewMode('learning');
+        } else {
+          setActiveSection('erp_overview');
+          setViewMode('dashboard');
+        }
+      }
+      setIsLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [sectionId, location.search]);
+
+  useEffect(() => {
+    const title = (learningContent as any)[activeSection]?.title || t('accounting.accounting_knowledge_base');
+    document.title = `${title} | ${t('common.brand_name', 'النخبة للمحاسبة')}`;
+  }, [activeSection, t]);
 
   /**
    * 🟦 القسم الأول: محاسبة العملاء
@@ -160,8 +210,47 @@ export default function AccountingMisc() {
     window.print();
   };
 
-  const handleExportPDF = () => {
-    window.print();
+  const handleExportPDF = async () => {
+    if (!contentRef.current) return;
+    
+    try {
+      const canvas = await html2canvas(contentRef.current, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: window.getComputedStyle(document.body).backgroundColor
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: canvas.width > canvas.height ? 'l' : 'p',
+        unit: 'px',
+        format: [canvas.width, canvas.height]
+      });
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+      pdf.save(`Elijah_Accounting_${activeSection}.pdf`);
+    } catch (error) {
+      console.error('PDF Generation Error:', error);
+    }
+  };
+
+  const handleSave = () => {
+    const savedItems = JSON.parse(localStorage.getItem('saved_accounting_content') || '[]');
+    const currentItem = {
+      id: activeSection,
+      title: (learningContent as any)[activeSection]?.title || activeSection,
+      timestamp: new Date().toISOString(),
+      path: location.pathname + location.search
+    };
+    
+    const exists = savedItems.find((item: any) => item.id === activeSection);
+    if (!exists) {
+      localStorage.setItem('saved_accounting_content', JSON.stringify([...savedItems, currentItem]));
+    }
+    
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 2000);
   };
 
   // Educational Content Data
@@ -298,6 +387,105 @@ export default function AccountingMisc() {
       pettyCash: 'صافي المشتريات = (إجمالي المشتريات + مصاريف الشراء) - (مردودات المشتريات + الخصم المكتسب).',
       reports: ['تتبع تكاليف الاستيراد', 'سجل فواتير المشتريات', 'ملخص الأعباء الجمركية'],
       case: 'استوردت شركة بضاعة بمبلغ 100,000 ريال، ودفعت 5,000 ريال شحن و10,000 ريال جمارك، وحصلت على خصم 2,000 ريال. ما هي التكلفة النهائية للمشتريات التي ستدخل المخزن؟'
+    },
+    depreciation: {
+      title: 'طرق الإهلاك (Depreciation Methods)',
+      definition: 'تطبيقات محاسبية لتوزيع تكلفة الأصول الثابتة على مدار عمرها الإنتاجي المتوقع.',
+      cycle: ['تحديد تكلفة الأصل', 'تقدير العمر الإنتاجي', 'تحديد قيمة الخردة', 'اختيار طريقة الإهلاك', 'تسجيل قيد الاستهلاك السنوي'],
+      entries: [
+        { desc: 'إثبات مصروف الإهلاك السنوي', debit: 'حـ/ مصروف الإهلاك', credit: 'حـ/ مجمع الإهلاك', note: 'تحميل الفترة بالمصروف وتخفيض قيمة الأصل دفترياً' }
+      ],
+      aging: 'القيمة الدفترية = تكلفة الأصل - مجمع الإهلاك.',
+      case: 'آلة تكلفتها 100,000 ريال وعمرها 5 سنوات وقيمة الخردة 10,000 ريال. احسب الإهلاك السنوي بطريقة القسط الثابت.'
+    },
+    inventory_valuation: {
+      title: 'طرق تقييم المخزون (Inventory Valuation)',
+      definition: 'القواعد المستخدمة لتحديد تكلفة البضاعة المباعة وقيمة المخزون المتبقي بنهاية الفترة.',
+      cycle: ['وارد أولاً صادر أولاً (FIFO)', 'المتوسط المرجح (W. Average)', 'التمييز المحدد'],
+      entries: [
+        { desc: 'إثبات مخزون آخر المدة', debit: 'حـ/ المخزون (أصل)', credit: 'حـ/ ملخص الدخل', note: 'إثبات البضاعة المتبقية بسعر التكلفة أو السوق أيهما أقل' }
+      ],
+      pettyCash: 'تؤثر طريقة التقييم مباشرة على صافي الربح وقيمة الضرائب.',
+      case: 'في ظل ارتفاع الأسعار، أي طريقة تعطي صافي ربح أعلى؟ (FIFO) أم المتوسط المرجح؟ وضح السبب.'
+    },
+    bad_debts: {
+      title: 'الديون المعدومة (Bad Debts)',
+      definition: 'الديون التي تأكد عدم إمكانية تحصيلها من العملاء ويتم شطبها من الدفاتر.',
+      cycle: ['تقييم أرصدة العملاء', 'تكوين مخصص ديون مشكوك فيها', 'اتخاذ إجراءات قانونية', 'صدور قرار الشطب'],
+      entries: [
+        { desc: 'إعدام دين لعميل متعثر', debit: 'حـ/ مصروف ديون معدومة', credit: 'حـ/ العملاء', note: 'تحويل الحساب لمصروف نهائي' }
+      ],
+      aging: 'شطب الدين لا يعني التنازل عنه قانونياً بل معالجته محاسبياً كخسارة.',
+      case: 'عميل مديونيته 5,000 ريال أُعلن إفلاسه رسمياً. كيف تعالج هذا الرصيد محاسبياً؟'
+    },
+    scrap: {
+      title: 'المخلفات والخردة (Scrap)',
+      definition: 'المواد المتبقية من العملية الإنتاجية أو الأصول المتهالكة التي لها قيمة بيعية ضئيلة.',
+      cycle: ['حصر المخلفات', 'تصنيف الخردة', 'عملية البيع', 'تحصيل القيمة'],
+      entries: [
+        { desc: 'بيع مخلفات إنتاج نقدياً', debit: 'حـ/ الخزينة', credit: 'حـ/ إيرادات أخرى (خردة)', note: 'إثبات دخل إضافي من بيع المخلفات' }
+      ],
+      pettyCash: 'بيع الخردة يساهم في تقليل تكلفة الإنتاج الكلية.',
+      case: 'باعت ورشة نجارة "نشارة خشب" بمبلغ 200 ريال. سجل القيد المحاسبي المناسب.'
+    },
+    bank_reconciliation: {
+      title: 'مذكرة تسوية البنك (Bank Reconciliation)',
+      definition: 'بيان يفسر الاختلاف بين رصيد البنك في دفاتر المنشأة والرصيد الوارد في كشف حساب البنك.',
+      cycle: ['مطابقة الإيداعات', 'رصد الشيكات التي لم تقدم للصرف', 'تسجيل العمولات البنكية', 'معالجة الأخطاء المحاسبية'],
+      entries: [
+        { desc: 'إثبات مصاريف بنكية مكتشفة', debit: 'حـ/ مصاريف بنكية', credit: 'حـ/ البنك', note: 'تعديل رصيد الدفاتر' }
+      ],
+      bankRec: 'يتم تعديل رصيد الدفاتر بالعمليات التي سجلها البنك ولم تسجلها المنشأة فقط.',
+      case: 'رصيد الدفاتر 10,000 ورصيد الكشف 12,000 وهناك شيكات لم تقدم بـ 2,000. هل الرصيد متطابق؟ وضح ذلك.'
+    },
+    bank_accounting: {
+      title: 'محاسبة البنوك (Bank Accounting)',
+      definition: 'العمليات المحاسبة المتعلقة بالحسابات الجارية، الودائع، القروض، والاعتمادات المستندية.',
+      cycle: ['فتح الاعتماد المستندي', 'سداد الهامش النقدي', 'استلام مستندات الشحن', 'تصفية الاعتماد'],
+      entries: [
+        { desc: 'فتح اعتماد مستندي لاستيراد بضاعة', debit: 'حـ/ اعتمادات مستندية', credit: 'حـ/ البنك', note: 'تجميد مبلغ لصالح المورد الخارجي' }
+      ],
+      aging: 'الاعتماد المستندي هو الضمان الأساسي في التجارة الدولية.',
+      case: 'ما الفرق بين الاعتماد المستندي وخطاب الضمان من وجهة نظر محاسبية؟'
+    },
+    financial_analysis: {
+      title: 'التحليل المالي (Financial Analysis)',
+      definition: 'عملية تقييم القوائم المالية باستخدام النسب والمؤشرات لاستنتاج نقاط القوة والضعف والربحية والسيولة.',
+      cycle: ['نسب السيولة', 'نسب الربحية', 'نسب كفاءة النشاط', 'نسب المديونية'],
+      entries: [
+        { desc: 'حساب نسبة التداول', debit: 'إجمالي الأصول المتداولة', credit: 'إجمالي الالتزامات المتداولة', note: 'المؤشر الأساسي لقدرة المنشأة على سداد التزاماتها قصيرة الأجل' }
+      ],
+      aging: 'نسبة التداول المثالية في معظم الأنشطة هي 2:1.',
+      case: 'إذا كانت الأصول المتداولة 500,000 والالتزامات المتداولة 400,000. احسب نسبة التداول وعلق على النتيجة.'
+    },
+    inventory_jard: {
+      title: 'جرد المخزن وتسوية الفروقات (Inventory Audit)',
+      definition: 'هي عملية مطابقة كميات البضاعة الموجودة فعلياً في المستودعات مع الكميات المسجلة في الدفاتر، بهدف اكتشاف العجز أو الزيادة.',
+      cycle: [
+        'تحديد موعد الجرد (دوري أو مفاجئ).',
+        'تجميد حركة المخزن (منع الصرف والإضافة).',
+        'العد الفعلي للمواد وتسجيلها في قوائم الجرد.',
+        'مقارنة الرصيد الفعلي بالرصيد الدفتري.',
+        'إثبات فروق الجرد (زيادة أو عجز).'
+      ],
+      entries: [
+        { desc: 'إثبات عجز طبيعي في المخزون', debit: 'حـ/ تكلفة البضاعة المباعة', credit: 'حـ/ المخزون', note: 'تحميل العجز المسموح به للتكلفة' },
+        { desc: 'إثبات عجز غير طبيعي (سرقة/إهمال)', debit: 'حـ/ ذمم موظفين (أمين المخزن)', credit: 'حـ/ المخزون', note: 'تحميل المسؤول بقيمة الفقد' },
+        { desc: 'إثبات زيادة في الجرد', debit: 'حـ/ المخزون', credit: 'حـ/ أرباح وخسائر (إيرادات متنوعة)', note: 'إثبات الزيادة كدخل عرضي' }
+      ],
+      pettyCash: 'يعد الجرد المستمر أفضل رقابياً من الجرد الدوري السنوي حيث يسهل تتبع الأخطاء فور وقوعها.',
+      reports: ['قائمة فروق الجرد', 'محضر لجنة الجرد', 'تقرير حركة الصنف'],
+      case: 'عند جرد مستودع قطع الغيار، وجد أن رصيد الدفاتر لـ "فلاتر زيت" هو 100 قطعة، بينما الرصيد الفعلي 95 قطعة. المطلوب إثبات قيد التسوية إذا كان العجز ضمن الحدود الطبيعية، وإذا كان نتيجة إهمال أمين المستودع.'
+    },
+    international_standards: {
+      title: 'المعايير الدولية (IFRS)',
+      definition: 'مجموعة من القواعد المحاسبية الموحدة عالمياً لضمان الشفافية والموثوقية في التقارير المالية.',
+      cycle: ['معايير العرض (IAS 1)', 'معايير الأصول (IAS 16)', 'معايير الإيراد (IFRS 15)', 'معايير التأجير (IFRS 16)'],
+      entries: [
+        { desc: 'تطبيق معيار الإيراد الجديد', debit: 'تحقق السيطرة', credit: 'الوفاء بالالتزام', note: 'الاعتراف بالإيراد عند انتقال السيطرة للعميل' }
+      ],
+      aging: 'تهدف المعايير الدولية لتسهيل المقارنة بين الشركات في مختلف دول العالم.',
+      case: 'لماذا تحولت معظم الدول لاستخدام IFRS بدلاً من المعايير المحلية؟'
     }
   };
 
@@ -464,7 +652,7 @@ export default function AccountingMisc() {
       <div className="container mx-auto px-6 -mt-10 relative z-20">
         {/* Navigation Tabs & Mode Toggle */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-8">
-          <div className="bg-white rounded-[2rem] p-2 shadow-xl border border-slate-100 flex flex-wrap gap-2 transition-all duration-500">
+          <div className="bg-white rounded-[2rem] p-2 shadow-xl border border-slate-100 flex flex-wrap gap-2 transition-all duration-500 max-h-[300px] overflow-y-auto custom-scrollbar">
             {[
               { id: 'erp_overview', label: 'لوحة القيادة', icon: <LayoutDashboard className="w-5 h-5" /> },
               { id: 'customers', label: 'العملاء', icon: <Users className="w-5 h-5" /> },
@@ -475,11 +663,25 @@ export default function AccountingMisc() {
               { id: 'cogs', label: 'تكلفة البضاعة', icon: <TrendingUp className="w-5 h-5" /> },
               { id: 'cost_of_sales', label: 'تكلفة المبيعات', icon: <AlertCircle className="w-5 h-5" /> },
               { id: 'cost_of_purchases', label: 'تكلفة المشتريات', icon: <Plus className="w-5 h-5" /> },
+              { id: 'depreciation', label: 'طرق الإهلاك', icon: <TrendingUp className="w-5 h-5" /> },
+              { id: 'inventory_valuation', label: 'تقييم المخزون', icon: <BarChart3 className="w-5 h-5" /> },
+              { id: 'bad_debts', label: 'الديون المعدومة', icon: <AlertCircle className="w-5 h-5" /> },
+              { id: 'scrap', label: 'الخردة والمخلفات', icon: <RefreshCcw className="w-5 h-5" /> },
+              { id: 'bank_reconciliation', label: 'تسوية البنك', icon: <Scale className="w-5 h-5" /> },
+              { id: 'bank_accounting', label: 'محاسبة البنوك', icon: <Briefcase className="w-5 h-5" /> },
+              { id: 'financial_analysis', label: 'التحليل المالي', icon: <BarChart3 className="w-5 h-5" /> },
+              { id: 'international_standards', label: 'المعايير الدولية', icon: <Globe className="w-5 h-5" /> },
               { id: 'invoices_settlements', label: 'نظرة شمولية', icon: <History className="w-5 h-5" /> },
             ].map(section => (
               <button
                 key={section.id}
-                onClick={() => setActiveSection(section.id as Section)}
+                onClick={() => {
+                  if (section.id === 'erp_overview') {
+                    navigate('/accounting-misc');
+                  } else {
+                    navigate(`/accounting/${section.id}`);
+                  }
+                }}
                 className={cn(
                   "flex items-center gap-3 px-6 py-4 rounded-2xl font-black transition-all text-sm",
                   activeSection === section.id 
@@ -519,6 +721,16 @@ export default function AccountingMisc() {
 
         {/* Action Buttons */}
         <div className="flex items-center justify-end gap-3 mb-6 print:hidden">
+          <button 
+            onClick={handleSave} 
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-xl font-bold transition-all text-xs",
+              isSaved ? "bg-emerald-500 text-white" : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+            )}
+          >
+            {isSaved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+            {isSaved ? t('common.content_saved_success') : t('common.save')}
+          </button>
           <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-50 transition-all text-xs">
             <Printer className="w-4 h-4" />
             طباعة المرجع
@@ -529,7 +741,24 @@ export default function AccountingMisc() {
           </button>
         </div>
 
-        {/* Dashboard View */}
+        <div ref={contentRef} className="relative min-h-[400px]">
+          <AnimatePresence mode="wait">
+            {isLoading && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 z-10 bg-white/60 backdrop-blur-[2px] flex items-center justify-center rounded-3xl"
+              >
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                  <p className="text-blue-600 font-black text-sm">جاري التجهيز...</p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Dashboard View */}
         {viewMode === 'dashboard' && (
           <div className="space-y-8">
             {activeSection === 'erp_overview' && (
@@ -538,9 +767,15 @@ export default function AccountingMisc() {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                   {[
                     { label: 'إجمالي المبيعات', value: erpStats.totalSales, icon: <TrendingUp />, color: 'blue' },
-                    { label: 'تكلفة المبيعات', value: erpStats.estimatedCogs, icon: <AlertCircle />, color: 'rose' },
-                    { label: 'مجمل الربح', value: erpStats.grossProfit, icon: <BarChart3 />, color: 'emerald' },
+                    { label: 'إجمالي المشتريات', value: erpStats.totalPurchases, icon: <ShoppingBag />, color: 'indigo' },
+                    { label: 'تكلفة بضاعة مباعة', value: erpStats.estimatedCogs, icon: <Box />, color: 'orange' },
+                    { label: 'تكلفة المبيعات', value: erpStats.estimatedCogs * 1.1, icon: <Calculator />, color: 'rose' },
+                    { label: 'أرصدة العملاء', value: erpStats.customerReceivables, icon: <Users />, color: 'cyan' },
+                    { label: 'أرصدة الموردين', value: erpStats.supplierPayables, icon: <Truck />, color: 'slate' },
                     { label: 'رصيد الخزينة', value: erpStats.treasuryBalance, icon: <Wallet />, color: 'amber' },
+                    { label: 'فروقات جرد', value: 1250, icon: <ClipboardList />, color: 'red' },
+                    { label: 'مجمل الربح', value: erpStats.grossProfit, icon: <BarChart3 />, color: 'emerald' },
+                    { label: 'صافي الربح', value: erpStats.grossProfit * 0.85, icon: <TrendingUp />, color: 'emerald' },
                   ].map((kpi, idx) => (
                     <motion.div
                       key={idx}
@@ -553,6 +788,11 @@ export default function AccountingMisc() {
                         kpi.color === 'blue' ? "bg-blue-50 text-blue-600" :
                         kpi.color === 'rose' ? "bg-rose-50 text-rose-600" :
                         kpi.color === 'emerald' ? "bg-emerald-50 text-emerald-600" :
+                        kpi.color === 'indigo' ? "bg-indigo-50 text-indigo-600" :
+                        kpi.color === 'orange' ? "bg-orange-50 text-orange-600" :
+                        kpi.color === 'cyan' ? "bg-cyan-50 text-cyan-600" :
+                        kpi.color === 'slate' ? "bg-slate-50 text-slate-600" :
+                        kpi.color === 'red' ? "bg-red-50 text-red-600" :
                         "bg-amber-50 text-amber-600"
                       )}>
                         {kpi.icon}
@@ -1114,6 +1354,7 @@ export default function AccountingMisc() {
             </div>
           </motion.div>
         )}
+        </div>
       </div>
 
       {/* Entry Modal */}

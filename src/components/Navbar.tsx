@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Globe } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe, BookOpen, Bookmark, Search } from 'lucide-react';
 import { LOGO_URL, NAV_ITEMS } from '../constants';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
@@ -12,6 +12,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
   const isRtl = i18n.language === 'ar';
@@ -72,29 +73,96 @@ export default function Navbar() {
         </Link>
       )}
 
-      {/* Dropdown Menu */}
+      {/* Mega Menu or Dropdown */}
       {item.children && (
         <AnimatePresence>
           {activeDropdown === item.title && (
-            <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden py-2 z-[60]"
-            >
-              {item.children.map((child) => (
-                <Link
-                  key={child.path}
-                  to={child.path}
-                  className={cn(
-                    'block px-4 py-2 text-sm font-bold transition-all',
-                    isActive(child.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
-                  )}
-                >
-                  {t(child.title)}
-                </Link>
-              ))}
-            </motion.div>
+            item.isMega ? (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="fixed left-6 right-6 top-[110px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden z-[60] p-10"
+              >
+                <div className="grid grid-cols-12 gap-10 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                  <div className="col-span-3 border-r border-slate-100 pr-10">
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">{t(item.title)}</h3>
+                    <p className="text-sm text-slate-500 leading-relaxed mb-8">
+                      {t('misc.knowledge_base_desc', 'اكتشف مكتبة شاملة من الموارد التعليمية المحاسبية المصممة لتطوير مهاراتك ومعرفتك المهنية.')}
+                    </p>
+                    
+                    <div className="relative mb-6">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <input 
+                        type="text"
+                        placeholder={t('misc.search_placeholder', 'ابحث هنا...')}
+                        className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </div>
+
+                    <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+                      <p className="text-xs font-bold text-blue-700 leading-relaxed">
+                        {t('misc.new_content', 'يتم تحديث المحتوى دورياً لإضافة أحدث المعايير والممارسات.')}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-span-9 grid grid-cols-3 gap-3">
+                    {item.children.filter(child => 
+                      t(child.title).toLowerCase().includes(searchQuery.toLowerCase())
+                    ).map((child) => (
+                      <Link
+                        key={child.path}
+                        to={child.path}
+                        className={cn(
+                          'flex items-center gap-4 p-3 rounded-2xl transition-all group/item border border-transparent',
+                          isActive(child.path) 
+                            ? 'bg-blue-50 border-blue-100 text-blue-700' 
+                            : 'hover:bg-slate-50 hover:border-slate-100 text-slate-600 hover:text-blue-600'
+                        )}
+                      >
+                        <div className={cn(
+                          "w-10 h-10 flex items-center justify-center rounded-xl transition-all shrink-0",
+                          isActive(child.path) ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-500 group-hover/item:bg-blue-100 group-hover/item:text-blue-600'
+                        )}>
+                          {child.icon || <BookOpen className="w-5 h-5" />}
+                        </div>
+                        <span className="text-[13px] font-bold leading-tight">{t(child.title)}</span>
+                      </Link>
+                    ))}
+                    {item.children.filter(child => 
+                      t(child.title).toLowerCase().includes(searchQuery.toLowerCase())
+                    ).length === 0 && (
+                      <div className="col-span-3 py-20 text-center">
+                        <p className="text-slate-400 font-medium">{t('misc.no_results', 'لا توجد نتائج مطابقة لبحثك')}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden py-2 z-[60]"
+              >
+                {item.children.map((child) => (
+                  <Link
+                    key={child.path}
+                    to={child.path}
+                    className={cn(
+                      'block px-4 py-2 text-sm font-bold transition-all',
+                      isActive(child.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
+                    )}
+                  >
+                    {t(child.title)}
+                  </Link>
+                ))}
+              </motion.div>
+            )
           )}
         </AnimatePresence>
       )}
@@ -133,6 +201,13 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
+          <Link
+            to="/saved-content"
+            className="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl bg-slate-50 text-slate-600 border border-slate-100 hover:bg-blue-50 hover:text-blue-600 transition-all shadow-sm"
+            title={t('common.saved_content')}
+          >
+            <Bookmark className="w-5 h-5" />
+          </Link>
           <div className="hidden sm:flex items-center">
             <LanguageSwitcher />
           </div>
@@ -146,11 +221,17 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <div className="xl:hidden flex items-center gap-2">
+            <Link
+              to="/saved-content"
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-600 border border-slate-100 shadow-sm"
+            >
+              <Bookmark className="w-5 h-5" />
+            </Link>
             <div className="sm:hidden flex items-center">
               <LanguageSwitcher />
             </div>
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-900 border border-slate-100"
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 text-white border border-slate-800"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -218,10 +299,13 @@ export default function Navbar() {
                                     key={child.path}
                                     to={child.path}
                                     className={cn(
-                                      'block p-3 text-sm font-bold border-l-2 ml-4',
-                                      isActive(child.path) ? 'text-blue-600 border-blue-600' : 'text-slate-600 border-transparent'
+                                      'flex items-center gap-3 p-3 text-sm font-bold border-l-2 ml-4',
+                                      isActive(child.path) ? 'text-blue-600 border-blue-600 bg-blue-50/50' : 'text-slate-600 border-transparent hover:bg-slate-100/50'
                                     )}
                                   >
+                                    <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                                      {child.icon ? React.cloneElement(child.icon as React.ReactElement<{ className?: string }>, { className: 'w-3.5 h-3.5' }) : <BookOpen className="w-3.5 h-3.5" />}
+                                    </div>
                                     {t(child.title)}
                                   </Link>
                                 ))}

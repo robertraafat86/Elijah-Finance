@@ -4,6 +4,8 @@ export interface NavItem {
   title: string;
   path: string;
   children?: NavItem[];
+  isMega?: boolean;
+  icon?: React.ReactNode;
 }
 
 export interface Service {
