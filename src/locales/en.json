@@ -86,7 +86,10 @@
     "examples_label": "Examples:",
     "currency_egp": "EGP",
     "unit": "Unit",
-    "units": "Units"
+    "units": "Units",
+    "sitemap_title": "Sitemap",
+    "sitemap_subtitle": "View all website sections and pages in an organized and quick manner.",
+    "open_sitemap": "Open Sitemap"
   },
   "home": {
     "hero_title": "Integrated Financial and Accounting Success Starts Here",

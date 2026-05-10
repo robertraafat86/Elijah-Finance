@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Globe, BookOpen, Bookmark, Search } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe, BookOpen, Bookmark, Search, Moon, Sun } from 'lucide-react';
 import { LOGO_URL, NAV_ITEMS } from '../constants';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 
-export default function Navbar() {
+interface NavbarProps {
+  isDarkMode?: boolean;
+  toggleDarkMode?: () => void;
+}
+
+export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -172,15 +177,15 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b',
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
         scrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg border-slate-100 py-2' 
-          : 'bg-white border-transparent py-5'
+          ? 'bg-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-b border-slate-200/50 py-3' 
+          : 'bg-transparent py-6'
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link to="/" className="flex items-center group shrink-0">
-          <div className="logo-container h-12 md:h-16 w-auto flex items-center">
+        <Link to="/" className="flex items-center group shrink-0 relative z-10">
+          <div className="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-105">
              <img 
               src={LOGO_URL} 
               alt={t('common.brand_logo')} 
@@ -190,17 +195,25 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Menu - Two Rows Centered */}
-        <div className="hidden xl:flex flex-col items-center absolute left-1/2 -translate-x-1/2">
-          <div className="flex items-center justify-center gap-1">
-            {firstRow.map(renderNavItem)}
-          </div>
-          <div className="flex items-center justify-center gap-1">
-            {secondRow.map(renderNavItem)}
-          </div>
+        {/* Desktop Menu - Refined Center Layout */}
+        <div className="hidden xl:flex items-center gap-1 absolute left-1/2 -translate-x-1/2 px-2 py-1.5 bg-slate-100/50 backdrop-blur-md rounded-2xl border border-slate-200/50 shadow-sm">
+          {NAV_ITEMS.map(renderNavItem)}
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleDarkMode}
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all shadow-sm group"
+            title={isDarkMode ? 'الوضع المضيء' : 'الوضع الليلي'}
+          >
+            {isDarkMode ? (
+              <Sun className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+            ) : (
+              <Moon className="w-5 h-5 group-hover:-rotate-12 transition-transform" />
+            )}
+          </button>
+
           <Link
             to="/saved-content"
             className="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl bg-slate-50 text-slate-600 border border-slate-100 hover:bg-blue-50 hover:text-blue-600 transition-all shadow-sm"

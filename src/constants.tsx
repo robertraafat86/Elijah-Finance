@@ -22,6 +22,7 @@ import {
 import { NavItem, Service, AccountingStep, FinancialStatement, Review, AccountingPrinciple, AccountingStandard } from './types';
 
 export const LOGO_URL = "https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs";
+export const SITEMAP_URL = "https://lh3.googleusercontent.com/d/1x6_oO-vL4e0y8I6-9X5-s-l-1-1-1-1-1";
 
 export const NAV_ITEMS: NavItem[] = [
   { title: 'nav.home', path: '/' },
