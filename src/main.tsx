@@ -1,16 +1,19 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
+import ErrorBoundary from './components/ErrorBoundary.tsx';
 import './index.css';
 import './lib/i18n';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 );
 
-// Register PWA Service Worker
+/* // Registration disabled to fix white screen issues in preview
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch(error => {
@@ -18,3 +21,4 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+*/
