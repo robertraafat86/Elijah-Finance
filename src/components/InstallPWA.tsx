@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Download, X, Smartphone, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
+import { usePWA } from '../hooks/usePWA';
 
 const InstallPWA: React.FC = () => {
   const { t } = useTranslation();
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const { isInstallable, isInstalled, install } = usePWA();
   const [isVisible, setIsVisible] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
 
@@ -14,38 +15,21 @@ const InstallPWA: React.FC = () => {
     const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
     setIsIOS(isIOSDevice);
 
-    // Listen for the install prompt
-    const handler = (e: any) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      // Show prompt after a delay if not installed
-      setTimeout(() => setIsVisible(true), 3000);
-    };
-
-    window.addEventListener('beforeinstallprompt', handler);
-
-    // If it's iOS and not in standalone mode, show manual instructions
-    if (isIOSDevice && !(navigator as any).standalone) {
-      setTimeout(() => setIsVisible(true), 5000);
+    // If it's installable or it's iOS and not installed, show after delay
+    if ((isInstallable || (isIOSDevice && !isInstalled)) && !isInstalled) {
+      const timer = setTimeout(() => setIsVisible(true), 4000);
+      return () => clearTimeout(timer);
     }
-
-    return () => window.removeEventListener('beforeinstallprompt', handler);
-  }, []);
+  }, [isInstallable, isInstalled]);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
-    
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
-      console.log('User accepted the install prompt');
-      setDeferredPrompt(null);
+    const success = await install();
+    if (success) {
       setIsVisible(false);
     }
   };
 
-  if (!isVisible) return null;
+  if (!isVisible || isInstalled) return null;
 
   return (
     <AnimatePresence>
@@ -70,12 +54,12 @@ const InstallPWA: React.FC = () => {
               </div>
               <div className="pt-1">
                 <h3 className="text-lg font-black text-slate-900 leading-tight">
-                  {isIOS ? "تثبيت تطبيق ايليجا" : "حوّل الموقع إلى تطبيق!"}
+                  {isIOS ? "تثبيت تطبيق ايليجا" : "يمكنك تثبيت التطبيق على هاتفك"}
                 </h3>
                 <p className="text-sm text-slate-500 font-bold mt-1">
                   {isIOS 
                     ? "اضغط على أيقونة المشاركة ثم 'إضافة إلى الشاشة الرئيسية'" 
-                    : "استمتع بتجربة أسرع وسهولة في الوصول من شاشة موبايلك."}
+                    : "استمتع بتجربة أسرع وسهولة في الوصول إلى خدماتنا المحاسبية مباشرة من شاشة موبايلك."}
                 </p>
               </div>
             </div>

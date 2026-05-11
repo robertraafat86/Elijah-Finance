@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Globe, BookOpen, Bookmark, Search, Moon, Sun } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe, BookOpen, Bookmark, Search, Moon, Sun, Smartphone, Download } from 'lucide-react';
 import { LOGO_URL, NAV_ITEMS } from '../constants';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import { usePWA } from '../hooks/usePWA';
 
 interface NavbarProps {
   isDarkMode?: boolean;
@@ -14,6 +15,7 @@ interface NavbarProps {
 
 export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
   const { t, i18n } = useTranslation();
+  const { isInstallable, isInstalled, install } = usePWA();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -221,6 +223,18 @@ export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
           >
             <Bookmark className="w-5 h-5" />
           </Link>
+
+          {(isInstallable && !isInstalled) && (
+            <button
+              onClick={() => install()}
+              className="hidden lg:flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-xl font-bold text-xs hover:bg-blue-100 transition-all border border-blue-100 group"
+              title="تثبيت التطبيق"
+            >
+              <Download className="w-4 h-4 group-hover:bounce" />
+              تثبيت التطبيق
+            </button>
+          )}
+
           <div className="hidden sm:flex items-center">
             <LanguageSwitcher />
           </div>
@@ -343,7 +357,18 @@ export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
                   ))}
                 </div>
 
-                <div className="mt-auto pt-6 border-t border-slate-50">
+                <div className="mt-auto pt-6 border-t border-slate-50 space-y-3">
+                  {(isInstallable && !isInstalled) && (
+                    <button
+                      onClick={() => install()}
+                      className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white p-4 rounded-xl font-bold transition-all shadow-lg overflow-hidden group relative"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+                      <Download className="w-5 h-5 group-hover:bounce relative z-10" />
+                      <span className="relative z-10">تثبيت التطبيق</span>
+                    </button>
+                  )}
+                  
                   <Link
                     to="/accounting-portal"
                     className="w-full flex items-center justify-center bg-blue-600 text-white p-4 rounded-xl font-bold transition-all shadow-lg shadow-blue-200"
