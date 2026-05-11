@@ -29,6 +29,7 @@ import Scrap from './pages/Scrap';
 import BadDebts from './pages/BadDebts';
 import Breadcrumbs from './components/Breadcrumbs';
 import Footer from './components/Footer';
+import InstallPWA from './components/InstallPWA';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -99,6 +100,7 @@ export default function App() {
         </main>
         <Footer />
         <WhatsAppButton />
+        <InstallPWA />
       </div>
     </Router>
   );

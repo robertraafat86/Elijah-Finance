@@ -1,0 +1,21 @@
+{
+  "name": "إيليجا للخدمات المالية والمحاسبية",
+  "short_name": "ايليجا",
+  "description": "مركز ايليجا للخدمات المالية والمحاسبية - حلول محاسبية ومالية متكاملة",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
