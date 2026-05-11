@@ -317,8 +317,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sitemap Section - Interactive & Informative */}
-      <section className="py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
+      {/* Sitemap Section - Visual & Interactive */}
+      <section className="py-24 bg-white border-t border-slate-100 overflow-hidden" id="sitemap">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -326,159 +326,72 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16 space-y-4"
           >
-            <div className="w-16 h-1.5 bg-blue-600 rounded-full mx-auto mb-6" />
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
+            <div className="w-20 h-2 bg-blue-600 rounded-full mx-auto mb-8" />
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
               {t('common.sitemap_title')}
             </h2>
-            <p className="text-slate-500 font-medium leading-relaxed">
+            <p className="text-lg text-slate-500 font-bold leading-relaxed">
               {t('common.sitemap_subtitle')}
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="max-w-6xl mx-auto"
+            className="max-w-5xl mx-auto"
           >
-            <div className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100">
-              {/* Sitemap UI - Replicating the infographic style in code */}
-              <div className="space-y-12">
-                <div className="text-center space-y-6">
-                  <div className="inline-flex items-center gap-4 bg-slate-900 text-white px-10 py-6 rounded-3xl shadow-xl">
-                    <Layout className="w-10 h-10 text-blue-400" />
+            <div className="relative group">
+              {/* Main Card */}
+              <div 
+                className="bg-slate-50 rounded-[3rem] p-4 md:p-8 shadow-2xl border border-slate-200/50 overflow-hidden cursor-pointer group-hover:shadow-blue-500/10 transition-all duration-700"
+                onClick={() => setIsSitemapOpen(true)}
+              >
+                <div className="relative aspect-video rounded-[2rem] overflow-hidden bg-white shadow-inner border border-slate-100">
+                  <img 
+                    src={SITEMAP_URL} 
+                    alt={t('common.sitemap_title')}
+                    loading="lazy"
+                    className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-1000"
+                    referrerPolicy="no-referrer"
+                  />
+                  
+                  {/* Overlay on Hover */}
+                  <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-all duration-500 flex items-center justify-center backdrop-blur-[0px] group-hover:backdrop-blur-sm">
+                    <div className="bg-white/90 text-slate-900 px-8 py-4 rounded-full font-black flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-xl">
+                      <Maximize2 className="w-5 h-5 text-blue-600" />
+                      <span>{t('common.open_sitemap')}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-6 px-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                      <Layout className="w-6 h-6" />
+                    </div>
                     <div>
-                      <h3 className="text-2xl font-black">{t('common.sitemap_title')}</h3>
-                      <p className="text-xs text-slate-400 opacity-80">تصفح شامل لجميع محتويات الموقع</p>
+                      <h4 className="text-xl font-black text-slate-900">هيكل الموقع المتكامل</h4>
+                      <p className="text-sm text-slate-500 font-bold">وصول سريع لجميع الخدمات والدروس التعليمية</p>
                     </div>
                   </div>
-                  <div className="flex justify-center">
-                    <Link to="/" className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-2xl font-black text-sm hover:bg-blue-700 transition-colors shadow-lg">
-                      <HomeIcon className="w-4 h-4" />
-                      الصفحة الرئيسية
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {/* Category: Tools */}
-                  <div className="space-y-4">
-                    <div className="bg-blue-600 text-white p-4 rounded-2xl flex items-center gap-3 shadow-lg">
-                      <Settings className="w-6 h-6" />
-                      <span className="font-black">أدوات وموارد</span>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2">
-                      {['الآلات الحاسبة', 'النماذج المحاسبية', 'القوائم والتقارير', 'تحويل العملات', 'التقويم المحاسبي', 'مصطلحات محاسبية'].map((item, i) => (
-                        <div key={i} className="bg-slate-50 p-4 rounded-xl text-slate-700 font-bold text-sm border border-slate-100 flex items-center justify-between hover:bg-blue-50 hover:border-blue-100 transition-all cursor-pointer group">
-                          {item}
-                          <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Category: Education */}
-                  <div className="space-y-4">
-                    <div className="bg-emerald-600 text-white p-4 rounded-2xl flex items-center gap-3 shadow-lg">
-                      <GraduationCap className="w-6 h-6" />
-                      <span className="font-black">الدورات التعليمية</span>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2">
-                       {['دورات محاسبية', 'مسارات تعليمية', 'شهادات معتمدة', 'محتوى مجاني', 'باقات الدورات', 'الأمثلة الشائعة'].map((item, i) => (
-                        <div key={i} className="bg-slate-50 p-4 rounded-xl text-slate-700 font-bold text-sm border border-slate-100 flex items-center justify-between hover:bg-emerald-50 hover:border-emerald-100 transition-all cursor-pointer group">
-                          {item}
-                          <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 transition-colors" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Category: Knowledge Bank */}
-                  <div className="space-y-4">
-                    <div className="bg-amber-600 text-white p-4 rounded-2xl flex items-center gap-3 shadow-lg">
-                      <BookOpen className="w-6 h-6" />
-                      <span className="font-black">بنك المعلومات المحاسبي</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                       {['محاسبة العملاء', 'مواضيع الإهلاك', 'محاسبة الموردين', 'تقييم المخزون', 'الخزينة', 'الديون المعدومة', 'التسويات', 'الخردة', 'جرد المخزن', 'تسوية البنك'].map((item, i) => (
-                        <div key={i} className="bg-slate-50 p-3 rounded-xl text-slate-700 font-bold text-[11px] border border-slate-100 flex items-center justify-between hover:bg-amber-50 hover:border-amber-100 transition-all cursor-pointer group">
-                          <span className="truncate">{item}</span>
-                          <ChevronLeft className="w-3 h-3 text-slate-300 group-hover:text-amber-500 transition-colors" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Category: Articles */}
-                  <div className="space-y-4">
-                    <div className="bg-purple-600 text-white p-4 rounded-2xl flex items-center gap-3 shadow-lg">
-                      <FileText className="w-6 h-6" />
-                      <span className="font-black">المقالات والأخبار</span>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2">
-                       {['أحدث المقالات', 'الأخبار المحاسبية', 'تحليلات وتقارير', 'أدلة إرشادية'].map((item, i) => (
-                        <div key={i} className="bg-slate-50 p-4 rounded-xl text-slate-700 font-bold text-sm border border-slate-100 flex items-center justify-between hover:bg-purple-50 hover:border-purple-100 transition-all cursor-pointer group">
-                          {item}
-                          <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-purple-500 transition-colors" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Category: AI */}
-                  <div className="space-y-4">
-                    <div className="bg-cyan-600 text-white p-4 rounded-2xl flex items-center gap-3 shadow-lg">
-                      <Bot className="w-6 h-6" />
-                      <span className="font-black">الذكاء الاصطناعي</span>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2">
-                       {['المساعد المحاسبي', 'تحليل البيانات', 'تفسير المعايير', 'حل المشكلات', 'الأسئلة والأجوبة'].map((item, i) => (
-                        <div key={i} className="bg-slate-50 p-4 rounded-xl text-slate-700 font-bold text-sm border border-slate-100 flex items-center justify-between hover:bg-cyan-50 hover:border-cyan-100 transition-all cursor-pointer group">
-                          {item}
-                          <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-cyan-500 transition-colors" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Category: Account */}
-                  <div className="space-y-4">
-                    <div className="bg-slate-800 text-white p-4 rounded-2xl flex items-center gap-3 shadow-lg">
-                      <User className="w-6 h-6" />
-                      <span className="font-black">الحساب الشخصي</span>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2">
-                       {['لوحة التحكم', 'ملفي الشخصي', 'المحتوى المحفوظ', 'إعدادات الحساب'].map((item, i) => (
-                        <div key={i} className="bg-slate-50 p-4 rounded-xl text-slate-700 font-bold text-sm border border-slate-100 flex items-center justify-between hover:bg-slate-100 hover:border-slate-200 transition-all cursor-pointer group">
-                          {item}
-                          <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-slate-600 transition-colors" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Panel */}
-                <div className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-200/60 shadow-inner">
-                  <div className="flex flex-wrap justify-center gap-4">
-                    {['من نحن', 'اتصل بنا', 'شروط الاستخدام', 'سياسة الخصوصية', 'خريطة الموقع', 'الدعم والمساعدة'].map((item, i) => (
-                      <div key={i} className="px-6 py-2 bg-white rounded-full text-slate-500 font-bold text-xs border border-slate-100 hover:text-blue-600 hover:border-blue-200 transition-all cursor-pointer">
-                        {item}
-                      </div>
-                    ))}
-                  </div>
+                  
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsSitemapOpen(true);
+                    }}
+                    className="bg-slate-900 hover:bg-black text-white px-10 py-5 rounded-[2rem] font-black transition-all shadow-xl shadow-slate-200 active:scale-95 flex items-center gap-3 group/btn"
+                  >
+                    <span>{t('common.open_sitemap')}</span>
+                    <Maximize2 className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
+                  </button>
                 </div>
               </div>
-            </div>
 
-            <div className="mt-12 text-center">
-              <button 
-                onClick={() => setIsSitemapOpen(true)}
-                className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-[2rem] font-black transition-all shadow-xl shadow-blue-600/20 active:scale-95 group"
-              >
-                <span>{t('common.open_sitemap')}</span>
-                <Maximize2 className="w-5 h-5 transition-transform group-hover:scale-110" />
-              </button>
+              {/* Decorative elements */}
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-blue-100 rounded-full blur-3xl opacity-50 -z-10 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10 group-hover:opacity-100 transition-opacity" />
             </div>
           </motion.div>
         </div>

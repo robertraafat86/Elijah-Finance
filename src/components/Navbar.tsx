@@ -181,88 +181,80 @@ export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
         scrolled 
-          ? 'bg-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-b border-slate-200/50 py-3' 
-          : 'bg-transparent py-6'
+          ? 'bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border-b border-slate-200/50' 
+          : 'bg-white/50 backdrop-blur-sm'
       )}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link to="/" className="flex items-center group shrink-0 relative z-10">
-          <div className="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-105">
-             <img 
-              src={LOGO_URL} 
-              alt={t('common.brand_logo')} 
-              className="h-full w-auto object-contain"
-              referrerPolicy="no-referrer"
+      {/* Top Utility Bar */}
+      <div className="border-b border-slate-100/50">
+        <div className="container mx-auto px-6 py-3 flex items-center justify-between">
+          <Link to="/" className="flex items-center group shrink-0 relative z-10">
+            <div className="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-105">
+               <img 
+                src={LOGO_URL} 
+                alt={t('common.brand_logo')} 
+                className="h-full w-auto object-contain"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          </Link>
+
+          <div className="hidden lg:flex items-center gap-4 bg-slate-50/80 px-4 py-2 rounded-2xl border border-slate-200/50 w-full max-w-md mx-8 group focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
+            <Search className="w-4 h-4 text-slate-400 group-focus-within:text-blue-500" />
+            <input 
+              type="text" 
+              placeholder={t('misc.search_placeholder')}
+              className="bg-transparent border-none outline-none text-sm w-full font-bold text-slate-700 placeholder:text-slate-400"
             />
           </div>
-        </Link>
 
-        {/* Desktop Menu - Refined Center Layout */}
-        <div className="hidden xl:flex items-center gap-1 absolute left-1/2 -translate-x-1/2 px-2 py-1.5 bg-slate-100/50 backdrop-blur-md rounded-2xl border border-slate-200/50 shadow-sm">
-          {NAV_ITEMS.map(renderNavItem)}
-        </div>
-
-        <div className="flex items-center gap-3">
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all shadow-sm group"
-            title={isDarkMode ? 'الوضع المضيء' : 'الوضع الليلي'}
-          >
-            {isDarkMode ? (
-              <Sun className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-            ) : (
-              <Moon className="w-5 h-5 group-hover:-rotate-12 transition-transform" />
+          <div className="flex items-center gap-3">
+            {/* PWA Install Link in Top Bar */}
+            {(isInstallable && !isInstalled) && (
+              <button
+                onClick={() => install()}
+                className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-xl font-bold text-[11px] hover:bg-slate-800 transition-all shadow-sm group"
+              >
+                <Smartphone className="w-3.5 h-3.5 text-blue-400" />
+                تثبيت التطبيق
+              </button>
             )}
-          </button>
 
-          <Link
-            to="/saved-content"
-            className="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl bg-slate-50 text-slate-600 border border-slate-100 hover:bg-blue-50 hover:text-blue-600 transition-all shadow-sm"
-            title={t('common.saved_content')}
-          >
-            <Bookmark className="w-5 h-5" />
-          </Link>
-
-          {(isInstallable && !isInstalled) && (
-            <button
-              onClick={() => install()}
-              className="hidden lg:flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-xl font-bold text-xs hover:bg-blue-100 transition-all border border-blue-100 group"
-              title="تثبيت التطبيق"
-            >
-              <Download className="w-4 h-4 group-hover:bounce" />
-              تثبيت التطبيق
-            </button>
-          )}
-
-          <div className="hidden sm:flex items-center">
-            <LanguageSwitcher />
-          </div>
-          
-          <Link
-            to="/accounting-portal"
-            className="hidden lg:inline-flex bg-blue-600 text-white px-5 py-2 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-200 hover:shadow-lg active:scale-95 whitespace-nowrap"
-          >
-            {t('common.start_learning')}
-          </Link>
-
-          {/* Mobile Toggle */}
-          <div className="xl:hidden flex items-center gap-2">
-            <Link
-              to="/saved-content"
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-600 border border-slate-100 shadow-sm"
-            >
-              <Bookmark className="w-5 h-5" />
-            </Link>
-            <div className="sm:hidden flex items-center">
+            <div className="hidden sm:flex items-center gap-2 border-r border-slate-200 pr-3 mr-1">
               <LanguageSwitcher />
+              <button
+                onClick={toggleDarkMode}
+                className="w-9 h-9 flex items-center justify-center rounded-xl bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all shadow-sm group"
+              >
+                {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
             </div>
-            <button
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 text-white border border-slate-800"
-              onClick={() => setIsOpen(!isOpen)}
+
+            <Link
+              to="/accounting-portal"
+              className="hidden lg:inline-flex bg-blue-600 text-white px-6 py-2.5 rounded-xl font-black text-xs hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 active:scale-95 whitespace-nowrap"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              {t('common.start_learning')}
+            </Link>
+
+            {/* Mobile Toggle */}
+            <div className="xl:hidden flex items-center gap-2">
+              <button
+                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 text-white border border-slate-800"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Navigation Bar - Desktop Only */}
+      <div className="hidden xl:block">
+        <div className="container mx-auto px-6 py-2">
+          <div className="flex items-center gap-1 justify-end min-h-[44px]">
+            {NAV_ITEMS.map(renderNavItem)}
           </div>
         </div>
       </div>
