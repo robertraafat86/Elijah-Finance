@@ -237,7 +237,7 @@ export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] text-slate-400 font-bold">اتصل بنا</span>
-                  <span className="text-[11px] font-black text-slate-700 font-mono">0123456789</span>
+                  <span className="text-[11px] font-black text-slate-700 font-mono">01208538580</span>
                 </div>
               </div>
             </div>
@@ -445,9 +445,9 @@ export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
                   <div className="bg-slate-900 rounded-3xl p-6 text-white space-y-4">
                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">تواصل معنا</p>
                      <div className="space-y-3">
-                        <a href="tel:0123456789" className="flex items-center gap-3 text-sm font-black">
+                        <a href="tel:01208538580" className="flex items-center gap-3 text-sm font-black">
                            <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><Phone className="w-4 h-4" /></div>
-                           0123456789
+                           01208538580
                         </a>
                         <div className="flex gap-4 pt-2">
                            <a href="#" className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-blue-600 transition-colors"><Facebook className="w-5 h-5" /></a>
