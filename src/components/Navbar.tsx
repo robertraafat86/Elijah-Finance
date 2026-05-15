@@ -277,7 +277,7 @@ export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
           </Link>
 
           {/* Desktop Nav - Right Aligned (RTL) */}
-          <div className="hidden md:flex items-center gap-1 flex-1 justify-start">
+          <div className="hidden md:flex items-center gap-1 flex-1 justify-start flex-wrap">
             {NAV_ITEMS.map(renderNavItem)}
           </div>
 

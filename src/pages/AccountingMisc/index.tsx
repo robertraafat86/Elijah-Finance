@@ -437,6 +437,9 @@ export default function AccountingMisc() {
     cost_of_purchases: {
       title: 'تكلفة المشتريات (Cost of Purchases)',
       definition: 'إجمالي المبالغ والاعباء المالية التي تتحملها المنشأة حتى تصل البضاعة المشتراة إلى مخازنها وتصبح جاهزة للبيع.',
+      calculationMethod: 'يتم احتسابها من خلال جمع رصيد مخزون أول المدة مع صافي المشتريات والمصروفات المباشرة، ثم طرح مخزون آخر المدة.',
+      equation: 'مخزون أول المدة + صافي المشتريات + المصروفات المباشرة - مخزون آخر المدة = تكلفة المشتريات',
+      practicalExample: 'بفرض أن مخزون أول المدة 10,000 ج، المشتريات 50,000 ج، مصروفات النقل 2,000 ج، ومخزون آخر المدة 5,000 ج. فإن تكلفة المشتريات = 10,000 + 50,000 + 2,000 - 5,000 = 57,000 ج.',
       cycle: [
         'قيمة الفاتورة الأساسية للمورد.',
         'إضافة تكاليف الشحن والنقل.',
@@ -496,6 +499,9 @@ export default function AccountingMisc() {
     bank_reconciliation: {
       title: 'مذكرة تسوية البنك (Bank Reconciliation)',
       definition: 'بيان يفسر الاختلاف بين رصيد البنك في دفاتر المنشأة والرصيد الوارد في كشف حساب البنك.',
+      practicalExample: 'بفرض رصيد الدفاتر 10,000 ج ورصيد كشف الحساب 12,500 ج. هناك شيكات لم تقدم للصرف بـ 3,000 ج وعمولات بنكية بـ 500 ج. الرصيد المعدل = 12,500 - 3,000 = 9,500 ج في الكشف، و 10,000 - 500 = 9,500 ج في الدفاتر.',
+      reasonsForDocs: ['شيكات محررة لم تقدم للصرف', 'إيداعات بالطريق لم تظهر بالكشف', 'عمولات ومصاريف بنكية لم تسجل بالدفاتر', 'أخطاء محاسبية في التسجيل'],
+      components: ['رصيد البنك بالدفاتر', 'رصيد البنك بكشف الحساب', 'الإضافات والخصومات لكل رصيد', 'الرصيد المطابق النهائي'],
       cycle: ['مطابقة الإيداعات', 'رصد الشيكات التي لم تقدم للصرف', 'تسجيل العمولات البنكية', 'معالجة الأخطاء المحاسبية'],
       entries: [
         { desc: 'إثبات مصاريف بنكية مكتشفة', debit: 'حـ/ مصاريف بنكية', credit: 'حـ/ البنك', note: 'تعديل رصيد الدفاتر' }
@@ -1795,7 +1801,7 @@ export default function AccountingMisc() {
                   </div>
                 </div>
               )}
-              {['cogs', 'cost_of_sales', 'cost_of_purchases'].includes(activeSection) && !reportMode && (
+              {['cogs', 'cost_of_sales'].includes(activeSection) && !reportMode && (
                 <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-lg flex items-center justify-between col-span-full">
                   <div className="flex items-center gap-6">
                     <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center">
@@ -1966,7 +1972,134 @@ export default function AccountingMisc() {
               </div>
             )}
 
-            {!['erp_overview', 'inventory_jard', 'cogs', 'cost_of_sales', 'cost_of_purchases'].includes(activeSection) && (
+            {activeSection === 'cost_of_purchases' && (
+              <div className="space-y-8">
+                <div className="premium-card bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl">
+                  <h3 className="text-2xl font-black text-slate-900 mb-8 border-r-4 border-blue-600 pr-4">التحليل العملي لتكلفة المشتريات</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-6 text-right">
+                      <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                        <h4 className="font-black text-blue-900 mb-2">طريقة حساب تكلفة المشتريات</h4>
+                        <p className="text-sm font-bold text-blue-800 leading-relaxed pr-0">
+                          {learningContent.cost_of_purchases.calculationMethod}
+                        </p>
+                      </div>
+                      <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
+                        <h4 className="font-black text-emerald-900 mb-2">معادلة تكلفة المشتريات</h4>
+                        <div className="p-4 bg-white/50 rounded-xl font-mono text-center text-[10px] font-black text-emerald-700 leading-relaxed">
+                          {learningContent.cost_of_purchases.equation}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-slate-900 text-white p-8 rounded-[2.5rem] relative overflow-hidden group">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-3xl rounded-full" />
+                      <h4 className="text-xl font-black mb-4 flex items-center gap-2 text-right">
+                        <Calculator className="w-5 h-5 text-blue-400" />
+                        مثال عملي تطبيقي
+                      </h4>
+                      <p className="text-slate-300 font-bold leading-relaxed text-right">
+                        {learningContent.cost_of_purchases.practicalExample}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Practical Organized Table */}
+                  <div className="mt-12 bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100">
+                    <h4 className="text-lg font-black text-slate-900 mb-6">جدول حساب تكلفة المشتريات (مثال أرقام)</h4>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-right">
+                        <thead>
+                          <tr className="border-b-2 border-slate-200">
+                            <th className="py-4 font-black text-slate-600 pr-4">البيان / البند</th>
+                            <th className="py-4 font-black text-slate-600 text-center">المبلغ (جم)</th>
+                            <th className="py-4 font-black text-slate-600 text-center">ملاحظات</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200">
+                          <tr className="hover:bg-white transition-colors"><td className="py-4 font-bold pr-4">مخزون أول المدة</td><td className="py-4 text-center tabular-nums font-black">10,000</td><td className="py-4 text-center text-xs text-slate-400">بضاعة بداية الفترة</td></tr>
+                          <tr className="hover:bg-white transition-colors"><td className="py-4 font-bold pr-4">(+) المشتريات خلال الفترة</td><td className="py-4 text-center tabular-nums font-black text-emerald-600">50,000</td><td className="py-4 text-center text-xs text-slate-400">صافي قيمة الفواتير</td></tr>
+                          <tr className="hover:bg-white transition-colors"><td className="py-4 font-bold pr-4">(+) المصروفات المباشرة</td><td className="py-4 text-center tabular-nums font-black text-emerald-600">2,000</td><td className="py-4 text-center text-xs text-slate-400">نقل، جمارك، تأمين</td></tr>
+                          <tr className="hover:bg-white transition-colors"><td className="py-4 font-bold pr-4">(-) مخزون آخر المدة</td><td className="py-4 text-center tabular-nums font-black text-rose-600">(5,000)</td><td className="py-4 text-center text-xs text-slate-400">بضاعة متبقية بالمخزن</td></tr>
+                          <tr className="bg-white"><td className="py-6 font-black text-blue-600 text-lg pr-4">إجمالي تكلفة المشتريات</td><td className="py-6 text-center tabular-nums font-black text-blue-600 text-2xl">57,000</td><td className="py-6 text-center text-xs text-blue-400 font-bold">النتيجة النهائية</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeSection === 'bank_reconciliation' && (
+              <div className="space-y-8">
+                <div className="premium-card bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl">
+                  <h3 className="text-2xl font-black text-slate-900 mb-8 border-r-4 border-amber-600 pr-4">نموذج مذكرة تسوية البنك</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-6 text-right">
+                      <div className="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                        <h4 className="font-black text-amber-900 mb-4">أسباب اختلاف الرصيد</h4>
+                        <ul className="space-y-3 font-bold text-sm text-amber-800">
+                          {learningContent.bank_reconciliation.reasonsForDocs?.map((r, i) => (
+                            <li key={i} className="flex gap-2">
+                              <span className="w-1.5 h-1.5 bg-amber-600 rounded-full mt-1.5 flex-shrink-0" />
+                              {r}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                        <h4 className="font-black text-indigo-900 mb-4">مكونات المذكرة</h4>
+                        <div className="grid grid-cols-1 gap-3">
+                          {learningContent.bank_reconciliation.components?.map((c, i) => (
+                            <div key={i} className="bg-white/50 p-3 rounded-xl text-[10px] font-black text-indigo-700">
+                              {c}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-slate-900 text-white p-8 rounded-[2.5rem] relative overflow-hidden group h-full">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 blur-3xl rounded-full" />
+                      <h4 className="text-xl font-black mb-4 flex items-center gap-2 text-right">
+                        <Scale className="w-5 h-5 text-amber-400" />
+                        مثال عملي (حالة تسوية)
+                      </h4>
+                      <p className="text-slate-300 font-bold leading-relaxed italic text-right">
+                        {learningContent.bank_reconciliation.practicalExample}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Practical Bank Reconciliation Table */}
+                  <div className="mt-12 bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100">
+                    <h4 className="text-lg font-black text-slate-900 mb-6 text-right">جدول مذكرة تسوية البنك (Practical Model)</h4>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-right">
+                       {/* Part 1 */}
+                       <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                          <p className="text-xs font-black text-amber-600 mb-4 uppercase">أولاً: تسوية كشف الحساب</p>
+                          <div className="space-y-4 font-bold text-sm">
+                             <div className="flex justify-between border-b pb-2"><span>رصيد كشف الحساب</span><span className="font-black">12,500</span></div>
+                             <div className="flex justify-between border-b pb-2 text-emerald-600"><span>(+) إيداعات في الطريق</span><span className="font-black">0</span></div>
+                             <div className="flex justify-between border-b pb-2 text-rose-500"><span>(-) شيكات معلقة</span><span className="font-black">(3,000)</span></div>
+                             <div className="flex justify-between pt-2 text-blue-600 font-black"><span>الرصيد المعدل</span><span>9,500</span></div>
+                          </div>
+                       </div>
+                       {/* Part 2 */}
+                       <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                          <p className="text-xs font-black text-indigo-600 mb-4 uppercase">ثانياً: تسوية الدفاتر</p>
+                          <div className="space-y-4 font-bold text-sm">
+                             <div className="flex justify-between border-b pb-2"><span>رصيد المنشأة (الدفاتر)</span><span className="font-black">10,000</span></div>
+                             <div className="flex justify-between border-b pb-2 text-emerald-600"><span>(+) إيرادات محصلة بالبنك</span><span className="font-black">0</span></div>
+                             <div className="flex justify-between border-b pb-2 text-rose-500"><span>(-) مصاريف وعمولات</span><span className="font-black">(500)</span></div>
+                             <div className="flex justify-between pt-2 text-emerald-600 font-black"><span>الرصيد المعدل</span><span>9,500</span></div>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {!['erp_overview', 'inventory_jard', 'cogs', 'cost_of_sales', 'cost_of_purchases', 'bank_reconciliation'].includes(activeSection) && (
               <div className="premium-card bg-white overflow-hidden shadow-2xl">
                 <div className="overflow-x-auto">
                   <table className="w-full text-right">

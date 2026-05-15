@@ -43,7 +43,7 @@ export default function Contact() {
                   </div>
                   <div className={cn(!isRtl && "text-left flex-grow")}>
                     <h4 className="font-bold text-slate-900">{t('contact.whatsapp_label')}</h4>
-                    <a href="https://wa.me/201208538580" target="_blank" rel="noopener noreferrer" className="text-slate-500 text-sm hover:text-blue-600 transition-colors">+20 120 853 8580</a>
+                    <a href="https://wa.me/201208538580" target="_blank" rel="noopener noreferrer" className="text-slate-500 text-sm hover:text-blue-600 transition-colors">01208538580</a>
                   </div>
                 </div>
 

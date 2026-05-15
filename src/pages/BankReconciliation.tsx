@@ -144,39 +144,67 @@ export default function BankReconciliation() {
                         ))}
                      </div>
 
-                     <div className="bg-white rounded-3xl p-6 md:p-10 text-slate-900 shadow-2xl">
-                        <h4 className="text-xl font-black mb-6">{t('reconciliation_page.table.title')}</h4>
+                      <div className="bg-white rounded-3xl p-6 md:p-10 text-slate-900 shadow-2xl">
+                        <h4 className="text-xl font-black mb-6">{isRtl ? 'نموذج مذكرة تسوية البنك' : 'Bank Reconciliation Template'}</h4>
                         <div className="space-y-4">
-                           {t('reconciliation_page.table.rows', { returnObjects: true }) instanceof Array && 
-                             (t('reconciliation_page.table.rows', { returnObjects: true }) as any[]).map((row, i) => (
-                             <div key={i} className={cn(
-                               "flex justify-between items-center py-3 border-b border-slate-100 last:border-0",
-                               i === 4 ? "bg-emerald-50 px-4 rounded-xl -mx-4 mt-4" : ""
-                             )}>
-                                <div>
-                                   <p className={cn("font-bold text-sm", i === 4 ? "text-emerald-700" : "text-slate-700")}>{row.details}</p>
-                                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{row.notes}</p>
-                                </div>
-                                <span className={cn("font-black", i === 4 ? "text-emerald-600 text-lg" : "text-slate-900")}>
-                                   {row.amount}
-                                </span>
-                             </div>
-                           ))}
-                        </div>
-                     </div>
-                  </div>
+                           <div className="bg-slate-50 p-4 rounded-xl mb-4">
+                              <p className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">{isRtl ? 'أولاً: التسوية من واقع كشف الحساب' : 'Part 1: Adjustment for Bank Statement'}</p>
+                              <div className="space-y-2">
+                                 <div className="flex justify-between text-sm py-2 border-b border-slate-200">
+                                    <span className="font-bold">{isRtl ? 'رصيد البنك طبقاً لكشف الحساب' : 'Balance per Bank Statement'}</span>
+                                    <span className="font-black">12,500</span>
+                                 </div>
+                                 <div className="flex justify-between text-sm py-2 border-b border-slate-200 text-emerald-600">
+                                    <span>{isRtl ? '(+) إيداعات بالطريق' : '(+) Deposits in Transit'}</span>
+                                    <span className="font-black">0</span>
+                                 </div>
+                                 <div className="flex justify-between text-sm py-2 border-b border-slate-200 text-rose-600">
+                                    <span>{isRtl ? '(-) شيكات لم تقدم للصرف' : '(-) Outstanding Checks'}</span>
+                                    <span className="font-black">(3,000)</span>
+                                 </div>
+                                 <div className="flex justify-between text-sm py-3 bg-blue-50 px-3 rounded-lg font-black text-blue-700 mt-2">
+                                    <span>{isRtl ? 'رصيد البنك المعدل' : 'Adjusted Bank Balance'}</span>
+                                    <span>9,500</span>
+                                 </div>
+                              </div>
+                           </div>
 
-                  <div className="bg-blue-600/20 p-8 rounded-[2rem] border border-blue-500/30">
-                     <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-                        <div>
-                           <h4 className="text-xl font-black mb-2">{t('reconciliation_page.example.title')}</h4>
-                           <p className="text-blue-100 italic">{t('reconciliation_page.example.desc')}</p>
+                           <div className="bg-slate-50 p-4 rounded-xl">
+                              <p className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">{isRtl ? 'ثانياً: التسوية من واقع الدفاتر' : 'Part 2: Adjustment for Books'}</p>
+                              <div className="space-y-2">
+                                 <div className="flex justify-between text-sm py-2 border-b border-slate-200">
+                                    <span className="font-bold">{isRtl ? 'رصيد البنك طبقاً للدفاتر' : 'Balance per Books'}</span>
+                                    <span className="font-black">10,000</span>
+                                 </div>
+                                 <div className="flex justify-between text-sm py-2 border-b border-slate-200 text-emerald-600">
+                                    <span>{isRtl ? '(+) أوراق قبض محصلة بالبنك' : '(+) Notes Collected by Bank'}</span>
+                                    <span className="font-black">0</span>
+                                 </div>
+                                 <div className="flex justify-between text-sm py-2 border-b border-slate-200 text-rose-600">
+                                    <span>{isRtl ? '(-) عمولات ومصاريف بنكية' : '(-) Bank Service Charges'}</span>
+                                    <span className="font-black">(500)</span>
+                                 </div>
+                                 <div className="flex justify-between text-sm py-3 bg-emerald-50 px-3 rounded-lg font-black text-emerald-700 mt-2">
+                                    <span>{isRtl ? 'رصيد الدفاتر المعدل' : 'Adjusted Book Balance'}</span>
+                                    <span>9,500</span>
+                                 </div>
+                              </div>
+                           </div>
                         </div>
-                        <div className="bg-white/10 px-8 py-4 rounded-2xl border border-white/20 backdrop-blur-sm">
-                           <p className="text-2xl font-black text-blue-400">{t('reconciliation_page.example.result')}</p>
-                        </div>
-                     </div>
-                  </div>
+                      </div>
+                   </div>
+
+                   <div className="bg-blue-600/20 p-8 rounded-[2rem] border border-blue-500/30">
+                      <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+                         <div>
+                            <h4 className="text-xl font-black mb-2">{isRtl ? 'مثال عملي مبسط' : 'Simple Practical Example'}</h4>
+                            <p className="text-blue-100 italic">{isRtl ? 'رصيد الكشف 12,500 ج، شيكات معلقة 3,000 ج، رصيد الدفاتر 10,000 ج، عمولات 500 ج. النتيجة: تطابق الرصيدين عند 9,500 ج.' : 'Statement balance 12,500, outstanding 3,000, book balance 10,000, fees 500. Result: Both match at 9,500.'}</p>
+                         </div>
+                         <div className="bg-white/10 px-8 py-4 rounded-2xl border border-white/20 backdrop-blur-sm">
+                            <p className="text-2xl font-black text-blue-400">9,500 ج</p>
+                         </div>
+                      </div>
+                   </div>
                </div>
             </section>
 

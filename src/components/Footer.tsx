@@ -29,7 +29,10 @@ export default function Footer() {
           <div className="space-y-6">
             <h4 className="text-white font-black text-lg">{t('common.contact_info', 'معلومات التواصل')}</h4>
             <div className="space-y-4 text-sm font-medium">
-               <p className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-blue-500" /> {t('footer.whatsapp')}</p>
+               <p className="flex flex-col gap-1">
+                 <span className="text-white font-black text-xs">محاسب / روبير رأفت</span>
+                 <span className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-blue-500" /> {t('footer.whatsapp')}</span>
+               </p>
                <p className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-blue-500" /> {t('footer.email')}</p>
                <p className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-blue-500" /> {t('footer.address')}</p>
             </div>
