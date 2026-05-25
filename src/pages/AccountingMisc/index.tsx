@@ -173,15 +173,18 @@ export default function AccountingMisc() {
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => {
+      const params = new URLSearchParams(location.search);
+      const mode = params.get('mode');
+      const targetMode: ViewMode = mode === 'dashboard' ? 'dashboard' : 'learning';
+
       if (sectionId) {
         setActiveSection(sectionId as Section);
-        setViewMode('learning');
+        setViewMode(targetMode);
       } else {
-        const params = new URLSearchParams(location.search);
         const section = params.get('section');
         if (section) {
           setActiveSection(section as Section);
-          setViewMode('learning');
+          setViewMode(targetMode);
         } else {
           setActiveSection('erp_overview');
           setViewMode('dashboard');

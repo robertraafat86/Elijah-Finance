@@ -22,7 +22,8 @@ import {
   Hospital,
   Factory,
   Truck,
-  Trash2
+  Trash2,
+  Building
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -189,6 +190,14 @@ export default function AccountingPortal() {
                   icon: <TrendingUp className="w-6 h-6" />,
                   desc: t('depreciation_page.subtitle'),
                   color: 'amber'
+                },
+                { 
+                  id: 'fixed_assets_management',
+                  title: isRtl ? 'إدارة الأصول الثابتة' : 'Fixed Assets Management', 
+                  path: '/fixed-assets-management', 
+                  icon: <Building className="w-6 h-6" />,
+                  desc: isRtl ? 'مرجع متكامل لشرح الأصول، طرق الإهلاك، وسجل تتبع المعاملات والقيود.' : 'In-depth educational guide alongside dynamic tracking registers, equations, and journals.',
+                  color: 'indigo'
                 },
               ].map((item, i) => (
                 <Link 

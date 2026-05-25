@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Adobe Arabic", "Cairo", "Inter", ui-sans-serif, system-ui, sans-serif;
   
   /* Modern Professional Palette */
   --color-primary: #0f172a; /* Deep Slate */
@@ -29,6 +29,7 @@
   }
 
   body {
+    font-family: var(--font-sans);
     @apply bg-slate-50 text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900;
     direction: rtl;
   }

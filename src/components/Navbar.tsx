@@ -1,489 +1,239 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Globe, BookOpen, Bookmark, Search, Moon, Sun, Smartphone, Download, Phone, MessageCircle, Instagram, Twitter, Facebook, Layers, Home as HomeIcon, ArrowRight, FileText } from 'lucide-react';
-import { LOGO_URL, NAV_ITEMS, SITEMAP_URL } from '../constants';
-import { cn } from '../lib/utils';
-import { motion, AnimatePresence } from 'motion/react';
+import { 
+  Menu, 
+  Search, 
+  Moon, 
+  Sun, 
+  User, 
+  Calendar,
+  Sparkles,
+  SearchCheck,
+  Bell,
+  Scale
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { cn } from '../lib/utils';
 import LanguageSwitcher from './LanguageSwitcher';
-import { usePWA } from '../hooks/usePWA';
+import { LOGO_URL } from '../constants';
 
 interface NavbarProps {
   isDarkMode?: boolean;
   toggleDarkMode?: () => void;
+  isCollapsed: boolean;
+  toggleCollapse: () => void;
+  isOpenMobile: boolean;
+  setIsOpenMobile: (open: boolean) => void;
+  fontSizeScale: number;
+  setFontSizeScale: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function Navbar({ isDarkMode, toggleDarkMode }: NavbarProps) {
+export default function Navbar({
+  isDarkMode,
+  toggleDarkMode,
+  isCollapsed,
+  toggleCollapse,
+  isOpenMobile,
+  setIsOpenMobile,
+  fontSizeScale,
+  setFontSizeScale
+}: NavbarProps) {
   const { t, i18n } = useTranslation();
-  const { isInstallable, isInstalled, install } = usePWA();
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
-
   const isRtl = i18n.language === 'ar';
+  
+  // Local real-time clock for Accountant Workspace header
+  const [currentDateString, setCurrentDateString] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const updateDateTime = () => {
+      const today = new Date();
+      const options: Intl.DateTimeFormatOptions = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      };
+      setCurrentDateString(today.toLocaleDateString(isRtl ? 'ar-EG' : 'en-US', options));
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    updateDateTime();
+    // Refresh at midnights
+    const interval = setInterval(updateDateTime, 60000);
+    return () => clearInterval(interval);
+  }, [isRtl]);
 
-  useEffect(() => {
-    setIsOpen(false);
-    setActiveDropdown(null);
-  }, [location]);
-
-  const isActive = (path: string) => location.pathname === path;
-
-  const midPoint = Math.ceil(NAV_ITEMS.length / 2);
-  const firstRow = NAV_ITEMS.slice(0, midPoint);
-  const secondRow = NAV_ITEMS.slice(midPoint);
-
-  const renderNavItem = (item: typeof NAV_ITEMS[0]) => (
-    <div 
-      key={item.title} 
-      className="relative group h-full flex items-center"
-      onMouseEnter={() => item.children && setActiveDropdown(item.title)}
-      onMouseLeave={() => setActiveDropdown(null)}
-    >
-      {item.children ? (
-        <button
-          className={cn(
-            'px-4 py-2 text-[13px] font-black transition-all rounded-xl flex items-center gap-1.5 h-full relative group',
-            activeDropdown === item.title ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'
-          )}
-        >
-          {t(item.title)}
-          <ChevronDown className={cn('w-3 h-3 transition-transform duration-300', activeDropdown === item.title && 'rotate-180')} />
-          {activeDropdown === item.title && (
-            <motion.div layoutId="navRowActive" className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full" />
-          )}
-        </button>
-      ) : (
-        <Link
-          to={item.path}
-          className={cn(
-            'px-4 py-2 text-[13px] font-black transition-all rounded-xl relative group flex items-center h-full whitespace-nowrap',
-            isActive(item.path)
-              ? 'text-blue-600'
-              : 'text-slate-600 hover:text-blue-600'
-          )}
-        >
-          {t(item.title)}
-          {isActive(item.path) && (
-            <motion.div 
-              layoutId="navRowActive"
-              className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
-            />
-          )}
-        </Link>
-      )}
-
-      {/* Mega Menu or Dropdown */}
-      {item.children && (
-        <AnimatePresence>
-          {activeDropdown === item.title && (
-            item.isMega ? (
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="fixed left-6 right-6 top-[110px] bg-white rounded-[2.5rem] shadow-[0_30px_90px_rgba(0,0,0,0.12)] border border-slate-100 overflow-hidden z-[60] p-12"
-              >
-                <div className="grid grid-cols-12 gap-16 max-h-[75vh] overflow-y-auto custom-scrollbar">
-                  <div className="col-span-4 border-r border-slate-100 pr-12">
-                    <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 mb-8">
-                      <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-200 mb-6">
-                        <BookOpen className="w-7 h-7" />
-                      </div>
-                      <h3 className="text-2xl font-black text-slate-900 mb-4">{t(item.title)}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed font-bold">
-                        {t('misc.knowledge_base_desc', 'موسوعة متكاملة من الدروس والتقارير والملفات المحاسبية والمالية التي تهم كل محاسب مالي وإداري.')}
-                      </p>
-                    </div>
-                    
-                    <div className="relative group">
-                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
-                      <input 
-                        type="text"
-                        placeholder={t('misc.search_placeholder', 'ابحث عن درس أو موضوع...')}
-                        className="w-full pl-12 pr-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-400"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onClick={(e) => e.stopPropagation()}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-span-8">
-                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                        {item.children.filter(child => 
-                          t(child.title).toLowerCase().includes(searchQuery.toLowerCase())
-                        ).map((child) => (
-                          <Link
-                            key={child.path}
-                            to={child.path}
-                            className={cn(
-                              'flex items-center gap-4 p-4 rounded-2xl transition-all group/item border border-transparent',
-                              isActive(child.path) 
-                                ? 'bg-blue-50 border-blue-100 text-blue-700' 
-                                : 'hover:bg-slate-50 hover:border-slate-100 text-slate-700 hover:text-blue-600'
-                            )}
-                          >
-                            <div className={cn(
-                              "w-10 h-10 flex items-center justify-center rounded-xl transition-all shrink-0 shadow-sm",
-                              isActive(child.path) ? 'bg-blue-100 text-blue-600' : 'bg-white text-slate-400 group-hover/item:bg-blue-600 group-hover/item:text-white group-hover/item:shadow-blue-200'
-                            )}>
-                              {child.icon ? React.cloneElement(child.icon as React.ReactElement<{ className?: string }>, { className: 'w-5 h-5' }) : <FileText className="w-5 h-5" />}
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[13px] font-black leading-tight mb-1">{t(child.title)}</span>
-                              <span className="text-[10px] text-slate-400 font-bold opacity-0 group-hover/item:opacity-100 transition-opacity">استعراض المحتوى →</span>
-                            </div>
-                          </Link>
-                        ))}
-                     </div>
-                     
-                     {item.children.filter(child => 
-                        t(child.title).toLowerCase().includes(searchQuery.toLowerCase())
-                      ).length === 0 && (
-                        <div className="py-24 text-center">
-                          <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
-                             <Search className="w-8 h-8" />
-                          </div>
-                          <p className="text-slate-400 font-black">{t('misc.no_results', 'لا توجد نتائج مطابقة لبحثك')}</p>
-                        </div>
-                      )}
-                  </div>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                className="absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden py-3 z-[60]"
-              >
-                {item.children.map((child) => (
-                  <Link
-                    key={child.path}
-                    to={child.path}
-                    className={cn(
-                      'block px-6 py-3 text-[13px] font-black transition-all relative group/sub',
-                      isActive(child.path) ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'
-                    )}
-                  >
-                    <div className="flex items-center justify-between">
-                      {t(child.title)}
-                      <ArrowRight className={cn("w-3 h-3 opacity-0 group-hover/sub:opacity-100 transition-all", isRtl ? "rotate-180" : "")} />
-                    </div>
-                  </Link>
-                ))}
-              </motion.div>
-            )
-          )}
-        </AnimatePresence>
-      )}
-    </div>
-  );
+  // Translate page URL into clear dynamic titles without exposing translation keys
+  const getPageTitle = () => {
+    const p = location.pathname;
+    if (p === '/') return t('nav.home', 'الرئيسية');
+    if (p.startsWith('/about')) return t('nav.about', 'من نحن');
+    if (p.startsWith('/contact')) return t('nav.contact', 'اتصل بنا');
+    if (p.startsWith('/saved-content')) return 'المحتوى المحفوظ';
+    if (p.startsWith('/accounting-cycle')) return t('nav.accounting_cycle', 'الدورة المحاسبية');
+    if (p.startsWith('/financial-statements')) return t('nav.financial_statements', 'القوائم المالية');
+    if (p.startsWith('/accounting-standards')) return t('nav.international_standards', 'المعايير الدولية');
+    if (p.startsWith('/egyptian-standards')) return t('nav.egyptian_standards', 'المعايير المصرية');
+    if (p.startsWith('/financial-regulations')) return t('nav.financial_regulations', 'اللائحة المالية');
+    if (p.startsWith('/inventory')) return t('nav.inventory', 'طرق حساب المخزون');
+    if (p.startsWith('/bank-reconciliation')) return t('nav.bank_reconciliation', 'مذكرة تسوية البنك');
+    if (p.startsWith('/internal-audit')) return t('nav.internal_audit', 'المراجعة الداخلية');
+    if (p.startsWith('/accounting-portal')) return t('nav.portal', 'بوابة المحاسبة');
+    if (p.startsWith('/tax-accounting')) return t('nav.tax_accounting', 'المحاسبة الضريبية');
+    if (p.startsWith('/customs-duties')) return t('nav.customs_duties', 'الضريبة الجمركية');
+    if (p.startsWith('/construction-accounting')) return t('nav.construction_accounting', 'محاسبة المقاولات');
+    if (p.startsWith('/hospital-accounting')) return t('nav.hospital_accounting', 'محاسبة المستشفيات');
+    if (p.startsWith('/cost-accounting')) return t('nav.cost_accounting', 'محاسبة التكاليف');
+    if (p.startsWith('/financial-analysis')) return t('nav.financial_analysis', 'التحليل المالي');
+    if (p.startsWith('/depreciation-methods')) return 'طرق الإهلاك';
+    if (p.startsWith('/fixed-assets-management')) return 'إدارة الأصول الثابتة';
+    if (p.startsWith('/scrap')) return 'الحسابات المتخصصة - الخردة';
+    if (p.startsWith('/bad-debts')) return 'الحسابات المتخصصة - الديون المعدومة';
+    
+    // Dynamic accounting subsection titles
+    if (p.startsWith('/accounting/')) {
+      const parts = p.split('/');
+      const section = parts[parts.length - 1];
+      if (section === 'customers') return 'إدارة ومحاسبة العملاء';
+      if (section === 'suppliers') return 'إدارة ومحاسبة الموردين';
+      if (section === 'treasury') return 'إدارة الخزينة والسيولة النقدية';
+      if (section === 'settlements') return 'إدارة القيود والتسويات الجارية';
+      if (section === 'inventory_jard') return 'جرد المخزون والرقابة المخزنية';
+      if (section === 'cogs') return 'تكلفة البضاعة المباعة (COGS)';
+      if (section === 'cost_of_sales') return 'تكلفة المبيعات التشغيلية';
+      if (section === 'cost_of_purchases') return 'تكلفة المشتريات والاعتمادات';
+      if (section === 'depreciation') return 'طرق إهلاك الأصول الثابتة';
+      if (section === 'inventory_valuation') return 'قييم وتسعير المخزون بضاعة آخر المدة';
+      if (section === 'bad_debts') return 'معالجة الديون المعدومة والمخصصات';
+      if (section === 'scrap') return 'محاسبة بيع ومعالجة تالف الخردة';
+      if (section === 'bank_reconciliation') return 'إعداد مطابقة كشف تسوية البنك';
+      if (section === 'bank_accounting') return 'العمليات والدفاتر البنكية والاعتمادات مستندية';
+      if (section === 'financial_analysis') return 'مؤشرات وتقارير التحليل المالي العمودي والأفقي';
+      if (section === 'international_standards') return 'تطبيق معايير التقارير المالية الدولية IFRS';
+      if (section === 'invoices_settlements') return 'سجل مطابقة الفواتير والتسويات التجارية';
+    }
+    
+    return t('nav.portal', 'بوابة المحاسبة المهنية');
+  };
 
   return (
-    <nav
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] border-b border-slate-200/50' 
-          : 'bg-white/80 backdrop-blur-lg border-b border-slate-100/50'
-      )}
-    >
-      {/* Row 1: Brand & Utilities */}
-      <div className="border-b border-slate-100 hidden md:block">
-        <div className="container mx-auto px-6 py-3 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="h-10 w-auto transition-transform duration-500 group-hover:scale-105">
-                 <img 
-                  src={LOGO_URL} 
-                  alt={t('common.brand_logo')} 
-                  className="h-full w-auto object-contain"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-black text-slate-900 text-sm leading-tight">مركز ايليجا</span>
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">للخدمات المالية والمحاسبية</span>
-              </div>
-            </Link>
-
-            <div className="hidden lg:flex items-center gap-4 text-slate-400">
-              <div className="h-8 w-[1px] bg-slate-200 mx-2" />
-              <div className="flex items-center gap-3">
-                <a href="#" className="hover:text-blue-600 transition-colors"><Facebook className="w-4 h-4" /></a>
-                <a href="#" className="hover:text-sky-400 transition-colors"><Twitter className="w-4 h-4" /></a>
-                <a href="#" className="hover:text-rose-500 transition-colors"><Instagram className="w-4 h-4" /></a>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <div className="hidden xl:flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-slate-400 font-bold">اتصل بنا</span>
-                  <span className="text-[11px] font-black text-slate-700 font-mono">01208538580</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="h-6 w-[1px] bg-slate-200" />
-            
-            <div className="flex items-center gap-2">
-              <LanguageSwitcher />
-              <button
-                onClick={toggleDarkMode}
-                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100/50 text-slate-600 border border-slate-200/50 hover:bg-slate-200/50 transition-all shadow-sm group"
-              >
-                {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
-            </div>
-
-            {(isInstallable && !isInstalled) && (
-              <button
-                onClick={() => install()}
-                className="bg-slate-900 text-white px-5 py-2.5 rounded-xl font-black text-[11px] hover:bg-black transition-all shadow-lg shadow-slate-200 active:scale-95 flex items-center gap-2 group"
-              >
-                <Smartphone className="w-3.5 h-3.5 text-blue-400 group-hover:rotate-12 transition-transform" />
-                تثبيت التطبيق
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Row 2: Navigation & Search */}
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16 md:h-14">
-          {/* Logo for mobile only */}
-          <Link to="/" className="md:hidden flex items-center gap-2">
-            <img src={LOGO_URL} alt="Logo" className="w-8 h-8" />
-            <span className="font-black text-slate-900 text-sm">ايليجا</span>
-          </Link>
-
-          {/* Desktop Nav - Right Aligned (RTL) */}
-          <div className="hidden md:flex items-center gap-1 flex-1 justify-start flex-wrap">
-            {NAV_ITEMS.map(renderNavItem)}
-          </div>
-
-          <div className="flex items-center gap-4">
-            {/* Search Button/Box Overlay */}
-            <div className="hidden lg:flex items-center gap-2 bg-slate-100/80 px-4 py-1.5 rounded-xl border border-slate-200/50 focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:bg-white transition-all w-48">
-              <Search className="w-3.5 h-3.5 text-slate-400" />
-              <input 
-                type="text" 
-                placeholder={t('misc.search_placeholder')}
-                className="bg-transparent border-none outline-none text-[11px] w-full font-bold text-slate-700 placeholder:text-slate-400"
-              />
-            </div>
-
-            <Link
-              to="/accounting-portal"
-              className="hidden sm:inline-flex bg-blue-600 text-white px-5 py-2 rounded-xl font-bold text-xs hover:bg-blue-700 transition-all shadow-lg shadow-blue-200/50 active:scale-95 whitespace-nowrap"
-            >
-              البوابة المالية
-            </Link>
-
-            <button
-              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 text-white"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-40"
-              onClick={() => setIsOpen(false)}
-            />
-            <motion.div
-              initial={{ x: isRtl ? '100%' : '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: isRtl ? '100%' : '-100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className={cn(
-                "fixed top-0 bottom-0 w-[320px] bg-white z-50 shadow-2xl overflow-y-auto flex flex-col",
-                isRtl ? "right-0" : "left-0"
-              )}
-            >
-              {/* Mobile Menu Header */}
-              <div className="p-6 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-md z-10">
-                <div className="flex items-center gap-3">
-                  <img src={LOGO_URL} alt="Logo" className="w-8 h-8 rounded-lg" />
-                  <div className="flex flex-col">
-                    <span className="font-black text-slate-900 text-xs">ايليجا للمحاسبة</span>
-                    <span className="text-[10px] text-blue-600 font-bold uppercase tracking-tight">التميز المالي</span>
-                  </div>
-                </div>
-                <button 
-                  onClick={() => setIsOpen(false)} 
-                  className="p-2.5 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-xl transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Mobile Menu Content */}
-              <div className="p-6 flex-1 h-full overflow-y-auto custom-scrollbar">
-                <div className="space-y-6">
-                  {/* Action Section */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <button onClick={toggleDarkMode} className="flex flex-col items-center justify-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 transition-all hover:bg-slate-100">
-                      <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-slate-600">
-                        {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                      </div>
-                      <span className="text-[11px] font-black text-slate-700">{isDarkMode ? 'الوضع المضيء' : 'الوضع الليلي'}</span>
-                    </button>
-                    <div className="relative">
-                       <LanguageSwitcher />
-                    </div>
-                  </div>
-
-                  {/* Nav links */}
-                  <div className="space-y-1">
-                    {NAV_ITEMS.map((item) => (
-                      <div key={item.title} className="mb-1">
-                        {item.children ? (
-                          <div className="mb-2">
-                            <button
-                              onClick={() => setActiveDropdown(activeDropdown === item.title ? null : item.title)}
-                              className={cn(
-                                'w-full flex items-center justify-between p-4 rounded-2xl font-black transition-all border border-transparent',
-                                activeDropdown === item.title ? 'bg-blue-50 text-blue-600 border-blue-100' : 'text-slate-700 hover:bg-slate-50'
-                              )}
-                            >
-                              <div className="flex items-center gap-3">
-                                <div className={cn(
-                                  "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
-                                  activeDropdown === item.title ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-400"
-                                )}>
-                                  {item.isMega ? <BookOpen className="w-4 h-4" /> : <Layers className="w-4 h-4" />}
-                                </div>
-                                <span className="text-sm">{t(item.title)}</span>
-                              </div>
-                              <ChevronDown className={cn('w-4 h-4 transition-transform duration-300', activeDropdown === item.title && 'rotate-180')} />
-                            </button>
-                            <AnimatePresence>
-                              {activeDropdown === item.title && (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: 'auto', opacity: 1 }}
-                                  exit={{ height: 0, opacity: 0 }}
-                                  className="overflow-hidden bg-slate-50/50 rounded-2xl mt-1 mx-2 p-2 space-y-1"
-                                >
-                                  {item.children.map((child) => (
-                                    <Link
-                                      key={child.path}
-                                      to={child.path}
-                                      className={cn(
-                                        'flex items-center gap-3 p-3 text-[13px] font-bold rounded-xl transition-all',
-                                        isActive(child.path) ? 'text-blue-600 bg-blue-100/50' : 'text-slate-600 hover:bg-white'
-                                      )}
-                                    >
-                                      <div className={cn(
-                                        "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm",
-                                        isActive(child.path) ? "bg-blue-600 text-white" : "bg-white text-slate-400"
-                                      )}>
-                                        {child.icon ? React.cloneElement(child.icon as React.ReactElement<{ className?: string }>, { className: 'w-4 h-4' }) : <FileText className="w-4 h-4" />}
-                                      </div>
-                                      {t(child.title)}
-                                    </Link>
-                                  ))}
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
-                        ) : (
-                          <Link
-                            to={item.path}
-                            className={cn(
-                              'flex items-center gap-3 p-4 rounded-2xl font-black transition-all border border-transparent',
-                              isActive(item.path) 
-                                ? 'bg-blue-50 text-blue-600 border-blue-100' 
-                                : 'text-slate-700 hover:bg-slate-50'
-                            )}
-                          >
-                             <div className={cn(
-                                "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
-                                isActive(item.path) ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-400"
-                              )}>
-                                <HomeIcon className="w-4 h-4" />
-                              </div>
-                            <span className="text-sm">{t(item.title)}</span>
-                          </Link>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Contact in Menu */}
-                  <div className="bg-slate-900 rounded-3xl p-6 text-white space-y-4">
-                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">تواصل معنا</p>
-                     <div className="space-y-3">
-                        <a href="tel:01208538580" className="flex items-center gap-3 text-sm font-black">
-                           <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center"><Phone className="w-4 h-4" /></div>
-                           01208538580
-                        </a>
-                        <div className="flex gap-4 pt-2">
-                           <a href="#" className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-blue-600 transition-colors"><Facebook className="w-5 h-5" /></a>
-                           <a href="#" className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-sky-400 transition-colors"><Twitter className="w-5 h-5" /></a>
-                           <a href="#" className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-rose-500 transition-colors"><Instagram className="w-5 h-5" /></a>
-                        </div>
-                     </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Mobile Menu Footer */}
-              <div className="p-6 border-t border-slate-100 space-y-3">
-                {(isInstallable && !isInstalled) && (
-                  <button
-                    onClick={() => install()}
-                    className="w-full flex items-center justify-center gap-3 bg-slate-100 text-slate-900 p-4 rounded-2xl font-black transition-all hover:bg-slate-200"
-                  >
-                    <Smartphone className="w-5 h-5 text-blue-600" />
-                    <span>تثبيت التطبيق</span>
-                  </button>
-                )}
-                
-                <Link
-                  to="/accounting-portal"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center justify-center bg-blue-600 text-white p-4 rounded-2xl font-black transition-all shadow-lg shadow-blue-200"
-                >
-                  البوابة المالية
-                </Link>
-              </div>
-            </motion.div>
-          </>
+    <>
+      {/* 1. Desktop Sleek Content Header Bar */}
+      <header
+        className={cn(
+          "hidden lg:flex fixed top-0 left-0 right-0 h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/60 z-35 transition-all duration-300 select-none",
+          isRtl 
+            ? (isCollapsed ? "mr-20" : "mr-80") 
+            : (isCollapsed ? "ml-20" : "ml-80")
         )}
-      </AnimatePresence>
+      >
+        <div className="w-full h-full px-8 flex items-center justify-between">
+          {/* Welcome Info & Current Page State Banner */}
+          <div className="flex items-center gap-4">
+            <div className="flex flex-col text-right">
+              <h2 className="text-slate-900 dark:text-neutral-100 font-extrabold text-sm tracking-tight leading-none mb-1">
+                {getPageTitle()}
+              </h2>
+              <p className="text-[10px] text-slate-400 font-bold flex items-center gap-1.5 leading-none">
+                <Calendar className="w-3 h-3 text-slate-400" />
+                <span>{currentDateString}</span>
+              </p>
+            </div>
+          </div>
 
-    </nav>
+          {/* Quick Header Accessories */}
+          <div className="flex items-center gap-4">
+            {/* Real-time Indicator Tag */}
+            <div className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 rounded-full text-[10px] font-black leading-none">
+              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+              <span>روبير رأفت الحساب نشط</span>
+            </div>
+
+            <div className="h-5 w-[1px] bg-slate-200 dark:bg-slate-800 mx-1" />
+
+            {/* Language Selection inside Header bar as backup */}
+            <div className="relative max-h-[32px] overflow-hidden">
+              <LanguageSwitcher />
+            </div>
+
+            {/* Accessibility & Font zoom group */}
+            <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-850 border border-slate-150 dark:border-slate-700/50 rounded-xl p-1 shadow-sm select-none">
+              <button
+                onClick={() => setFontSizeScale(prev => Math.max(85, prev - 5))}
+                className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-100 transition-all font-black text-[11px] cursor-pointer"
+                title={isRtl ? "تصغير الخط (A-)" : "Decrease font size (A-)"}
+              >
+                A-
+              </button>
+              <button
+                onClick={() => setFontSizeScale(100)}
+                className="px-2 h-7 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-neutral-200 font-extrabold text-[11px] transition-all cursor-pointer bg-white dark:bg-slate-900 shadow-xs border border-slate-100 dark:border-slate-800/40"
+                title={isRtl ? "إعادة الحجم الافتراضي" : "Reset font size"}
+              >
+                {fontSizeScale}%
+              </button>
+              <button
+                onClick={() => setFontSizeScale(prev => Math.min(135, prev + 5))}
+                className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-100 transition-all font-black text-[11px] cursor-pointer"
+                title={isRtl ? "تكبير الخط (A+)" : "Increase font size (A+)"}
+              >
+                A+
+              </button>
+            </div>
+
+            {/* Dark Mode Switcher */}
+            <button
+              onClick={toggleDarkMode}
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-100 border border-slate-150 dark:border-slate-700/50 transition-all cursor-pointer shadow-sm"
+              title={isRtl ? "تغيير مظهر المنظومة" : "Toggle theme mode"}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-amber-500 animate-spin-slow" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            {/* Custom User Info block acts as button to open Profile card */}
+            <div 
+              className="flex items-center gap-2.5 pl-1.5 pr-1.5 py-1 bg-slate-50 dark:bg-slate-800 border border-slate-150 dark:border-slate-700/60 rounded-xl cursor-default transition-all group"
+            >
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] font-black text-slate-900 dark:text-neutral-100 leading-tight">روبير رأفت</span>
+                <span className="text-[8px] text-blue-600 dark:text-blue-400 font-extrabold tracking-widest uppercase">محاسب أول</span>
+              </div>
+              <div className="w-7 h-7 bg-blue-600 rounded-lg text-white font-black text-xs flex items-center justify-center shadow-sm select-none">
+                ر
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* 2. Mobile Compact Logo & Menu Bar */}
+      <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/60 dark:border-slate-800 z-45 px-5 flex items-center justify-between shadow-sm select-none">
+        <Link to="/" className="flex items-center gap-2">
+          <img src={LOGO_URL} alt="Logo" className="w-7 h-7 rounded-lg" />
+          <div className="flex flex-col">
+            <span className="font-extrabold text-xs text-slate-900 dark:text-neutral-100 leading-tight">مركز ايليجا المالي</span>
+            <span className="text-[8px] text-slate-400 font-bold uppercase leading-none">للخدمات المالية والمحاسبية</span>
+          </div>
+        </Link>
+
+        {/* Action Widgets on Mobile header */}
+        <div className="flex items-center gap-2">
+          {/* Quick dark toggle */}
+          <button
+            onClick={toggleDarkMode}
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-neutral-400 cursor-pointer"
+          >
+            {isDarkMode ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5" />}
+          </button>
+
+          {/* Hamburger menu trigger */}
+          <button
+            onClick={() => setIsOpenMobile(true)}
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/10 cursor-pointer"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        </div>
+      </header>
+    </>
   );
 }

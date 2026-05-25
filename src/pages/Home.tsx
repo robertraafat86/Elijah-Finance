@@ -29,6 +29,7 @@ import {
   Activity,
   Scale,
   Maximize2,
+  Coins,
   X,
   Layout,
   Home as HomeIcon,
@@ -108,6 +109,18 @@ export default function Home() {
       desc: t('home.misc_desc'), 
       icon: <Package className="w-8 h-8" />, 
       path: '/accounting-misc' 
+    },
+    { 
+      title: t('nav.fixed_assets_management'), 
+      desc: t('home.fixed_assets_section_desc'), 
+      icon: <Building2 className="w-8 h-8" />, 
+      path: '/fixed-assets-management' 
+    },
+    { 
+      title: t('nav.financial_regulations'), 
+      desc: t('home.financial_regulations_section_desc'), 
+      icon: <Scale className="w-8 h-8" />, 
+      path: '/financial-regulations' 
     }
   ];
 

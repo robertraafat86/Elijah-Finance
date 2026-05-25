@@ -9,8 +9,19 @@ export default function Contact() {
   const isRtl = i18n.language === 'ar';
   
   const phoneNumber = '201208538580';
-  const message = encodeURIComponent(isRtl ? 'مرحباً إيليجا، أرغب في الاستفسار عن خدماتكم.' : 'Hello Elijah, I would like to inquire about your services.');
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  const appLogo = 'https://lh3.googleusercontent.com/d/1WlIcRYhnRU8PeT4VN615H0ZOBEMdOKcs';
+  const siteUrl = typeof window !== 'undefined' ? window.location.origin : 'https://ais-pre-ah2i5eyc7kw6ilruxwp6dd-51421988619.europe-west2.run.app';
+
+  const getArabicMessage = () => {
+    return `مرحباً بك في منظومة "إيليجا للخدمات المالية والمحاسبية" 📊\n\nأريد الاستفسار عن كفاءة الخدمات والحلول المحاسبية المتاحة.\n\n🔗 رابط المنظومة: ${siteUrl}\n🖼️ شعار المنظومة: ${appLogo}\n\n✨ نسعى دوماً لتقديم أفضل مستويات الدقة والشفافية المحاسبية الذكية!`;
+  };
+
+  const getEnglishMessage = () => {
+    return `Hello "Elijah Financial & Accounting Services" 📊\n\nI would like to inquire about your professional financial and accounting services.\n\n🔗 System Link: ${siteUrl}\n🖼️ App Logo: ${appLogo}\n\n✨ Always dedicated to delivering the highest level of precision and smart accounting transparency!`;
+  };
+
+  const messageText = isRtl ? getArabicMessage() : getEnglishMessage();
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(messageText)}`;
 
   return (
     <div className={cn("flex flex-col", isRtl ? "text-right" : "text-left")}>

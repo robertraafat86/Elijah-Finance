@@ -17,7 +17,8 @@ import {
   Briefcase,
   CheckCircle,
   Award,
-  Clock
+  Clock,
+  Building
 } from 'lucide-react';
 import { NavItem, Service, AccountingStep, FinancialStatement, Review, AccountingPrinciple, AccountingStandard } from './types';
 
@@ -66,6 +67,7 @@ export const NAV_ITEMS: NavItem[] = [
       { title: 'accounting.bank_accounting', path: '/accounting/bank_accounting', icon: <ShieldCheck className="w-4 h-4" /> },
       { title: 'accounting.financial_analysis', path: '/accounting/financial_analysis', icon: <BarChart3 className="w-4 h-4" /> },
       { title: 'accounting.international_standards', path: '/accounting/international_standards', icon: <Globe className="w-4 h-4" /> },
+      { title: 'nav.fixed_assets_management', path: '/fixed-assets-management', icon: <Building className="w-4 h-4" /> },
     ]
   },
   { 
@@ -77,6 +79,7 @@ export const NAV_ITEMS: NavItem[] = [
       { title: 'nav.bad_debts', path: '/bad-debts' },
       { title: 'nav.scrap', path: '/scrap' },
       { title: 'nav.depreciation', path: '/depreciation-methods' },
+      { title: 'nav.fixed_assets_management', path: '/fixed-assets-management' },
     ]
   },
 ];
