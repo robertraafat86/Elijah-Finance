@@ -661,20 +661,20 @@ export default function RightSidebar({
               <button
                 onClick={() => toggleGroup(group.id)}
                 className={cn(
-                  "w-full flex items-center justify-between p-3.5 font-bold transition-all text-right cursor-pointer select-none",
+                  "w-full flex items-center justify-between p-4 font-bold transition-all text-right cursor-pointer select-none",
                   isGroupOpen ? "bg-slate-50/60 dark:bg-slate-800/30 text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-neutral-300 hover:bg-slate-50/40 dark:hover:bg-slate-800/10"
                 )}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-3">
                   <div className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center transition-all shadow-sm",
+                    "w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-sm shrink-0",
                     isGroupOpen ? "bg-blue-600 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-400"
                   )}>
                     {group.icon}
                   </div>
-                  <span className="text-[13px] font-black">{group.titleKey ? t(group.titleKey) : group.titleNative}</span>
+                  <span className="text-[18px] font-black tracking-tight">{group.titleKey ? t(group.titleKey) : group.titleNative}</span>
                 </div>
-                <ChevronDown className={cn('w-4 h-4 text-slate-400 transition-transform duration-300', isGroupOpen && 'rotate-180')} />
+                <ChevronDown className={cn('w-5 h-5 text-slate-400 transition-transform duration-300 shrink-0', isGroupOpen && 'rotate-180')} />
               </button>
 
               {/* Accordion List Items */}
@@ -685,7 +685,7 @@ export default function RightSidebar({
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.15 }}
-                    className="overflow-hidden bg-slate-50/20 dark:bg-transparent border-t border-slate-100/40 dark:border-slate-800/40 px-2 py-1.5 space-y-1"
+                    className="overflow-hidden bg-slate-50/20 dark:bg-transparent border-t border-slate-100/40 dark:border-slate-800/40 px-2.5 py-2 space-y-1"
                   >
                     {group.items.map((item) => {
                       const active = isItemActive(item.path);
@@ -695,14 +695,14 @@ export default function RightSidebar({
                           to={item.path}
                           onClick={(e) => handleItemClick(item, e)}
                           className={cn(
-                            'flex items-center gap-3 px-3 py-2 text-xs font-bold rounded-xl transition-all relative group/navlink select-none border border-transparent',
+                            'flex items-center gap-3.5 px-3 py-2.5 text-[17px] font-bold rounded-xl transition-all relative group/navlink select-none border border-transparent',
                             active 
                               ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/40 border-blue-100/40 dark:border-blue-900/30 font-black shadow-sm' 
                               : 'text-slate-600 dark:text-neutral-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-blue-600 dark:hover:text-blue-400'
                           )}
                         >
                           <div className={cn(
-                            "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-colors",
+                            "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-colors",
                             active 
                               ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400" 
                               : "bg-white dark:bg-slate-900 text-slate-400 group-hover/navlink:text-blue-500"
