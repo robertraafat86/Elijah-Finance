@@ -153,6 +153,49 @@ export default function Home() {
                   <span className="gradient-text">{t('home.hero_title').split(' ').slice(0, 3).join(' ')}</span> <br />
                   <span className="text-blue-600 italic font-serif tracking-normal">{t('home.hero_title').split(' ').slice(3).join(' ')}</span>
                 </h1>
+
+                {/* Elegant Introduction and Call-To-Action Blocks */}
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="space-y-6 pt-2"
+                >
+                  <p className="text-[16px] md:text-[18px] leading-[1.8] font-bold text-slate-600 dark:text-neutral-300 max-w-xl">
+                    {isRtl ? (
+                      "مرحباً بكم في منصتنا المحاسبية، وجهتكم الموثوقة للمعرفة والخدمات المالية المتخصصة. نسعى إلى تزويدكم بمحتوى عملي وأدوات حديثة تدعم نجاح أعمالكم واتخاذ قراراتكم بثقة."
+                    ) : (
+                      "Welcome to our accounting platform, your trusted destination for specialized financial knowledge and services. We strive to provide you with practical content and modern tools that support your business success and help you make decisions with confidence."
+                    )}
+                  </p>
+
+                  <div className="bg-emerald-50/60 dark:bg-slate-800/40 border border-emerald-100/70 dark:border-slate-700/50 rounded-3xl p-5 max-w-xl flex flex-col sm:flex-row items-start sm:items-center gap-4.5 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="w-11 h-11 rounded-2xl bg-[#25D366] flex items-center justify-center text-white shrink-0 shadow-sm animate-pulse">
+                      <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.803-4.381 9.805-9.778.002-2.614-1.012-5.074-2.859-6.918C16.38 2.065 13.931 1.05 11.332 1.05c-5.407 0-9.81 4.384-9.813 9.78-.001 1.954.512 3.86 1.482 5.561l-.979 3.573 3.664-.961zm11.362-5.648c-.318-.159-1.879-.926-2.168-1.031-.289-.105-.499-.159-.709.159-.21.318-.813 1.031-.996 1.242-.183.21-.367.236-.685.078-.318-.159-1.341-.494-2.55-1.571-.94-.839-1.575-1.875-1.759-2.193-.184-.318-.02-.489.139-.648.143-.143.318-.367.478-.551.159-.184.21-.318.318-.53.105-.21.053-.394-.026-.551-.08-.159-.709-1.708-.971-2.336-.255-.612-.513-.529-.709-.539-.183-.01-.394-.01-.604-.01-.21 0-.551.08-.84.394-.289.318-1.103 1.077-1.103 2.625 0 1.549 1.129 3.043 1.286 3.254.159.21 2.221 3.391 5.38 4.757.751.325 1.338.52 1.796.666.755.239 1.443.205 1.986.124.605-.09 1.879-.767 2.141-1.47.263-.703.263-1.306.184-1.433-.08-.124-.289-.21-.605-.369z"/>
+                      </svg>
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <p className="text-[14.5px] font-bold text-slate-800 dark:text-neutral-200 leading-relaxed">
+                        {isRtl ? (
+                          "لطلب الاستشارات المحاسبية والمالية، تواصل معنا عبر واتساب، ويسعدنا تقديم الدعم والحلول المهنية التي تناسب احتياجات أعمالكم."
+                        ) : (
+                          "To request accounting and financial consultations, contact us via WhatsApp, and we are pleased to provide professional support and solutions tailored to your business needs."
+                        )}
+                      </p>
+                      <a
+                        href={`https://wa.me/201208538580?text=${encodeURIComponent(isRtl ? "مرحباً بك في منظومة \"إيليجا للخدمات المالية والمحاسبية\" 📊\n\nأريد الاستفسار عن كفاءة الخدمات والحلول المحاسبية المتاحة." : "Hello \"Elijah Financial & Accounting Services\" 📊\n\nI would like to inquire about your professional financial and accounting services.")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-600 dark:text-emerald-400 hover:text-[#25D366] dark:hover:text-[#25D366] transition-colors uppercase tracking-wider"
+                      >
+                        <span>{isRtl ? "تواصل الآن عبر واتساب" : "Contact us on WhatsApp now"}</span>
+                        {isRtl ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+
                 <p className="text-xl text-slate-600 max-w-xl leading-relaxed font-medium">
                   {t('home.hero_subtitle')}
                 </p>
