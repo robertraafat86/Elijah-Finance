@@ -149,9 +149,16 @@ export default function Home() {
               </div>
               
               <div className="space-y-6">
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-900">
-                  <span className="gradient-text">{t('home.hero_title').split(' ').slice(0, 3).join(' ')}</span> <br />
-                  <span className="text-blue-600 italic font-serif tracking-normal">{t('home.hero_title').split(' ').slice(3).join(' ')}</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.3] text-slate-900 tracking-tight">
+                  {isRtl ? (
+                    <>
+                      مرحباً بكم في <span className="gradient-text">منصتنا المحاسبية</span>، <br className="hidden md:inline" /> وجهتكم الموثوقة للمعرفة والخدمات المالية المتخصصة.
+                    </>
+                  ) : (
+                    <>
+                      Welcome to our <span className="gradient-text">Accounting Platform</span>, <br className="hidden md:inline" /> your trusted destination for specialized financial knowledge.
+                    </>
+                  )}
                 </h1>
 
                 {/* Elegant Introduction Block */}
@@ -159,12 +166,12 @@ export default function Home() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-[17px] md:text-[19px] leading-[1.8] font-bold text-slate-600 dark:text-neutral-300 max-w-xl pt-2"
+                  className="text-[18px] md:text-[21px] leading-[1.8] font-bold text-slate-600 dark:text-neutral-300 max-w-xl pt-2"
                 >
                   {isRtl ? (
-                    "مرحباً بكم في منصتنا المحاسبية، وجهتكم الموثوقة للمعرفة والخدمات المالية المتخصصة. نسعى إلى تزويدكم بمحتوى عملي وأدوات حديثة تدعم نجاح أعمالكم واتخاذ قراراتكم بثقة."
+                    "نسعى إلى تزويدكم بمحتوى عملي وأدوات حديثة تدعم نجاح أعمالكم واتخاذ قراراتكم بثقة."
                   ) : (
-                    "Welcome to our accounting platform, your trusted destination for specialized financial knowledge and services. We strive to provide you with practical content and modern tools that support your business success and help you make decisions with confidence."
+                    "We strive to provide you with practical content and modern tools that support your business success and help you make decisions with confidence."
                   )}
                 </motion.p>
               </div>
