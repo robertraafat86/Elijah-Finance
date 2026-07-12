@@ -58,10 +58,10 @@ export default function App() {
   // Usability & Accessibility Font Size Scale state
   const [fontSizeScale, setFontSizeScale] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('font-size-scale');
-      return saved ? parseInt(saved, 10) : 100;
+      const saved = localStorage.getItem('font-size-scale-v3');
+      return saved ? parseInt(saved, 10) : 140;
     }
-    return 100;
+    return 140;
   });
 
   // Desktop Expand/Collapse Right Sidebar State
@@ -89,7 +89,7 @@ export default function App() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       document.documentElement.style.fontSize = `${fontSizeScale}%`;
-      localStorage.setItem('font-size-scale', String(fontSizeScale));
+      localStorage.setItem('font-size-scale-v3', String(fontSizeScale));
     }
   }, [fontSizeScale]);
 

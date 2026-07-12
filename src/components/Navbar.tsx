@@ -158,21 +158,21 @@ export default function Navbar({
             {/* Accessibility & Font zoom group */}
             <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-850 border border-slate-150 dark:border-slate-700/50 rounded-xl p-1 shadow-sm select-none">
               <button
-                onClick={() => setFontSizeScale(prev => Math.max(85, prev - 5))}
+                onClick={() => setFontSizeScale(prev => Math.max(115, prev - 5))}
                 className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-100 transition-all font-black text-[11px] cursor-pointer"
                 title={isRtl ? "تصغير الخط (A-)" : "Decrease font size (A-)"}
               >
                 A-
               </button>
               <button
-                onClick={() => setFontSizeScale(100)}
+                onClick={() => setFontSizeScale(140)}
                 className="px-2 h-7 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-neutral-200 font-extrabold text-[11px] transition-all cursor-pointer bg-white dark:bg-slate-900 shadow-xs border border-slate-100 dark:border-slate-800/40"
                 title={isRtl ? "إعادة الحجم الافتراضي" : "Reset font size"}
               >
                 {fontSizeScale}%
               </button>
               <button
-                onClick={() => setFontSizeScale(prev => Math.min(135, prev + 5))}
+                onClick={() => setFontSizeScale(prev => Math.min(175, prev + 5))}
                 className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-100 transition-all font-black text-[11px] cursor-pointer"
                 title={isRtl ? "تكبير الخط (A+)" : "Increase font size (A+)"}
               >

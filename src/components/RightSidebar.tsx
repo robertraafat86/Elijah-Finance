@@ -92,6 +92,10 @@ export default function RightSidebar({
   const [searchQuery, setSearchQuery] = useState('');
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
     main: true,
+    portals: false,
+    sectors: false,
+    taxes_regulations: false,
+    standards_statements: false,
     knowledge: false,
     practical: false,
     reports: false,
@@ -281,6 +285,10 @@ export default function RightSidebar({
     if (searchQuery.trim() !== '') {
       setOpenGroups({
         main: true,
+        portals: true,
+        sectors: true,
+        taxes_regulations: true,
+        standards_statements: true,
         knowledge: true,
         practical: true,
         reports: true,
@@ -323,40 +331,82 @@ export default function RightSidebar({
   const sidebarNavStructure: SidebarGroup[] = useMemo(() => [
     {
       id: 'main',
-      titleNative: 'الرئيسية وعامة',
+      titleNative: 'الرئيسية والخدمات',
       titleKey: 'nav.general_group',
       icon: <Home className="w-5 h-5 text-blue-500" />,
       items: [
         { id: 'home', titleNative: 'الصفحة الرئيسية', titleKey: 'nav.home', path: '/', icon: <Home className="w-4 h-4" /> },
+        { id: 'services', titleNative: 'خدمات المنظومة', titleKey: 'nav.services', path: '/services', icon: <Briefcase className="w-4 h-4" /> },
         { id: 'about', titleNative: 'من نحن', titleKey: 'nav.about', path: '/about', icon: <Users className="w-4 h-4" /> },
         { id: 'contact', titleNative: 'تواصل معنا', titleKey: 'nav.contact', path: '/contact', icon: <Phone className="w-4 h-4" /> },
         { id: 'sitemap', titleNative: 'خريطة الموقع', path: '#sitemap', icon: <Globe className="w-4 h-4" /> },
       ]
     },
     {
+      id: 'portals',
+      titleNative: 'بوابات المنظومة والحلول',
+      icon: <Building className="w-5 h-5 text-sky-500" />,
+      items: [
+        { id: 'p_portal', titleNative: 'البوابة المحاسبية الذكية', path: '/accounting-portal', icon: <Building className="w-4 h-4 text-sky-500" /> },
+        { id: 'p_cycle', titleNative: 'الدورة المحاسبية المتكاملة', path: '/accounting-cycle', icon: <RefreshCcw className="w-4 h-4 text-indigo-500" /> },
+        { id: 'p_analysis', titleNative: 'التحليل المالي والتدقيق', path: '/financial-analysis', icon: <BarChart3 className="w-4 h-4 text-emerald-500" /> },
+        { id: 'p_fixed_assets', titleNative: 'إدارة الأصول الثابتة', path: '/fixed-assets-management', icon: <Briefcase className="w-4 h-4 text-amber-500" /> },
+      ]
+    },
+    {
+      id: 'sectors',
+      titleNative: 'محاسبة القطاعات والتكاليف',
+      icon: <Briefcase className="w-5 h-5 text-indigo-500" />,
+      items: [
+        { id: 'sec_costs', titleNative: 'محاسبة التكاليف', path: '/cost-accounting', icon: <Calculator className="w-4 h-4 text-red-500" /> },
+        { id: 'sec_construction', titleNative: 'محاسبة المقاولات والعقود', path: '/construction-accounting', icon: <Building className="w-4 h-4 text-amber-600" /> },
+        { id: 'sec_hospital', titleNative: 'محاسبة المستشفيات والمراكز', path: '/hospital-accounting', icon: <Activity className="w-4 h-4 text-rose-500" /> },
+        { id: 'sec_audit', titleNative: 'المراجعة والتدقيق الداخلي', path: '/internal-audit', icon: <ShieldCheck className="w-4 h-4 text-emerald-600" /> },
+      ]
+    },
+    {
+      id: 'taxes_regulations',
+      titleNative: 'الضرائب والجمارك والتشريعات',
+      icon: <Scale className="w-5 h-5 text-red-500" />,
+      items: [
+        { id: 'tax_income', titleNative: 'المحاسبة الضريبية', path: '/tax-accounting', icon: <Scale className="w-4 h-4 text-red-500" /> },
+        { id: 'tax_customs', titleNative: 'الضريبة والتعريفة الجمركية', path: '/customs-duties', icon: <FileText className="w-4 h-4 text-amber-500" /> },
+        { id: 'tax_regulations', titleNative: 'اللائحة والقرارات المالية', path: '/financial-regulations', icon: <ShieldCheck className="w-4 h-4 text-blue-500" /> },
+      ]
+    },
+    {
+      id: 'standards_statements',
+      titleNative: 'المعايير والقوائم المالية',
+      icon: <FileSpreadsheet className="w-5 h-5 text-amber-500" />,
+      items: [
+        { id: 'std_intl', titleNative: 'المعايير الدولية IFRS', path: '/accounting-standards', icon: <Globe className="w-4 h-4 text-blue-500" /> },
+        { id: 'std_egypt', titleNative: 'المعايير المصرية EAS', path: '/egyptian-standards', icon: <Scale className="w-4 h-4 text-amber-600" /> },
+        { id: 'std_statements', titleNative: 'التقارير والقوائم المالية', path: '/financial-statements', icon: <FileSpreadsheet className="w-4 h-4 text-emerald-500" /> },
+      ]
+    },
+    {
       id: 'knowledge',
       titleNative: 'بنك المعلومات المحاسبي',
       titleKey: 'nav.accounting_knowledge_base',
-      icon: <BookOpen className="w-5 h-5 text-indigo-500" />,
+      icon: <BookOpen className="w-5 h-5 text-violet-500" />,
       items: [
         { id: 'k_cust', titleNative: 'محاسبة العملاء', titleKey: 'accounting.customers', path: '/accounting/customers', icon: <Users className="w-4 h-4" /> },
         { id: 'k_supp', titleNative: 'محاسبة الموردين', titleKey: 'accounting.suppliers', path: '/accounting/suppliers', icon: <Briefcase className="w-4 h-4" /> },
-        { id: 'k_treas', titleNative: 'الخزينة', titleKey: 'accounting.treasury', path: '/accounting/treasury', icon: <Calculator className="w-4 h-4" /> },
+        { id: 'k_treas', titleNative: 'الخزينة والنقدية', titleKey: 'accounting.treasury', path: '/accounting/treasury', icon: <Calculator className="w-4 h-4" /> },
         { id: 'k_sett', titleNative: 'التسويات المحاسبية', titleKey: 'accounting.settlements', path: '/accounting/settlements', icon: <ArrowLeftRight className="w-4 h-4" /> },
-        { id: 'k_jard', titleNative: 'جرد المخزن', titleKey: 'accounting.inventory_jard', path: '/accounting/inventory_jard', icon: <CheckCircle className="w-4 h-4" /> },
-        { id: 'k_cogs', titleNative: 'تكلفة البضاعة المباعة', titleKey: 'accounting.cogs', path: '/accounting/cogs', icon: <TrendingUp className="w-4 h-4" /> },
-        { id: 'k_sales', titleNative: 'تكلفة المبيعات', titleKey: 'accounting.cost_of_sales', path: '/accounting/cost_of_sales', icon: <PieChart className="w-4 h-4" /> },
-        { id: 'k_purch', titleNative: 'تكلفة المشتريات', titleKey: 'accounting.cost_of_purchases', path: '/accounting/cost_of_purchases', icon: <FileText className="w-4 h-4" /> },
-        { id: 'k_depr', titleNative: 'طرق الإهلاك', titleKey: 'accounting.depreciation', path: '/depreciation-methods', icon: <Clock className="w-4 h-4" /> },
-        { id: 'k_val', titleNative: 'طرق تقييم المخزون', titleKey: 'accounting.inventory_valuation', path: '/accounting/inventory_valuation', icon: <BarChart3 className="w-4 h-4" /> },
-        { id: 'k_bad', titleNative: 'الديون المعدومة', titleKey: 'accounting.bad_debts', path: '/bad-debts', icon: <AlertTriangle className="w-4 h-4" /> },
-        { id: 'k_scrap', titleNative: 'الخردة والمخلفات', titleKey: 'accounting.scrap', path: '/scrap', icon: <RefreshCcw className="w-4 h-4" /> },
+        { id: 'k_jard', titleNative: 'جرد وتقييم المخزن', titleKey: 'accounting.inventory_jard', path: '/accounting/inventory_jard', icon: <CheckCircle className="w-4 h-4" /> },
+        { id: 'k_cogs', titleNative: 'تكلفة البضاعة المباعة COGS', titleKey: 'accounting.cogs', path: '/accounting/cogs', icon: <TrendingUp className="w-4 h-4" /> },
+        { id: 'k_sales', titleNative: 'تكلفة المبيعات المباشرة', titleKey: 'accounting.cost_of_sales', path: '/accounting/cost_of_sales', icon: <PieChart className="w-4 h-4" /> },
+        { id: 'k_purch', titleNative: 'تكلفة المشتريات والاعتمادات', titleKey: 'accounting.cost_of_purchases', path: '/accounting/cost_of_purchases', icon: <FileText className="w-4 h-4" /> },
+        { id: 'k_depr', titleNative: 'طرق الإهلاك وعمر الأصل', titleKey: 'accounting.depreciation', path: '/depreciation-methods', icon: <Clock className="w-4 h-4" /> },
+        { id: 'k_val', titleNative: 'طرق تقييم المخزون المالي', titleKey: 'accounting.inventory_valuation', path: '/accounting/inventory_valuation', icon: <BarChart3 className="w-4 h-4" /> },
+        { id: 'k_bad', titleNative: 'الديون المعدومة والمخصصات', titleKey: 'accounting.bad_debts', path: '/bad-debts', icon: <AlertTriangle className="w-4 h-4" /> },
+        { id: 'k_scrap', titleNative: 'الخردة والمخلفات والكهنة', titleKey: 'accounting.scrap', path: '/scrap', icon: <RefreshCcw className="w-4 h-4" /> },
         { id: 'k_recon', titleNative: 'مذكرة تسوية البنك', titleKey: 'accounting.bank_reconciliation', path: '/bank-reconciliation', icon: <Scale className="w-4 h-4" /> },
-        { id: 'k_bank', titleNative: 'محاسبة البنوك', titleKey: 'accounting.bank_accounting', path: '/accounting/bank_accounting', icon: <ShieldCheck className="w-4 h-4" /> },
-        { id: 'k_analysis', titleNative: 'التحليل المالي', titleKey: 'accounting.financial_analysis', path: '/financial-analysis', icon: <BarChart3 className="w-4 h-4" /> },
-        { id: 'k_standards', titleNative: 'المعايير الدولية', titleKey: 'accounting.international_standards', path: '/accounting-standards', icon: <Globe className="w-4 h-4" /> },
-        { id: 'k_invoices', titleNative: 'فواتير وتسويات', path: '/accounting/invoices_settlements', icon: <Layers className="w-4 h-4" /> },
-        { id: 'k_fixed_assets', titleNative: 'إدارة الأصول الثابتة', titleKey: 'nav.fixed_assets_management', path: '/fixed-assets-management', icon: <Building className="w-4 h-4" /> },
+        { id: 'k_bank', titleNative: 'محاسبة البنوك والاعتمادات', titleKey: 'accounting.bank_accounting', path: '/accounting/bank_accounting', icon: <ShieldCheck className="w-4 h-4" /> },
+        { id: 'k_invoices', titleNative: 'فواتير وتسويات متنوعة', path: '/accounting/invoices_settlements', icon: <Layers className="w-4 h-4" /> },
+        { id: 'k_inventory_mgmt', titleNative: 'إدارة المخازن والمخزون', path: '/inventory', icon: <Layers className="w-4 h-4" /> },
+        { id: 'k_misc', titleNative: 'متنوعات وبحوث محاسبية', path: '/accounting-misc', icon: <Layers className="w-4 h-4" /> },
       ]
     },
     {
@@ -369,7 +419,7 @@ export default function RightSidebar({
         { id: 'p_treas', titleNative: 'إدارة الخزينة', path: '/accounting/treasury?mode=dashboard', icon: <Calculator className="w-4 h-4" /> },
         { id: 'p_inv', titleNative: 'إدارة المخزون', path: '/accounting/inventory_jard?mode=dashboard', icon: <CheckCircle className="w-4 h-4" /> },
         { id: 'p_sett', titleNative: 'إدارة التسويات', path: '/accounting/settlements?mode=dashboard', icon: <ArrowLeftRight className="w-4 h-4" /> },
-        { id: 'p_fixed_assets', titleNative: 'إدارة الأصول الثابتة', path: '/fixed-assets-management', icon: <Building className="w-4 h-4" /> },
+        { id: 'p_fixed_assets_mgmt', titleNative: 'إدارة الأصول والاهلاكات', path: '/fixed-assets-management', icon: <Building className="w-4 h-4" /> },
       ]
     },
     {
@@ -1071,21 +1121,21 @@ export default function RightSidebar({
                       
                       <div className="grid grid-cols-3 gap-2">
                         <button
-                          onClick={() => setFontSizeScale(prev => Math.max(85, prev - 5))}
+                          onClick={() => setFontSizeScale(prev => Math.max(115, prev - 5))}
                           className="p-3 bg-slate-50 border border-slate-150 hover:bg-slate-100 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 rounded-xl font-black text-xs text-slate-700 dark:text-neutral-100 transition-all cursor-pointer text-center"
                           title="تصغير الخط"
                         >
                           A -
                         </button>
                         <button
-                          onClick={() => setFontSizeScale(100)}
+                          onClick={() => setFontSizeScale(140)}
                           className="p-3 bg-blue-50 border border-blue-200 hover:bg-blue-100 dark:bg-blue-950/40 dark:border-blue-900 dark:hover:bg-blue-900/60 rounded-xl font-extrabold text-xs text-blue-600 dark:text-blue-400 transition-all cursor-pointer text-center"
                           title="إعادة ضبط الحجم"
                         >
                           {fontSizeScale}%
                         </button>
                         <button
-                          onClick={() => setFontSizeScale(prev => Math.min(135, prev + 5))}
+                          onClick={() => setFontSizeScale(prev => Math.min(175, prev + 5))}
                           className="p-3 bg-slate-50 border border-slate-150 hover:bg-slate-100 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 rounded-xl font-black text-xs text-slate-700 dark:text-neutral-100 transition-all cursor-pointer text-center"
                           title="تكبير الخط"
                         >
@@ -1096,14 +1146,14 @@ export default function RightSidebar({
                       {/* Visual gauge bar */}
                       <div className="space-y-1">
                         <div className="flex justify-between text-[9px] text-slate-400 font-bold px-1 select-none">
-                          <span>85%</span>
-                          <span>100% ({isRtl ? 'الافتراضي' : 'Default'})</span>
-                          <span>135%</span>
+                          <span>115%</span>
+                          <span>140% ({isRtl ? 'الافتراضي' : 'Default'})</span>
+                          <span>175%</span>
                         </div>
                         <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden relative">
                           <div 
                             className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-350"
-                            style={{ width: `${((fontSizeScale - 85) / 50) * 100}%` }}
+                            style={{ width: `${((fontSizeScale - 115) / 60) * 100}%` }}
                           />
                         </div>
                       </div>
