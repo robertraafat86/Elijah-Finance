@@ -20,6 +20,7 @@ export default function LanguageSwitcher() {
         i18n.language === 'en' ? "flex-row-reverse" : "flex-row"
       )}
       title={i18n.language === 'ar' ? 'English' : 'العربية'}
+      aria-label={i18n.language === 'ar' ? 'English' : 'العربية'}
     >
       <Globe className="w-4 h-4 text-blue-500" />
       <span className="uppercase tracking-tight">

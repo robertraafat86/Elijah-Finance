@@ -1,5 +1,6 @@
 {
   "name": "إيليجا للخدمات المالية والمحاسبية",
   "description": "مركز ايليجا للخدمات المالية والمحاسبية - موقع احترافي لخدمات المحاسبة والمراجعة وتعليم أساسيات الدورة المحاسبية والقوائم المالية.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

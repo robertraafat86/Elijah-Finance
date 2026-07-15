@@ -60,6 +60,8 @@ const sidebarItems = [
   {
     group: 'nav.general_group',
     items: [
+      { title: 'nav.professional_services', path: '/professional-services', icon: <FileText className="w-5 h-5 text-emerald-500" /> },
+      { title: 'nav.accounting_tools', path: '/accounting-tools', icon: <Calculator className="w-5 h-5 text-indigo-500" /> },
       { title: 'nav.about', path: '/about', icon: <Users className="w-5 h-5" /> },
       { title: 'nav.contact', path: '/contact', icon: <MessageSquare className="w-5 h-5" /> },
     ]

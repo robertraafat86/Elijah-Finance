@@ -274,9 +274,10 @@ export default function HospitalAccounting() {
                 <div className="max-w-4xl mx-auto rounded-[2rem] overflow-hidden border border-gray-100 shadow-xl">
                   <img 
                     src={getDirectDriveUrl('1GNQ2fSrGYEDrLYUheMpPcJ14jjpjSqF1')} 
-                    alt="Hospital Accounting Mind Map" 
+                    alt={isRtl ? "خريطة المفاهيم التفصيلية لمحاسبة المستشفيات والمراكز الطبية والوحدات العلاجية" : "Detailed concept mind map for Hospital and Medical Unit Accounting"} 
                     className="w-full h-auto hover:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                   />
                 </div>
               </div>

@@ -51,7 +51,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 lg:col-span-2 space-y-8">
             <div className="h-12 w-auto grayscale brightness-200 opacity-80">
-               <img src={LOGO_URL} alt="Logo" className="h-full w-auto object-contain" />
+               <img 
+                 src={LOGO_URL} 
+                 alt={isRtl ? "شعار منظومة إيليجا للخدمات المالية والمحاسبية" : "Elijah Financial & Accounting Services Logo"} 
+                 className="h-full w-auto object-contain" 
+                 loading="lazy" 
+                 referrerPolicy="no-referrer" 
+               />
             </div>
             <p className="text-lg leading-relaxed max-w-md font-medium">
               {t('home.hero_subtitle')}

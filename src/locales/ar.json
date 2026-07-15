@@ -28,7 +28,17 @@
     "depreciation": "طرق الإهلاك المحاسبية",
     "fixed_assets_management": "إدارة الأصول الثابتة",
     "about": "من نحن",
-    "contact": "اتصل بنا"
+    "contact": "اتصل بنا",
+    "professional_services": "الخدمات المحاسبية المهنية",
+    "accounting_tools": "الأدوات والآلات الحاسبة",
+    "digital_store": "متجر القوالب الرقمي",
+    "elijah_academy": "أكاديمية إيليجا التعليمية",
+    "professional_blog": "المدونة المحاسبية المهنية",
+    "accounting_templates": "مكتبة القوالب المحاسبية",
+    "careers": "الوظائف والفرص التدريبية",
+    "community_forum": "المنتدى المحاسبي والمهني",
+    "membership": "العضوية والباقات",
+    "admin_dashboard": "لوحة تحكم المشرف"
   },
   "accounting": {
     "customers": "محاسبة العملاء",

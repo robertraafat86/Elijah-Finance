@@ -1,39 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 import RightSidebar from './components/RightSidebar';
 import WhatsAppButton from './components/WhatsAppButton';
-import Home from './pages/Home';
-import AccountingCycle from './pages/AccountingCycle';
-import FinancialStatements from './pages/FinancialStatements';
-import Services from './pages/Services';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import AccountingStandards from './pages/AccountingStandards';
-import EgyptianStandards from './pages/EgyptianStandards';
-import FinancialRegulations from './pages/FinancialRegulations';
-import Inventory from './pages/Inventory';
-import BankReconciliation from './pages/BankReconciliation';
-import InternalAudit from './pages/InternalAudit';
-import AccountingPortal from './pages/AccountingPortal';
-import TaxAccounting from './pages/TaxAccounting';
-import CustomsDuties from './pages/CustomsDuties';
-import ConstructionAccounting from './pages/ConstructionAccounting';
-import HospitalAccounting from './pages/HospitalAccounting';
-import CostAccounting from './pages/CostAccounting';
-import FinancialAnalysis from './pages/FinancialAnalysis';
-import AnalysisDetail from './pages/FinancialAnalysis/AnalysisDetail';
-import AccountingMisc from './pages/AccountingMisc';
-import SavedContent from './pages/SavedContent';
-import DepreciationMethods from './pages/DepreciationMethods';
-import Scrap from './pages/Scrap';
-import BadDebts from './pages/BadDebts';
-import FixedAssets from './pages/FixedAssets';
 import Breadcrumbs from './components/Breadcrumbs';
 import Footer from './components/Footer';
 import InstallPWA from './components/InstallPWA';
+import SEOManager from './components/SEOManager';
 import { cn } from './lib/utils';
+
+// Lazy-loaded pages for code splitting & faster load times
+const Home = lazy(() => import('./pages/Home'));
+const AccountingCycle = lazy(() => import('./pages/AccountingCycle'));
+const FinancialStatements = lazy(() => import('./pages/FinancialStatements'));
+const Services = lazy(() => import('./pages/Services'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const AccountingStandards = lazy(() => import('./pages/AccountingStandards'));
+const EgyptianStandards = lazy(() => import('./pages/EgyptianStandards'));
+const FinancialRegulations = lazy(() => import('./pages/FinancialRegulations'));
+const Inventory = lazy(() => import('./pages/Inventory'));
+const BankReconciliation = lazy(() => import('./pages/BankReconciliation'));
+const InternalAudit = lazy(() => import('./pages/InternalAudit'));
+const AccountingPortal = lazy(() => import('./pages/AccountingPortal'));
+const TaxAccounting = lazy(() => import('./pages/TaxAccounting'));
+const CustomsDuties = lazy(() => import('./pages/CustomsDuties'));
+const ConstructionAccounting = lazy(() => import('./pages/ConstructionAccounting'));
+const HospitalAccounting = lazy(() => import('./pages/HospitalAccounting'));
+const CostAccounting = lazy(() => import('./pages/CostAccounting'));
+const FinancialAnalysis = lazy(() => import('./pages/FinancialAnalysis'));
+const AnalysisDetail = lazy(() => import('./pages/FinancialAnalysis/AnalysisDetail'));
+const AccountingMisc = lazy(() => import('./pages/AccountingMisc'));
+const SavedContent = lazy(() => import('./pages/SavedContent'));
+const DepreciationMethods = lazy(() => import('./pages/DepreciationMethods'));
+const Scrap = lazy(() => import('./pages/Scrap'));
+const BadDebts = lazy(() => import('./pages/BadDebts'));
+const FixedAssets = lazy(() => import('./pages/FixedAssets'));
+const ProfessionalServices = lazy(() => import('./pages/ProfessionalServices'));
+const AccountingTools = lazy(() => import('./pages/AccountingTools'));
+const DigitalStore = lazy(() => import('./pages/DigitalStore'));
+const AccountingTemplates = lazy(() => import('./pages/AccountingTemplates'));
+const Careers = lazy(() => import('./pages/Careers'));
+const Forum = lazy(() => import('./pages/Forum'));
+const Membership = lazy(() => import('./pages/Membership'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const ElijahAcademy = lazy(() => import('./pages/ElijahAcademy'));
+const ProfessionalBlog = lazy(() => import('./pages/ProfessionalBlog'));
+const AiAssistant = lazy(() => import('./pages/AiAssistant'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -112,6 +127,7 @@ export default function App() {
 
   return (
     <Router>
+      <SEOManager />
       <div className="min-h-screen bg-slate-50/50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-500">
         <ScrollToTop />
         
@@ -149,35 +165,67 @@ export default function App() {
           <div className="container mx-auto py-2">
             <Breadcrumbs />
           </div>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/accounting-cycle" element={<AccountingCycle />} />
-            <Route path="/financial-statements" element={<FinancialStatements />} />
-            <Route path="/accounting-standards" element={<AccountingStandards />} />
-            <Route path="/egyptian-standards" element={<EgyptianStandards />} />
-            <Route path="/financial-regulations" element={<FinancialRegulations />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/bank-reconciliation" element={<BankReconciliation />} />
-            <Route path="/internal-audit" element={<InternalAudit />} />
-            <Route path="/accounting-portal" element={<AccountingPortal />} />
-            <Route path="/accounting/:sectionId" element={<AccountingMisc />} />
-            <Route path="/tax-accounting" element={<TaxAccounting />} />
-            <Route path="/customs-duties" element={<CustomsDuties />} />
-            <Route path="/construction-accounting" element={<ConstructionAccounting />} />
-            <Route path="/hospital-accounting" element={<HospitalAccounting />} />
-            <Route path="/cost-accounting" element={<CostAccounting />} />
-            <Route path="/financial-analysis" element={<FinancialAnalysis />} />
-            <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
-            <Route path="/accounting-misc" element={<AccountingMisc />} />
-            <Route path="/saved-content" element={<SavedContent />} />
-            <Route path="/depreciation-methods" element={<DepreciationMethods />} />
-            <Route path="/scrap" element={<Scrap />} />
-            <Route path="/bad-debts" element={<BadDebts />} />
-            <Route path="/fixed-assets-management" element={<FixedAssets />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
+          <Suspense fallback={
+            <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+              <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p className="text-xs text-slate-400 font-bold">
+                {isRtl ? 'جاري التحميل...' : 'Loading...'}
+              </p>
+            </div>
+          }>
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/accounting-cycle" element={<AccountingCycle />} />
+                <Route path="/financial-statements" element={<FinancialStatements />} />
+                <Route path="/accounting-standards" element={<AccountingStandards />} />
+                <Route path="/egyptian-standards" element={<EgyptianStandards />} />
+                <Route path="/financial-regulations" element={<FinancialRegulations />} />
+                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/bank-reconciliation" element={<BankReconciliation />} />
+                <Route path="/internal-audit" element={<InternalAudit />} />
+                <Route path="/accounting-portal" element={<AccountingPortal />} />
+                <Route path="/accounting/:sectionId" element={<AccountingMisc />} />
+                <Route path="/tax-accounting" element={<TaxAccounting />} />
+                <Route path="/customs-duties" element={<CustomsDuties />} />
+                <Route path="/construction-accounting" element={<ConstructionAccounting />} />
+                <Route path="/hospital-accounting" element={<HospitalAccounting />} />
+                <Route path="/cost-accounting" element={<CostAccounting />} />
+                <Route path="/financial-analysis" element={<FinancialAnalysis />} />
+                <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
+                <Route path="/accounting-misc" element={<AccountingMisc />} />
+                <Route path="/saved-content" element={<SavedContent />} />
+                <Route path="/depreciation-methods" element={<DepreciationMethods />} />
+                <Route path="/scrap" element={<Scrap />} />
+                <Route path="/bad-debts" element={<BadDebts />} />
+                <Route path="/fixed-assets-management" element={<FixedAssets />} />
+                <Route path="/professional-services" element={<ProfessionalServices />} />
+                <Route path="/accounting-tools" element={<AccountingTools />} />
+                <Route path="/digital-store" element={<DigitalStore />} />
+                <Route path="/templates-library" element={<AccountingTemplates />} />
+                <Route path="/templates" element={<AccountingTemplates />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/jobs" element={<Careers />} />
+                <Route path="/forum" element={<Forum />} />
+                <Route path="/community-forum" element={<Forum />} />
+                <Route path="/membership" element={<Membership />} />
+                <Route path="/plans" element={<Membership />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/academy" element={<ElijahAcademy />} />
+                <Route path="/blog" element={<ProfessionalBlog />} />
+                <Route path="/blog/:slug" element={<ProfessionalBlog />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/ai-assistant" element={<AiAssistant />} />
+              </Routes>
+            </motion.div>
+          </Suspense>
         </main>
 
         {/* Dynamic margin footer */}

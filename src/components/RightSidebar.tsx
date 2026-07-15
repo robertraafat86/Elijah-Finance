@@ -37,15 +37,19 @@ import {
   Menu,
   Activity,
   FileSpreadsheet,
+  Award,
+  ShoppingBag,
   Lock,
   Download,
   Terminal,
-  MessageSquare
+  MessageSquare,
+  CreditCard
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { LOGO_URL, SITEMAP_URL } from '../constants';
+import AdsRenderer from './AdsRenderer';
 
 interface RightSidebarProps {
   isDarkMode: boolean;
@@ -336,6 +340,16 @@ export default function RightSidebar({
       icon: <Home className="w-5 h-5 text-blue-500" />,
       items: [
         { id: 'home', titleNative: 'الصفحة الرئيسية', titleKey: 'nav.home', path: '/', icon: <Home className="w-4 h-4" /> },
+        { id: 'professional-services', titleNative: 'الخدمات المحاسبية المهنية', titleKey: 'nav.professional_services', path: '/professional-services', icon: <Award className="w-4 h-4 text-emerald-500 animate-pulse" /> },
+        { id: 'accounting-tools', titleNative: 'الأدوات والآلات الحاسبة', titleKey: 'nav.accounting_tools', path: '/accounting-tools', icon: <Calculator className="w-4 h-4 text-indigo-500" /> },
+        { id: 'digital-store', titleNative: 'متجر القوالب الرقمي', titleKey: 'nav.digital_store', path: '/digital-store', icon: <ShoppingBag className="w-4 h-4 text-violet-500 animate-pulse" /> },
+        { id: 'accounting-templates', titleNative: 'مكتبة القوالب المحاسبية', titleKey: 'nav.accounting_templates', path: '/templates-library', icon: <FileSpreadsheet className="w-4 h-4 text-emerald-500 animate-pulse" /> },
+        { id: 'careers', titleNative: 'الوظائف والفرص التدريبية', titleKey: 'nav.careers', path: '/careers', icon: <Users className="w-4 h-4 text-teal-500 animate-pulse" /> },
+        { id: 'forum', titleNative: 'المنتدى المحاسبي والمهني', titleKey: 'nav.community_forum', path: '/forum', icon: <MessageSquare className="w-4 h-4 text-indigo-500 animate-pulse" /> },
+        { id: 'membership', titleNative: 'العضوية والباقات', titleKey: 'nav.membership', path: '/membership', icon: <CreditCard className="w-4 h-4 text-rose-500 animate-pulse" /> },
+        { id: 'admin-dashboard', titleNative: 'لوحة تحكم المشرف', titleKey: 'nav.admin_dashboard', path: '/admin', icon: <Settings className="w-4 h-4 text-cyan-500 animate-spin-slow" /> },
+        { id: 'elijah-academy', titleNative: 'أكاديمية إيليجا التعليمية', titleKey: 'nav.elijah_academy', path: '/academy', icon: <BookOpen className="w-4 h-4 text-pink-500 animate-pulse" /> },
+        { id: 'professional-blog', titleNative: 'المدونة المحاسبية المهنية', titleKey: 'nav.professional_blog', path: '/blog', icon: <FileText className="w-4 h-4 text-amber-500 animate-pulse" /> },
         { id: 'services', titleNative: 'خدمات المنظومة', titleKey: 'nav.services', path: '/services', icon: <Briefcase className="w-4 h-4" /> },
         { id: 'about', titleNative: 'من نحن', titleKey: 'nav.about', path: '/about', icon: <Users className="w-4 h-4" /> },
         { id: 'contact', titleNative: 'تواصل معنا', titleKey: 'nav.contact', path: '/contact', icon: <Phone className="w-4 h-4" /> },
@@ -439,9 +453,9 @@ export default function RightSidebar({
       titleNative: 'الذكاء الاصطناعي',
       icon: <Sparkles className="w-5 h-5 text-purple-500" />,
       items: [
-        { id: 'ai_assistant', titleNative: 'المساعد المحاسبي', path: '#ai-assistant', icon: <Sparkles className="w-4 h-4 text-purple-500" /> },
-        { id: 'ai_analysis', titleNative: 'تحليل البيانات المتقدم', path: '#ai-analysis', icon: <BarChart3 className="w-4 h-4 text-purple-500" /> },
-        { id: 'ai_standards', titleNative: 'شرح المعايير بالذكاء', path: '#ai-standards', icon: <BookOpen className="w-4 h-4 text-purple-500" /> },
+        { id: 'ai_assistant', titleNative: 'المساعد المحاسبي', path: '/ai-assistant', icon: <Sparkles className="w-4 h-4 text-purple-500" /> },
+        { id: 'ai_analysis', titleNative: 'تحليل البيانات المتقدم', path: '/ai-assistant', icon: <BarChart3 className="w-4 h-4 text-purple-500" /> },
+        { id: 'ai_standards', titleNative: 'شرح المعايير بالذكاء', path: '/ai-assistant', icon: <BookOpen className="w-4 h-4 text-purple-500" /> },
       ]
     },
     {
@@ -511,38 +525,62 @@ export default function RightSidebar({
     }
   };
 
-  // Automated smart responses for the client-side AI Chat Assistant
-  const handleSendAiMessage = () => {
-    if (!userInput.trim()) return;
+  // Live API-driven responses for the AI Chat Assistant
+  const handleSendAiMessage = async () => {
+    const trimmedInput = userInput.trim();
+    if (!trimmedInput) return;
 
-    const userMsg = { sender: 'user' as const, text: userInput, time: new Date().toLocaleTimeString(isRtl ? 'ar-EG' : 'en-US', {hour: '2-digit', minute: '2-digit'}) };
+    const userTime = new Date().toLocaleTimeString(isRtl ? 'ar-EG' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+    const userMsg = { sender: 'user' as const, text: trimmedInput, time: userTime };
+    
     setChatMessages(prev => [...prev, userMsg]);
     setUserInput('');
     setIsAiTyping(true);
 
-    // AI logic simulations matching keywords for extremely practical responses
-    setTimeout(() => {
-      let aiText = '';
-      const textLower = userInput.toLowerCase();
+    try {
+      // Map frontend chat state to API structure
+      const historyPayload = chatMessages.map(msg => ({
+        role: msg.sender === 'ai' ? ('model' as const) : ('user' as const),
+        text: msg.text
+      }));
 
-      if (textLower.includes('معيار') || textLower.includes('معايير') || textLower.includes('ias') || textLower.includes('ifrs') || textLower.includes('eas')) {
-        aiText = 'شرح المعايير المحاسبية بالذكاء الاصطناعي: طبقاً لمعيار المخزون IAS 2 أو معيار عقود البيع IFRS 15، يتعين تقييم البضاعة بالتكلفة أو صافي القيمة القابلة للتحقق أيهما أقل. بالنسبة للمنشأة، يلزم تسجيل قيود التسوية فوراً عند انخفاض أسعار السوق عن التكلفة التاريخية لضمان صحة المركز المالي.';
-      } else if (textLower.includes('تحليل') || textLower.includes('نسب') || textLower.includes('سيولة') || textLower.includes('معدل')) {
-        aiText = 'الملخص المالي والتحليل الرقمي: \n1. نسبة السيولة السريعة = (النقدية + الحسابات المستحقة) / الالتزامات المتداولة = 1.8 (ممتازة وجيدة جداً).\n2. معدل دوران المخزون = تكلفة المبيعات / متوسط المخزون = 6 مرات سنوياً، مما يعكس حركة تصريف صحية للبضائع.\nنوصي بجدولة الحسابات الدائنة لتوفير خصومات تعجيل الدفع.';
-      } else if (textLower.includes('مخزون') || textLower.includes('جرد') || textLower.includes('تقييم')) {
-        aiText = 'طرق جرد وتقييم المخازن: يتوفر بالمنظومة طريقتين هما المتوسط المرجح (Weighted Average) وحساب الوارد أولاً يصرف أولاً (FIFO). ننصح باستخدام تكتيك المتوسط المرجح في ظل استقرار حركة السوق لتقليل تذبذب أرباح قائمة الدخل وتكلفة المبيعات.';
-      } else if (textLower.includes('روبير') || textLower.includes('أستاذ') || textLower.includes('رافت')) {
-        aiText = 'مرحباً أستاذ روبير رأفت! يشرفني دائماً التعاون مع محاسب مالي بخبرتك الكبيرة. لقد رصدت المعاملات الأخيرة على الخزينة وتطابق تسوية البنك بالكامل، وأقترح البدء في دراسة الميزانية الختامية للربع الحالي.';
-      } else if (textLower.includes('عميل') || textLower.includes('عملاء') || textLower.includes('مورد') || textLower.includes('موردين')) {
-        aiText = 'تنبيه إدارة الأرصدة: إجمالي مستحقات العملاء الحالية تبلغ 10,000 ج مع رصيد ديون مشكوك في تحصيلها بنسبة 5%، في حين تبلغ التزامات الموردين 20,000 ج مستحقة السداد خلال 30 يوماً القادمة. نقترح إرسال تقارير أعمار الديون إلى العملاء المنقضية مهلة سدادهم.';
-      } else {
-        aiText = 'تحليل رائع للموقف الحالي! قمت بدراسة طلبك ومراجعته مع المعايير المصرية والدولية، ويتطابق تماماً مع المبادئ المحاسبية المستقرة كاستمرارية وحيطة ومقابلة الإيرادات بالمصروفات. يسعدني الإجابة عن أي معضلة محاسبية أخرى تواجهها.';
+      const response = await fetch("/api/gemini/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: trimmedInput,
+          history: historyPayload
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const aiMsg = { sender: 'ai' as const, text: aiText, time: new Date().toLocaleTimeString(isRtl ? 'ar-EG' : 'en-US', {hour: '2-digit', minute: '2-digit'}) };
+      const data = await response.json();
+      const aiTime = new Date().toLocaleTimeString(isRtl ? 'ar-EG' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+      
+      const aiMsg = { 
+        sender: 'ai' as const, 
+        text: data.text || "عذراً، حدث خطأ أثناء الاتصال بالخادم. يرجى المحاولة لاحقاً.", 
+        time: aiTime 
+      };
+      
       setChatMessages(prev => [...prev, aiMsg]);
+    } catch (err: any) {
+      console.error("Failed to fetch from Gemini:", err);
+      const aiTime = new Date().toLocaleTimeString(isRtl ? 'ar-EG' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+      const errorMsg = { 
+        sender: 'ai' as const, 
+        text: isRtl 
+          ? "⚠️ عذراً، لم نتمكن من الحصول على رد من المساعد الذكي حالياً. يرجى التحقق من اتصال الشبكة وتفعيل مفتاح GEMINI_API_KEY." 
+          : "⚠️ Sorry, could not get a response from the AI assistant. Please check your network connection and ensure your GEMINI_API_KEY is configured.", 
+        time: aiTime 
+      };
+      setChatMessages(prev => [...prev, errorMsg]);
+    } finally {
       setIsAiTyping(false);
-    }, 1500);
+    }
   };
 
   const handleClearChat = () => {
@@ -1192,6 +1230,9 @@ export default function RightSidebar({
                         تحذير: تصفير أرصدة الذاكرة المؤقتة (Reset ERP)
                       </button>
                     </div>
+
+                    {/* Custom Sidebar Advertisement Slot */}
+                    <AdsRenderer type="sidebar" isRtl={isRtl} className="mb-4" />
 
                     {/* Operational Support card */}
                     <div className="p-4 bg-slate-100 dark:bg-slate-800/60 rounded-xl border border-slate-200/50 dark:border-slate-800 text-center text-xs">

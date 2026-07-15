@@ -28,7 +28,17 @@
     "depreciation": "Depreciation Methods",
     "fixed_assets_management": "Fixed Assets Management",
     "about": "About Us",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "professional_services": "Professional Accounting Services",
+    "accounting_tools": "Accounting Calculators",
+    "digital_store": "Digital Template Store",
+    "elijah_academy": "Elijah Training Academy",
+    "professional_blog": "Professional Accounting Blog",
+    "accounting_templates": "Accounting Templates Library",
+    "careers": "Careers & Internships",
+    "community_forum": "Community Forum",
+    "membership": "Membership & Plans",
+    "admin_dashboard": "Admin Dashboard"
   },
   "accounting": {
     "customers": "Customer Accounting",

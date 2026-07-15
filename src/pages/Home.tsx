@@ -287,7 +287,7 @@ export default function Home() {
             <div className="inline-flex py-4 px-8 bg-white/5 rounded-3xl backdrop-blur-sm border border-white/10 items-center justify-center">
               {LOGO_URL && (
                  <div className="w-48 h-32 flex items-center justify-center">
-                   <img src={LOGO_URL} className="w-full h-full object-contain brightness-200" alt="Logo" referrerPolicy="no-referrer" />
+                   <img src={LOGO_URL} className="w-full h-full object-contain brightness-200" alt="Logo" referrerPolicy="no-referrer" loading="lazy" />
                  </div>
               )}
             </div>
@@ -335,12 +335,12 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="clean-card bg-white space-y-4">
                 <TrendingUp className="w-8 h-8 text-blue-600" />
-                <h4 className="font-bold">{t('home.growth_consulting')}</h4>
+                <h3 className="font-bold">{t('home.growth_consulting')}</h3>
                 <p className="text-xs text-slate-500">{t('home.growth_desc')}</p>
               </div>
               <div className="clean-card bg-white mt-8 space-y-4">
                 <Shield className="w-8 h-8 text-blue-600" />
-                <h4 className="font-bold">{t('home.internal_control')}</h4>
+                <h3 className="font-bold">{t('home.internal_control')}</h3>
                 <p className="text-xs text-slate-500">{t('home.internal_control_desc')}</p>
               </div>
             </div>
@@ -402,7 +402,7 @@ export default function Home() {
                       <Layout className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-black text-slate-900">هيكل الموقع المتكامل</h4>
+                      <h3 className="text-xl font-black text-slate-900">هيكل الموقع المتكامل</h3>
                       <p className="text-sm text-slate-500 font-bold">وصول سريع لجميع الخدمات والدروس التعليمية</p>
                     </div>
                   </div>
@@ -455,7 +455,7 @@ export default function Home() {
               <div className="p-8">
                 <img 
                   src={SITEMAP_URL} 
-                  alt="Full Sitemap" 
+                  alt="مخطط الموقع الشامل والكامل لجميع الخدمات المالية والمحاسبية والدروس التعليمية لمركز إيليجا" 
                   className="w-full h-auto rounded-xl"
                   referrerPolicy="no-referrer"
                   onError={(e) => {

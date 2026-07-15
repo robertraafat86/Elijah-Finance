@@ -67,6 +67,16 @@ export default function Navbar({
     const p = location.pathname;
     if (p === '/') return t('nav.home', 'الرئيسية');
     if (p.startsWith('/about')) return t('nav.about', 'من نحن');
+    if (p.startsWith('/professional-services')) return t('nav.professional_services', 'الخدمات المحاسبية المهنية');
+    if (p.startsWith('/accounting-tools')) return t('nav.accounting_tools', 'الأدوات والآلات الحاسبة');
+    if (p.startsWith('/digital-store')) return t('nav.digital_store', 'متجر القوالب الرقمي');
+    if (p.startsWith('/templates-library') || p.startsWith('/templates')) return t('nav.accounting_templates', 'مكتبة القوالب المحاسبية');
+    if (p.startsWith('/careers') || p.startsWith('/jobs')) return t('nav.careers', 'الوظائف والفرص التدريبية');
+    if (p.startsWith('/forum') || p.startsWith('/community-forum')) return t('nav.community_forum', 'المنتدى المحاسبي والمهني');
+    if (p.startsWith('/membership') || p.startsWith('/plans')) return t('nav.membership', 'العضوية والباقات');
+    if (p.startsWith('/admin')) return t('nav.admin_dashboard', 'لوحة تحكم المشرف');
+    if (p.startsWith('/academy')) return t('nav.elijah_academy', 'أكاديمية إيليجا التعليمية');
+    if (p.startsWith('/blog')) return t('nav.professional_blog', 'المدونة المحاسبية المهنية');
     if (p.startsWith('/contact')) return t('nav.contact', 'اتصل بنا');
     if (p.startsWith('/saved-content')) return 'المحتوى المحفوظ';
     if (p.startsWith('/accounting-cycle')) return t('nav.accounting_cycle', 'الدورة المحاسبية');
@@ -180,11 +190,23 @@ export default function Navbar({
               </button>
             </div>
 
+            {/* AI Advisor Quick Shortcut */}
+            <Link
+              to="/ai-assistant"
+              className="px-3.5 h-9 flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-750 text-white font-extrabold text-[11px] transition-all cursor-pointer shadow-md shadow-blue-500/10 hover:shadow-blue-500/20 active:scale-95 duration-100"
+              title={isRtl ? "المستشار المالي الذكي (CPA)" : "Elijah AI CPA Advisor"}
+              aria-label={isRtl ? "المستشار المالي الذكي (CPA)" : "Elijah AI CPA Advisor"}
+            >
+              <Sparkles className="w-4 h-4 animate-pulse" />
+              <span>{isRtl ? 'المستشار الذكي' : 'AI Advisor'}</span>
+            </Link>
+
             {/* Dark Mode Switcher */}
             <button
               onClick={toggleDarkMode}
               className="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:text-neutral-400 dark:hover:text-neutral-100 border border-slate-150 dark:border-slate-700/50 transition-all cursor-pointer shadow-sm"
               title={isRtl ? "تغيير مظهر المنظومة" : "Toggle theme mode"}
+              aria-label={isRtl ? "تغيير مظهر المنظومة" : "Toggle theme mode"}
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-amber-500 animate-spin-slow" /> : <Moon className="w-4 h-4" />}
             </button>
@@ -217,10 +239,21 @@ export default function Navbar({
 
         {/* Action Widgets on Mobile header */}
         <div className="flex items-center gap-2">
+          {/* AI Advisor Quick link on Mobile */}
+          <Link
+            to="/ai-assistant"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 cursor-pointer"
+            title={isRtl ? "المستشار المالي الذكي" : "AI Advisor"}
+            aria-label={isRtl ? "المستشار المالي الذكي" : "AI Advisor"}
+          >
+            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+          </Link>
+
           {/* Quick dark toggle */}
           <button
             onClick={toggleDarkMode}
             className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-neutral-400 cursor-pointer"
+            aria-label={isRtl ? "تغيير مظهر المنظومة" : "Toggle theme mode"}
           >
             {isDarkMode ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5" />}
           </button>
@@ -229,6 +262,7 @@ export default function Navbar({
           <button
             onClick={() => setIsOpenMobile(true)}
             className="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/10 cursor-pointer"
+            aria-label={isRtl ? "افتح القائمة الرئيسية" : "Open main menu"}
           >
             <Menu className="w-5 h-5" />
           </button>

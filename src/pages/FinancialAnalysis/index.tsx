@@ -94,9 +94,10 @@ export default function FinancialAnalysis() {
             <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem]" />
             <img 
               src="https://drive.google.com/uc?export=download&id=1M1WxYIFZjGFhu0ompvAKNe2os4L5NlCj" 
-              alt="Financial Analysis Concept Map" 
+              alt={isRtl ? "خريطة المفاهيم التفصيلية للتحليل المالي والنسب المالية وتحليل القوائم المالية" : "Detailed concept mind map for Financial Analysis and Financial Ratios"} 
               className="w-full h-auto rounded-[2rem] shadow-sm transform group-hover:scale-[1.01] transition-transform duration-700"
               referrerPolicy="no-referrer"
+              loading="lazy"
             />
           </div>
           <div className="mt-8 text-center">
