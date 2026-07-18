@@ -9,6 +9,7 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Footer from './components/Footer';
 import InstallPWA from './components/InstallPWA';
 import SEOManager from './components/SEOManager';
+import ErrorBoundary from './components/ErrorBoundary';
 import { cn } from './lib/utils';
 
 // Lazy-loaded pages for code splitting & faster load times
@@ -165,67 +166,69 @@ export default function App() {
           <div className="container mx-auto py-2">
             <Breadcrumbs />
           </div>
-          <Suspense fallback={
-            <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
-              <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-              <p className="text-xs text-slate-400 font-bold">
-                {isRtl ? 'جاري التحميل...' : 'Loading...'}
-              </p>
-            </div>
-          }>
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-            >
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/accounting-cycle" element={<AccountingCycle />} />
-                <Route path="/financial-statements" element={<FinancialStatements />} />
-                <Route path="/accounting-standards" element={<AccountingStandards />} />
-                <Route path="/egyptian-standards" element={<EgyptianStandards />} />
-                <Route path="/financial-regulations" element={<FinancialRegulations />} />
-                <Route path="/inventory" element={<Inventory />} />
-                <Route path="/bank-reconciliation" element={<BankReconciliation />} />
-                <Route path="/internal-audit" element={<InternalAudit />} />
-                <Route path="/accounting-portal" element={<AccountingPortal />} />
-                <Route path="/accounting/:sectionId" element={<AccountingMisc />} />
-                <Route path="/tax-accounting" element={<TaxAccounting />} />
-                <Route path="/customs-duties" element={<CustomsDuties />} />
-                <Route path="/construction-accounting" element={<ConstructionAccounting />} />
-                <Route path="/hospital-accounting" element={<HospitalAccounting />} />
-                <Route path="/cost-accounting" element={<CostAccounting />} />
-                <Route path="/financial-analysis" element={<FinancialAnalysis />} />
-                <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
-                <Route path="/accounting-misc" element={<AccountingMisc />} />
-                <Route path="/saved-content" element={<SavedContent />} />
-                <Route path="/depreciation-methods" element={<DepreciationMethods />} />
-                <Route path="/scrap" element={<Scrap />} />
-                <Route path="/bad-debts" element={<BadDebts />} />
-                <Route path="/fixed-assets-management" element={<FixedAssets />} />
-                <Route path="/professional-services" element={<ProfessionalServices />} />
-                <Route path="/accounting-tools" element={<AccountingTools />} />
-                <Route path="/digital-store" element={<DigitalStore />} />
-                <Route path="/templates-library" element={<AccountingTemplates />} />
-                <Route path="/templates" element={<AccountingTemplates />} />
-                <Route path="/careers" element={<Careers />} />
-                <Route path="/jobs" element={<Careers />} />
-                <Route path="/forum" element={<Forum />} />
-                <Route path="/community-forum" element={<Forum />} />
-                <Route path="/membership" element={<Membership />} />
-                <Route path="/plans" element={<Membership />} />
-                <Route path="/admin" element={<AdminDashboard />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                <Route path="/academy" element={<ElijahAcademy />} />
-                <Route path="/blog" element={<ProfessionalBlog />} />
-                <Route path="/blog/:slug" element={<ProfessionalBlog />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/ai-assistant" element={<AiAssistant />} />
-              </Routes>
-            </motion.div>
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={
+              <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+                <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p className="text-xs text-slate-400 font-bold">
+                  {isRtl ? 'جاري التحميل...' : 'Loading...'}
+                </p>
+              </div>
+            }>
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+              >
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/accounting-cycle" element={<AccountingCycle />} />
+                  <Route path="/financial-statements" element={<FinancialStatements />} />
+                  <Route path="/accounting-standards" element={<AccountingStandards />} />
+                  <Route path="/egyptian-standards" element={<EgyptianStandards />} />
+                  <Route path="/financial-regulations" element={<FinancialRegulations />} />
+                  <Route path="/inventory" element={<Inventory />} />
+                  <Route path="/bank-reconciliation" element={<BankReconciliation />} />
+                  <Route path="/internal-audit" element={<InternalAudit />} />
+                  <Route path="/accounting-portal" element={<AccountingPortal />} />
+                  <Route path="/accounting/:sectionId" element={<AccountingMisc />} />
+                  <Route path="/tax-accounting" element={<TaxAccounting />} />
+                  <Route path="/customs-duties" element={<CustomsDuties />} />
+                  <Route path="/construction-accounting" element={<ConstructionAccounting />} />
+                  <Route path="/hospital-accounting" element={<HospitalAccounting />} />
+                  <Route path="/cost-accounting" element={<CostAccounting />} />
+                  <Route path="/financial-analysis" element={<FinancialAnalysis />} />
+                  <Route path="/financial-analysis/:id" element={<AnalysisDetail />} />
+                  <Route path="/accounting-misc" element={<AccountingMisc />} />
+                  <Route path="/saved-content" element={<SavedContent />} />
+                  <Route path="/depreciation-methods" element={<DepreciationMethods />} />
+                  <Route path="/scrap" element={<Scrap />} />
+                  <Route path="/bad-debts" element={<BadDebts />} />
+                  <Route path="/fixed-assets-management" element={<FixedAssets />} />
+                  <Route path="/professional-services" element={<ProfessionalServices />} />
+                  <Route path="/accounting-tools" element={<AccountingTools />} />
+                  <Route path="/digital-store" element={<DigitalStore />} />
+                  <Route path="/templates-library" element={<AccountingTemplates />} />
+                  <Route path="/templates" element={<AccountingTemplates />} />
+                  <Route path="/careers" element={<Careers />} />
+                  <Route path="/jobs" element={<Careers />} />
+                  <Route path="/forum" element={<Forum />} />
+                  <Route path="/community-forum" element={<Forum />} />
+                  <Route path="/membership" element={<Membership />} />
+                  <Route path="/plans" element={<Membership />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                  <Route path="/academy" element={<ElijahAcademy />} />
+                  <Route path="/blog" element={<ProfessionalBlog />} />
+                  <Route path="/blog/:slug" element={<ProfessionalBlog />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/ai-assistant" element={<AiAssistant />} />
+                </Routes>
+              </motion.div>
+            </Suspense>
+          </ErrorBoundary>
         </main>
 
         {/* Dynamic margin footer */}

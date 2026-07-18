@@ -7,14 +7,62 @@ const app = express();
 const PORT = 3000;
 
 // Middlewares
-app.use(express.json());
+app.use(express.json({ limit: "50kb" })); // Restrict raw payload size for request safety
+
+// Standard HTTP Security Headers (Helmet alternative)
+app.use((req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  next();
+});
+
+// Lightweight IP-based in-memory rate limiter for the AI Assistant endpoint
+const chatIpLimits = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute window
+const RATE_LIMIT_MAX_REQUESTS = 12; // Allow up to 12 prompts per minute
+
+function chatRateLimiter(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const ip = req.ip || req.headers["x-forwarded-for"]?.toString() || "unknown";
+  const now = Date.now();
+  const limit = chatIpLimits.get(ip);
+
+  if (!limit) {
+    chatIpLimits.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return next();
+  }
+
+  if (now > limit.resetTime) {
+    chatIpLimits.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return next();
+  }
+
+  if (limit.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return res.status(429).json({
+      error: "Too many requests. Please try again in a minute.",
+      isRateLimited: true,
+      text: `**تنبيه حماية المنظومة!** ⚠️\n\nتم تجاوز الحد الأقصى للاستفسارات المسموح بها في الدقيقة (${RATE_LIMIT_MAX_REQUESTS} طلبات).\nيرجى الانتظار لمدة دقيقة واحدة قبل طرح سؤال محاسبي أو ضريبي آخر لضمان تماسك الخدمة الذكية.`
+    });
+  }
+
+  limit.count += 1;
+  next();
+}
 
 // API endpoint for Elijah AI Advisor
-app.post("/api/gemini/chat", async (req, res) => {
+app.post("/api/gemini/chat", chatRateLimiter, async (req, res) => {
   try {
     const { message, history } = req.body;
     if (!message) {
       return res.status(400).json({ error: "Message is required" });
+    }
+
+    // Payload size defense: Restrict prompt length to avoid token bloat abuse
+    if (message.length > 4000) {
+      return res.status(400).json({ 
+        error: "Message exceeds maximum allowed length of 4000 characters." 
+      });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;

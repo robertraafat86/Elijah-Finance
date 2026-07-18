@@ -107,7 +107,9 @@ export default function SEOManager() {
     metaDesc.setAttribute('content', metadata.description);
 
     // Update Canonical URL
-    const baseUrl = 'https://ais-pre-ah2i5eyc7kw6ilruxwp6dd-51421988619.europe-west2.run.app';
+    const baseUrl = typeof window !== 'undefined' && window.location && window.location.origin 
+      ? window.location.origin 
+      : 'https://ais-pre-ah2i5eyc7kw6ilruxwp6dd-51421988619.europe-west2.run.app';
     const canonicalUrl = `${baseUrl}${pathname === '/' ? '' : pathname}`;
     let linkCanonical = document.querySelector('link[rel="canonical"]');
     if (!linkCanonical) {
