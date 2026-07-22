@@ -20,7 +20,7 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('scheduler') || id.includes('react-dom') || id.includes('react-router-dom')) {
+            if (/\/node_modules\/(react|react-dom|scheduler|react-router|react-router-dom)\//.test(id)) {
               return 'vendor-react';
             }
             if (id.includes('recharts') || id.includes('d3')) {
